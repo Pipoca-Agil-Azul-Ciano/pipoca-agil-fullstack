@@ -46,12 +46,14 @@ export const theme = extendTheme({
 	font:"#665454",
 	link:"#3B4CE4"
     },
+   
+    },
+  fonts:{
     pipocaFonts:{
-	heading: `'Comfortaa'`,
-	body: `'Comfortaa`,
-	placeholder:`'Questrial'`
-	      },
-    }
-  
+      title: `'Comfortaa'`,
+      body: `'Comfortaa'`,
+      placeholder:`'Questrial'`
+            },
+  }
 });
 export default theme
