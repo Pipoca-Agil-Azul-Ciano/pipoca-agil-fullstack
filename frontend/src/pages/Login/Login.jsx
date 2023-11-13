@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import {
   FormControl,
-  FormLabel,
-  FormHelperText,
   Text,
   Button,
   Box,
   Center,
   Image,
 } from "@chakra-ui/react";
-import { auto } from "@popperjs/core";
 import theme from "../../themes/theme";
-import Rectangle from "../../assets/Login/Rectangle 1.png";
+import Rectangle from "../../assets/Login/asideImg.png";
 import TextField from "../../components/TextField";
 
 function Login() {
@@ -58,14 +55,14 @@ function Login() {
       console.log("Por favor, corrija os campos inválidos.");
     }
   };
-
+ 
   return (
     <form onSubmit={handleSubmit}>
       <Box
         display={"flex"}
         justifyContent={"space-evenly"}
         theme={theme}
-        fontFamily={"pipocaFonts.body"}
+        fontFamily={theme.fonts.pipocaFonts.heading}
         backgroundColor={"#E3E3E3"}
       >
         <Box marginRight={"auto"}>
@@ -77,10 +74,15 @@ function Login() {
           alignItems={"center"}
           marginRight={"auto"}
         >
-          <Text fontSize="40px" color={"pipocaColors.font"} paddingTop={"30px"}>
+          <Text
+            fontSize="40px"
+            theme={theme}
+            color={theme.colors.pipocaColors.font}
+            paddingTop={"30px"}
+          >
             Fazer login em sua conta
           </Text>
-          <Text fontSize="20px" color={"pipocaColors.font"} paddingBottom={10}>
+          <Text fontSize="20px" color={theme.colors.pipocaColors.font} paddingBottom={10}>
             Bem vindo de volta ao podcast mais animado do mundo ágil!
           </Text>
           <FormControl>
@@ -92,7 +94,7 @@ function Login() {
               onChange={handleEmailChange}
               error={isEmailValido ? "" : "E-mail inválido."}
             />
-
+            <br />
             <TextField
               id="senhaField"
               placeholder={"Senha"}
@@ -129,7 +131,9 @@ function Login() {
             </Box>
             <Center marginTop={5}>
               <Button
-                colorScheme="blue"
+                bgGradient={"linear-gradient(180deg, #998AC6 0%, #866FAD 100%)"}
+                color={"#FFF"}
+                _hover={{ bg: "#866FAD" }}
                 fontSize={"24px"}
                 type="submit"
                 height={"64px"}
