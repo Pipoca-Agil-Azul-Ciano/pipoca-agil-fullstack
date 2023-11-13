@@ -6,10 +6,14 @@ import {
   Box,
   Center,
   Image,
+  Link,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
 import Rectangle from "../../assets/Login/asideImg.png";
 import TextField from "../../components/TextField";
+
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -120,14 +124,14 @@ function Login() {
                 >
                   Ainda não tem uma conta?
                 </Text>
-                <Text fontSize="16px" color={"pipocaColors.font"}>
+                <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
                   Cadastre-se
-                </Text>
+                </Link>
               </Box>
 
-              <Text fontSize="16px" color={"pipocaColors.font"}>
+              <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
                 Esqueceu a Senha?
-              </Text>
+              </Link>
             </Box>
             <Center marginTop={5}>
               <Button
@@ -145,9 +149,11 @@ function Login() {
           </FormControl>
           <Box display={"flex"} marginTop={5}>
             <Text fontSize="md" marginRight={"5px"}>
-              Não consegue fazer login?
+              Não consegue fazer login? 
             </Text>
-            <Text fontSize="md">Visite nossa Central de ajuda</Text>
+            <Link fontSize="md" color={theme.colors.pipocaColors.link}> 
+            Visite nossa Central de ajuda
+            </Link>
           </Box>
         </Box>
       </Box>
