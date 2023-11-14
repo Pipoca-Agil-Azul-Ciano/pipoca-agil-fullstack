@@ -6,10 +6,14 @@ import {
   Box,
   Center,
   Image,
+  Link,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
 import Rectangle from "../../assets/Login/asideImg.png";
 import TextField from "../../components/TextField";
+import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";    
+import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -68,12 +72,14 @@ function Login() {
         <Box marginRight={"auto"}>
           <Image src={Rectangle} height={"100vh"} width={"100%"} />
         </Box>
+        <Image src={IconeDeVoltar} marginTop='50px' marginRight='155px' boxSize="30px"   />
+        <Image  scr={LogoPipocaAgil}  /> 
         <Box
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           marginRight={"auto"}
-        >
+          marginTop="50px"        >
           <Text
             fontSize="40px"
             theme={theme}
@@ -120,14 +126,14 @@ function Login() {
                 >
                   Ainda não tem uma conta?
                 </Text>
-                <Text fontSize="16px" color={"pipocaColors.font"}>
+                <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
                   Cadastre-se
-                </Text>
+                </Link>
               </Box>
 
-              <Text fontSize="16px" color={"pipocaColors.font"}>
+              <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
                 Esqueceu a Senha?
-              </Text>
+              </Link>
             </Box>
             <Center marginTop={5}>
               <Button
@@ -145,9 +151,11 @@ function Login() {
           </FormControl>
           <Box display={"flex"} marginTop={5}>
             <Text fontSize="md" marginRight={"5px"}>
-              Não consegue fazer login?
+              Não consegue fazer login? 
             </Text>
-            <Text fontSize="md">Visite nossa Central de ajuda</Text>
+            <Link fontSize="md" color={theme.colors.pipocaColors.link}> 
+            Visite nossa Central de ajuda
+            </Link>
           </Box>
         </Box>
       </Box>
