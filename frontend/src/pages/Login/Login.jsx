@@ -11,8 +11,8 @@ import {
 import theme from "../../themes/theme";
 import Rectangle from "../../assets/Login/asideImg.png";
 import TextField from "../../components/TextField";
-
-
+import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";    
+import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 
 
 function Login() {
@@ -72,12 +72,14 @@ function Login() {
         <Box marginRight={"auto"}>
           <Image src={Rectangle} height={"100vh"} width={"100%"} />
         </Box>
+        <Image src={IconeDeVoltar} marginTop='50px' marginRight='155px' boxSize="30px"   />
+        <Image  scr={LogoPipocaAgil}  /> 
         <Box
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           marginRight={"auto"}
-        >
+          marginTop="50px"        >
           <Text
             fontSize="40px"
             theme={theme}
