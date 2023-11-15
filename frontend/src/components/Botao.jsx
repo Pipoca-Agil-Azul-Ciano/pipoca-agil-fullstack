@@ -1,9 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
-function Botao(props) {
+import "../pages/Login/login.css";
+import {
+  Button
+} from "@chakra-ui/react";
+function Botao({text}) {
   return (
-    <div>Botao</div>
+    <Button
+                  bgGradient={
+                    "linear-gradient(180deg, #998AC6 0%, #866FAD 100%)"
+                  }
+                  color={"#FFF"}
+                  _hover={{ bg: "#866FAD" }}
+                  fontSize={"24px"}
+                  type="submit"
+                  height={"64px"}
+                  width={"20em"}
+                  className="font-text"
+                >
+                 {text}
+                </Button>
   )
 }
 

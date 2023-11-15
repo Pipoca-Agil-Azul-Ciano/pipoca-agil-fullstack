@@ -1,5 +1,6 @@
 import React from "react";
 import { Center, Input } from "@chakra-ui/react";
+
 function TextField({ placeholder, type }) {
   return (
     <Center>
@@ -7,11 +8,12 @@ function TextField({ placeholder, type }) {
         type={type}
         focusBorderColor="#866FAD"
         placeholder={placeholder}
-        width={"30em"}
+        width={"34em"}
         placeholderSize="md"
         borderColor={"#575450"}
         height={"64px"}
 	borderRadius={10}
+
       />
     </Center>
   );
