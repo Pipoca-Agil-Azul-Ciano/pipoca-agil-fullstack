@@ -11,9 +11,10 @@ export const theme = extendTheme({
     },
   fonts:{
     pipocaFonts:{
-      title: `'Comfortaa'`,
-      body: `'Comfortaa'`,
-      placeholder:`'Questrial'`
+      title: "'Comfortaa', sans-serif",
+      body: "'Comfortaa', sans-serif",
+      placeholder:`'Questrial'`,
+      link:"#3B4CE4"
             },
   }
 });

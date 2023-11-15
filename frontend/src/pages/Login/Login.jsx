@@ -11,9 +11,9 @@ import {
 import theme from "../../themes/theme";
 import Rectangle from "../../assets/Login/asideImg.png";
 import TextField from "../../components/TextField";
-import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";    
+import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
-
+import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -59,107 +59,125 @@ function Login() {
       console.log("Por favor, corrija os campos inválidos.");
     }
   };
- 
+
   return (
     <form onSubmit={handleSubmit}>
-      <Box
-        display={"flex"}
-        justifyContent={"space-evenly"}
-        theme={theme}
-        fontFamily={theme.fonts.pipocaFonts.heading}
-        backgroundColor={"#E3E3E3"}
-      >
-        <Box marginRight={"auto"}>
-          <Image src={Rectangle} height={"100vh"} width={"100%"} />
-        </Box>
-        <Image src={IconeDeVoltar} marginTop='50px' marginRight='155px' boxSize="30px"   />
-        <Image  scr={LogoPipocaAgil}  /> 
+      <div className="FonteDaPagina">
         <Box
           display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          marginRight={"auto"}
-          marginTop="50px"        >
-          <Text
-            fontSize="40px"
-            theme={theme}
-            color={theme.colors.pipocaColors.font}
-            paddingTop={"30px"}
-          >
-            Fazer login em sua conta
-          </Text>
-          <Text fontSize="20px" color={theme.colors.pipocaColors.font} paddingBottom={10}>
-            Bem vindo de volta ao podcast mais animado do mundo ágil!
-          </Text>
-          <FormControl>
-            <TextField
-              id="emailField"
-              placeholder={"Email"}
-              type={"email"}
-              value={email}
-              onChange={handleEmailChange}
-              error={isEmailValido ? "" : "E-mail inválido."}
-            />
-            <br />
-            <TextField
-              id="senhaField"
-              placeholder={"Senha"}
-              type={"password"}
-              value={senha}
-              onChange={handleSenhaChange}
-              error={
-                isSenhaValida
-                  ? ""
-                  : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
-              }
-            />
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              justifyContent={"space-around"}
-            >
-              <Box display={"flex"} paddingBottom={5}>
-                <Text
-                  fontSize="16px"
-                  color={"pipocaColors.font"}
-                  marginRight={"5px"}
-                >
-                  Ainda não tem uma conta?
-                </Text>
-                <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
-                  Cadastre-se
-                </Link>
-              </Box>
-
-              <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
-                Esqueceu a Senha?
-              </Link>
-            </Box>
-            <Center marginTop={5}>
-              <Button
-                bgGradient={"linear-gradient(180deg, #998AC6 0%, #866FAD 100%)"}
-                color={"#FFF"}
-                _hover={{ bg: "#866FAD" }}
-                fontSize={"24px"}
-                type="submit"
-                height={"64px"}
-                width={"20em"}
-              >
-                Entrar
-              </Button>
-            </Center>
-          </FormControl>
-          <Box display={"flex"} marginTop={5}>
-            <Text fontSize="md" marginRight={"5px"}>
-              Não consegue fazer login? 
-            </Text>
-            <Link fontSize="md" color={theme.colors.pipocaColors.link}> 
-            Visite nossa Central de ajuda
+          justifyContent={"space-evenly"}
+          theme={theme}
+          fontFamily={theme.fonts.pipocaFonts.heading}
+          backgroundColor={"#E3E3E3"}
+          
+        >
+          <Box marginRight={"auto"}>
+            <Image src={Rectangle} height={"100vh"} width={"100%"} />
+          </Box>
+          <Box>
+            <Link href="/caminho/do/link">
+              <Image src={IconeDeVoltar} marginTop='50px' marginRight='40px' boxSize="30px" />
             </Link>
           </Box>
+          <Box position="absolute" top="6" right="4">
+            <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
+          </Box>
+
+
+
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            marginRight={"auto"}
+            marginTop="50px"        >
+
+
+            <Text
+              fontSize="40px"
+              theme={theme}
+              color={theme.colors.pipocaColors.font}
+              paddingTop={"30px"}
+            >
+              Fazer login em sua conta
+            </Text>
+            <Text fontSize="20px" color={theme.colors.pipocaColors.font} paddingBottom={10}>
+              Bem vindo de volta ao podcast mais animado do mundo ágil!
+            </Text>
+
+            <FormControl>
+              <TextField
+                id="emailField"
+                placeholder={"Email"}
+                type={"email"}
+                value={email}
+                onChange={handleEmailChange}
+                error={isEmailValido ? "" : "E-mail inválido."}
+              />
+              <br />
+              <TextField
+                id="senhaField"
+                placeholder={"Senha"}
+                type={"password"}
+                value={senha}
+                onChange={handleSenhaChange}
+                error={
+                  isSenhaValida
+                    ? ""
+                    : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
+                }
+              />
+              <Box
+                display={"flex"}
+                flexDirection={"row"}
+                justifyContent={"space-around"}
+              >
+                <Box display={"flex"} paddingBottom={5}>
+                  <Text
+                    fontSize="16px"
+                    color={"pipocaColors.font"}
+                    marginRight={"5px"}
+                  >
+                    Ainda não tem uma conta?
+                  </Text>
+                  <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
+                    Cadastre-se
+                  </Link>
+                </Box>
+
+                <Link fontSize="16px" color={theme.colors.pipocaColors.link}>
+                  Esqueceu a Senha?
+                </Link>
+              </Box>
+              <Center marginTop={5}>
+                <Button
+                  bgGradient={"linear-gradient(180deg, #998AC6 0%, #866FAD 100%)"}
+                  color={"#FFF"}
+                  _hover={{ bg: "#866FAD" }}
+                  fontSize={"24px"}
+                  type="submit"
+                  height={"64px"}
+                  width={"20em"}
+                >
+                  Entrar
+                </Button>
+              </Center>
+            </FormControl>
+            <Box display={"flex"} marginTop={5}>
+              <Text fontSize="md" marginRight={"5px"}>
+                Não consegue fazer login?
+              </Text>
+
+              <Link fontSize="md" color={theme.colors.pipocaColors.link}>
+                Visite nossa Central de ajuda
+              </Link>
+            </Box>
+          </Box>
         </Box>
-      </Box>
+      </div>
     </form>
+
+
   );
 }
 
