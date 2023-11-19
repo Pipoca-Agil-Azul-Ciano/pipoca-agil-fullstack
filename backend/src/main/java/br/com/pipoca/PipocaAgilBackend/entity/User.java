@@ -18,44 +18,35 @@ public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
     @Column
     @NotNull
     private String fullName;
-
     @Column
     @NotNull
     private String email;
-
     @NotNull
     @Column
     private String password;
-
     @NotNull
     @Column(name = "date_birth")
     private LocalDate dateBirth;
-
     @Column
     @NotNull
     private UserTypeEnum userTypeEnum;
-
     @Column
     private Boolean isActive = true;
-
     @Column
     private LocalDate cratedAt = LocalDate.now();
-
     @Column
     private LocalDate updatedAt = LocalDate.now();
-
     @Column(nullable = true)
     private String jwt;
 
+    public User() {}
     public User(String fullName, String email, String password, LocalDate dateBirth, UserTypeEnum userTypeEnum) {
         this.fullName = fullName;
         this.email = email;
