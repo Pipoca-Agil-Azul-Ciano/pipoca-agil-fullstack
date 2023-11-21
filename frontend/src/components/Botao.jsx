@@ -15,7 +15,8 @@ function Botao({text}) {
                   type="submit"
                   height={"64px"}
                   width={"20em"}
-                  className="font-text"
+                  className="font-text-button"
+                  fontWeight={400}
                 >
                  {text}
                 </Button>
