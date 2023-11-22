@@ -8,6 +8,8 @@ import br.com.pipoca.PipocaAgilBackend.enums.UserTypeEnum;
 import br.com.pipoca.PipocaAgilBackend.exceptions.BadRequestException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.ConflictException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.UnauthorizedException;
+import br.com.pipoca.PipocaAgilBackend.providers.jwt.JwtProvider;
+import br.com.pipoca.PipocaAgilBackend.repository.RepositoryMethods;
 import br.com.pipoca.PipocaAgilBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +22,19 @@ public class UserService {
 
     @Autowired
     private final UserRepository repository;
+
+    @Autowired
+    private final RepositoryMethods repositoryMethods;
     @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private final JwtProvider jwtProvider;
 
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository, RepositoryMethods repositoryMethods, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.repository = repository;
+        this.repositoryMethods = repositoryMethods;
         this.passwordEncoder = passwordEncoder;
+        this.jwtProvider = jwtProvider;
     }
 
     public void  createUser(UserRegisterDTO userLoginDto) throws ConflictException, BadRequestException {
@@ -39,6 +48,7 @@ public class UserService {
         repository.save(user);
     }
 
+    // Refatorar
     public String authorizeUser(UserLoginDTO userLoginDTO) throws UnauthorizedException {
 
         Optional<User> optionalUser = Optional.ofNullable(repository.findByEmail(userLoginDTO.email));
@@ -47,10 +57,11 @@ public class UserService {
         if (!passwordEncoder.matches(userLoginDTO.password, user.getPassword())) {
             throw new UnauthorizedException("Email ou Senha inválidos.");
         }
+        String hashJwt = jwtProvider.createToken(userLoginDTO.email);
+        user.setJwt(hashJwt);
 
-        // implementar jwt
+        repositoryMethods.updateUser(user);
 
-
-        return "";
+        return hashJwt;
     }
 }

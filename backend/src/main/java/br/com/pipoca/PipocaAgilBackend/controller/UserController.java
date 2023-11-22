@@ -30,7 +30,7 @@ public class UserController {
 
         try {
             service.createUser(userRegisterDTO);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (ConflictException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (BadRequestException e) {
