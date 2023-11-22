@@ -5,23 +5,23 @@ import {
   Box,
   Center,
   Image,
-  Link, 
+  Link,
+  Checkbox,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
-import { useNavigate,Link as LinkSignup } from "react-router-dom"
-import Rectangle from "../../assets/Login/asideImg.png";
+import { useNavigate, Link as LinkSignup } from "react-router-dom"
+import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
-import "./login.css";
+import "./signup.css";
 import Botao from "../../components/Botao";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [isEmailValido, setIsEmailValido] = useState(true);
   const [isSenhaValida, setIsSenhaValida] = useState(true);
-
 
   const navigate = useNavigate()
 
@@ -74,8 +74,10 @@ function Login() {
           fontFamily={theme.fonts.pipocaFonts.heading}
           backgroundColor={"#E3E3E3"}
         >
-          <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
-            <Image src={Rectangle} height={"100vh"}  />
+          <Box marginRight={"auto"}>
+            <Image src={Rectangle} height={"100vh"} />
+          </Box>
+          <Box marginRight="40px">
             <Link href="/caminho/do/link">
               <Image
                 src={IconeDeVoltar}
@@ -83,9 +85,6 @@ function Login() {
                 boxSize="30px"
               />
             </Link>
-          </Box>
-          <Box marginRight="40px">
-            
           </Box>
           <Box position="absolute" top="6" right="4">
             <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
@@ -105,7 +104,7 @@ function Login() {
               paddingTop={"30px"}
               fontWeight={700}
             >
-              Fazer login em sua conta
+              Boas-vindas ao Pipoca Ágil
             </Text>
             <Text
               fontSize="20px"
@@ -113,10 +112,19 @@ function Login() {
               paddingBottom={10}
               fontWeight={400}
             >
-              Bem vindo de volta ao podcast mais animado do mundo ágil!
+              Cadastre-se gratuitamente como inscrito.
             </Text>
 
             <FormControl>
+              <TextField
+                id="nameField"
+                placeholder={"Nome"}
+                type={"name"}
+                value={email}
+                onChange={handleEmailChange}
+                error={isEmailValido ? "" : "E-mail inválido."}
+              />
+              <br />
               <TextField
                 id="emailField"
                 placeholder={"Email"}
@@ -127,8 +135,30 @@ function Login() {
               />
               <br />
               <TextField
+                id="dataNascimentoField"
+                placeholder={"Data de Nascimento"}
+                type={"date"}
+                value={email}
+                onChange={handleEmailChange}
+                error={isEmailValido ? "" : "E-mail inválido."}
+              />
+              <br />
+              <TextField
                 id="senhaField"
-                placeholder={"Senha"}
+                placeholder={"Senha com 8 caracteres"}
+                type={"password"}
+                value={senha}
+                onChange={handleSenhaChange}
+                error={
+                  isSenhaValida
+                    ? ""
+                    : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
+                }
+              />
+              <br />
+              <TextField
+                id="senhaField"
+                placeholder={"Repita senha com 8 caracteres"}
                 type={"password"}
                 value={senha}
                 onChange={handleSenhaChange}
@@ -145,39 +175,33 @@ function Login() {
                 className="font-text"
               >
                 <Box display={"flex"} paddingBottom={5} >
-                  <Text
-                    fontSize="16px"
-                    color={"pipocaColors.font"}
-                    marginRight={"10px"}
-                    
-                  >
-                    Ainda não tem uma conta?
-                  </Text>
-                  <Link
-                    fontSize="16px"
-                    color={theme.colors.pipocaColors.link}
-                    fontWeight={400}
-                    as={LinkSignup} to='/signup'
-                  >
-                    Cadastre-se
-                  </Link>
+
+                  <Checkbox >
+                    Declaro que, ao continuar, concordo com os{' '}
+                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                      Termos de serviço
+                    </Link>
+                    {' '}e Políticas de privacidade
+                  </Checkbox>
+
+
+
+
                 </Box>
 
-                <Link fontSize="16px" color={theme.colors.pipocaColors.link} fontWeight={400}>
-                  Esqueceu a Senha?
-                </Link>
+
               </Box>
               <Center marginTop={5} className="font-text">
-                <Botao text={"Entrar"}/>
+                <Botao text={"Cadastrar"} />
               </Center>
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
               <Text fontSize="md" marginRight={"5px"} fontWeight={400}>
-                Não consegue fazer login?
+                Já é inscrito?
               </Text>
 
-              <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400}>
-                Visite nossa Central de ajuda
+              <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                Faça login
               </Link>
             </Box>
           </Box>
@@ -187,4 +211,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
