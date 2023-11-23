@@ -37,13 +37,13 @@ public class UserService {
         this.jwtProvider = jwtProvider;
     }
 
-    public void  createUser(UserRegisterDTO userLoginDto) throws ConflictException, BadRequestException {
-        if(repository.findByEmail(userLoginDto.email) != null ){
+    public void  createUser(UserRegisterDTO userRegisterDTO) throws ConflictException, BadRequestException {
+        if(repository.findByEmail(userRegisterDTO.email) != null ){
             throw new ConflictException("Email já cadastrado!");
         }
 
-        String passwordEncrypted = this.passwordEncoder.encode(userLoginDto.password);
-        User user = new User(userLoginDto.fullName, userLoginDto.email, passwordEncrypted, userLoginDto.dateBirth, UserTypeEnum.REGISTERED);
+        String passwordEncrypted = this.passwordEncoder.encode(userRegisterDTO.password);
+        User user = new User(userRegisterDTO.fullName, userRegisterDTO.email, passwordEncrypted, userRegisterDTO.dateBirth, UserTypeEnum.REGISTERED);
 
         repository.save(user);
     }
