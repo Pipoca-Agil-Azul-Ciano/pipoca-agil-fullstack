@@ -176,12 +176,13 @@ function Signup() {
               >
                 <Box display={"flex"} paddingBottom={5} >
                  
-                 <Checkbox colorScheme="blue" >Declaro que, ao continuar, concordo com os     
+                <Checkbox colorScheme="blue" visibility="visible">Declaro que, ao continuar, concordo com os     
                  <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
                   Termos de 
                  serviço
                  </Link>
                   e Políticas de privacidade</Checkbox>
+
                   
                  
                 </Box>

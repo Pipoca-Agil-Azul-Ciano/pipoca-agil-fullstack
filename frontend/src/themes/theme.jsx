@@ -14,7 +14,8 @@ export const theme = extendTheme({
       title: "'Comfortaa', sans-serif",
       body: "'Comfortaa', sans-serif",
       placeholder:`'Questrial'`,
-      link:"#3B4CE4"
+      link:"#3B4CE4",
+      Checkbox: "#665454"
             },
   }
 });

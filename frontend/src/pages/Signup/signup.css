@@ -7,3 +7,9 @@
    
    }
    
+
+   .Checkbox:not(:checked) {
+    opacity: 0.8;
+  }
+  
+  
