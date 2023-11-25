@@ -5,11 +5,11 @@ import {
   Box,
   Center,
   Image,
-  Link, 
+  Link,
   Checkbox,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
-import { useNavigate,Link as LinkSignup } from "react-router-dom"
+import { useNavigate, Link as LinkSignup } from "react-router-dom"
 import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
@@ -75,7 +75,7 @@ function Signup() {
           backgroundColor={"#E3E3E3"}
         >
           <Box marginRight={"auto"}>
-            <Image src={Rectangle} height={"100vh"}  />
+            <Image src={Rectangle} height={"100vh"} />
           </Box>
           <Box marginRight="40px">
             <Link href="/caminho/do/link">
@@ -112,11 +112,11 @@ function Signup() {
               paddingBottom={10}
               fontWeight={400}
             >
-             Cadastre-se gratuitamente como inscrito.
+              Cadastre-se gratuitamente como inscrito.
             </Text>
 
             <FormControl>
-            <TextField
+              <TextField
                 id="nameField"
                 placeholder={"Nome"}
                 type={"name"}
@@ -125,7 +125,7 @@ function Signup() {
                 error={isEmailValido ? "" : "E-mail inválido."}
               />
               <br />
-            <TextField
+              <TextField
                 id="emailField"
                 placeholder={"Email"}
                 type={"email"}
@@ -134,7 +134,7 @@ function Signup() {
                 error={isEmailValido ? "" : "E-mail inválido."}
               />
               <br />
-            <TextField
+              <TextField
                 id="dataNascimentoField"
                 placeholder={"Data de Nascimento"}
                 type={"date"}
@@ -175,6 +175,7 @@ function Signup() {
                 className="font-text"
               >
                 <Box display={"flex"} paddingBottom={5} >
+<<<<<<< HEAD
                  
                 <Checkbox colorScheme="blue" visibility="visible">Declaro que, ao continuar, concordo com os     
                  <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
@@ -185,12 +186,26 @@ function Signup() {
 
                   
                  
+=======
+
+                  <Checkbox >
+                    Declaro que, ao continuar, concordo com os{' '}
+                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                      Termos de serviço
+                    </Link>
+                    {' '}e Políticas de privacidade
+                  </Checkbox>
+
+
+
+
+>>>>>>> f2b0d9e2b125067eb797dc10855701ea1c04a7b8
                 </Box>
 
-             
+
               </Box>
               <Center marginTop={5} className="font-text">
-                <Botao text={"Cadastrar"}/>
+                <Botao text={"Cadastrar"} />
               </Center>
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
@@ -199,7 +214,7 @@ function Signup() {
               </Text>
 
               <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
-              Faça login
+                Faça login
               </Link>
             </Box>
           </Box>
