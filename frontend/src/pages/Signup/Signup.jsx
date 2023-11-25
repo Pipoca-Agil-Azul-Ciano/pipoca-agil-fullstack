@@ -9,7 +9,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
-import { useNavigate, Link as LinkSignup } from "react-router-dom"
+import { useNavigate, Link as LinkSignup } from "react-router-dom";
 import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
@@ -20,10 +20,11 @@ import Botao from "../../components/Botao";
 function Signup() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [confirmSenha, setConfirmSenha] = useState("");
   const [isEmailValido, setIsEmailValido] = useState(true);
   const [isSenhaValida, setIsSenhaValida] = useState(true);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     const novoEmail = event.target.value;
@@ -79,11 +80,7 @@ function Signup() {
           </Box>
           <Box marginRight="40px">
             <Link href="/caminho/do/link">
-              <Image
-                src={IconeDeVoltar}
-                marginTop="50px"
-                boxSize="30px"
-              />
+              <Image src={IconeDeVoltar} marginTop="50px" boxSize="30px" />
             </Link>
           </Box>
           <Box position="absolute" top="6" right="4">
@@ -157,10 +154,10 @@ function Signup() {
               />
               <br />
               <TextField
-                id="senhaField"
+                id="confirmSenhaField"
                 placeholder={"Repita senha com 8 caracteres"}
                 type={"password"}
-                value={senha}
+                value={confirmSenha}
                 onChange={handleSenhaChange}
                 error={
                   isSenhaValida
@@ -174,25 +171,40 @@ function Signup() {
                 justifyContent={"space-around"}
                 className="font-text"
               >
-                <Box display={"flex"} paddingBottom={5} >
-
-                  <Checkbox >
-                    Declaro que, ao continuar, concordo com os{' '}
-                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                <Box
+                  display={"flex"}
+                  paddingBottom={5}
+                  marginTop={5}
+                  textAlign={"center"}
+                  alignItems={"start"}
+                >
+                  <Checkbox padding={"5px"} size="lg"></Checkbox>
+                  <Box className="font-text">
+                    Declaro que, ao continuar, concordo com os{" "}
+                    <Text
+                      fontSize="16px"
+                      color={theme.colors.pipocaColors.link}
+                      fontWeight={400}
+                      as={LinkSignup}
+                      to="/"
+                    >
                       Termos de serviço
-                    </Link>
-                    {' '}e Políticas de privacidade
-                  </Checkbox>
-
-
-
-
+                    </Text>{" "}
+                    e <br />
+                    <Text
+                      fontSize="16px"
+                      color={theme.colors.pipocaColors.link}
+                      fontWeight={400}
+                      as={LinkSignup}
+                      to="/"
+                    >
+                      Políticas de privacidade
+                    </Text>
+                  </Box>
                 </Box>
-
-
               </Box>
               <Center marginTop={5} className="font-text">
-                <Botao text={"Cadastrar"} />
+                <Botao text={"Cadastrar"} type={"submit"} />
               </Center>
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
@@ -200,7 +212,13 @@ function Signup() {
                 Já é inscrito?
               </Text>
 
-              <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+              <Link
+                fontSize="md"
+                color={theme.colors.pipocaColors.link}
+                fontWeight={400}
+                as={LinkSignup}
+                to="/"
+              >
                 Faça login
               </Link>
             </Box>

@@ -1,19 +1,19 @@
 import React from "react";
 import { Center, Input } from "@chakra-ui/react";
 
-function TextField({ placeholder, type }) {
+function TextField({ field, ...props } ) {
   return (
     <Center>
+    
       <Input
-        type={type}
+     
+      {...field} {...props}
         focusBorderColor="#866FAD"
-        placeholder={placeholder}
-        width={"34em"}
-        placeholderSize="md"
+        width={"30.5em"}
+        placeholdersize="md"
         borderColor={"#575450"}
         height={"64px"}
-	borderRadius={10}
-
+        borderRadius={10}
       />
     </Center>
   );
