@@ -4,8 +4,8 @@ package br.com.pipoca.PipocaAgilBackend.services;
 import br.com.pipoca.PipocaAgilBackend.dtos.UserLoginDTO;
 import br.com.pipoca.PipocaAgilBackend.dtos.UserRegisterDTO;
 import br.com.pipoca.PipocaAgilBackend.entity.User;
+import br.com.pipoca.PipocaAgilBackend.entity.validation.EntityValidationException;
 import br.com.pipoca.PipocaAgilBackend.enums.UserTypeEnum;
-import br.com.pipoca.PipocaAgilBackend.exceptions.BadRequestException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.ConflictException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.UnauthorizedException;
 import br.com.pipoca.PipocaAgilBackend.providers.jwt.JwtProvider;
@@ -37,7 +37,7 @@ public class UserService {
         this.jwtProvider = jwtProvider;
     }
 
-    public void  createUser(UserRegisterDTO userRegisterDTO) throws ConflictException, BadRequestException {
+    public void  createUser(UserRegisterDTO userRegisterDTO) throws ConflictException, EntityValidationException {
         if(repository.findByEmail(userRegisterDTO.email) != null ){
             throw new ConflictException("Email já cadastrado!");
         }
