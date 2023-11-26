@@ -2,7 +2,7 @@ package br.com.pipoca.PipocaAgilBackend.controller;
 
 import br.com.pipoca.PipocaAgilBackend.dtos.UserLoginDTO;
 import br.com.pipoca.PipocaAgilBackend.dtos.UserRegisterDTO;
-import br.com.pipoca.PipocaAgilBackend.exceptions.BadRequestException;
+import br.com.pipoca.PipocaAgilBackend.entity.validation.EntityValidationException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.ConflictException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.UnauthorizedException;
 import br.com.pipoca.PipocaAgilBackend.services.UserService;
@@ -10,7 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -33,8 +36,10 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (ConflictException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (BadRequestException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro interno, tente novamente mais tarde.");
+        } catch (EntityValidationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno, tente novamente mais tarde.");
         }
     }
 
