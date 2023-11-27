@@ -126,6 +126,15 @@ function Signup() {
               />
               <br />
               <TextField
+                id="nameField"
+                placeholder={"Sobrenome"}
+                type={"name"}
+                value={email}
+                onChange={handleEmailChange}
+                error={isEmailValido ? "" : "E-mail inválido."}
+              />
+              <br />
+              <TextField
                 id="emailField"
                 placeholder={"Email"}
                 type={"email"}
@@ -175,31 +184,22 @@ function Signup() {
                 className="font-text"
               >
                 <Box display={"flex"} paddingBottom={5} >
-<<<<<<< HEAD
-                 
-                <Checkbox colorScheme="blue" visibility="visible">Declaro que, ao continuar, concordo com os     
-                 <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
-                  Termos de 
-                 serviço
-                 </Link>
-                  e Políticas de privacidade</Checkbox>
 
-                  
-                 
-=======
-
-                  <Checkbox >
+                  <Checkbox>
                     Declaro que, ao continuar, concordo com os{' '}
-                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
-                      Termos de serviço
-                    </Link>
-                    {' '}e Políticas de privacidade
+                    <Box display="inline-block">
+                      <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                        Termos de serviço
+                      </Link>
+                      {' '}  e {' '}
+                    </Box>
+                    <Box textAlign="center">
+                      <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                        Políticas de privacidade
+                      </Link>
+                    </Box>
                   </Checkbox>
 
-
-
-
->>>>>>> f2b0d9e2b125067eb797dc10855701ea1c04a7b8
                 </Box>
 
 
@@ -210,7 +210,7 @@ function Signup() {
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
               <Text fontSize="md" marginRight={"5px"} fontWeight={400}>
-                Já é inscrito?
+                Já possui uma conta?
               </Text>
 
               <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
