@@ -88,12 +88,10 @@ function Signup() {
           fontFamily={theme.fonts.pipocaFonts.heading}
           backgroundColor={"#E3E3E3"}
         >
-          <Box marginRight={"auto"}>
+        <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
             <Image src={Rectangle} height={"100vh"} />
-          </Box>
-          <Box marginRight="40px">
             <ChakraLink href="/caminho/do/link">
-              <Image src={IconeDeVoltar} marginTop="50px" boxSize="30px" />
+              <Image src={IconeDeVoltar} marginTop="50px" marginLeft="30px" boxSize="50px" />
             </ChakraLink>
           </Box>
           <Box position="absolute" top="6" right="4">
@@ -104,7 +102,7 @@ function Signup() {
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
-            marginRight={"auto"}
+            marginRight={"130px"}
             marginTop="50px"
           >
             <Text
@@ -127,7 +125,7 @@ function Signup() {
 
             <FormControl>
             <FormControl>
-            <Field as={TextField} name="fullName" placeholder="Nome Completo" type="text"/>
+            <Field as={TextField} name="fullName" placeholder="Nome e sobrenome" type="text"/>
             <FormErrorMessage name="fullName" />
             {errors.fullName && touched.fullName ? (
               <Text marginLeft={10} color="red.500">{errors.fullName}</Text>
@@ -143,7 +141,8 @@ function Signup() {
           </FormControl>
               <br />
                <FormControl>
-            <Field as={TextField} name="birthDate" placeholder="Data de Nascimento" type="date"/>
+            <Field as={TextField} name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
+       />
             <FormErrorMessage name="birthDate" />
             {errors.birthDate && touched.birthDate ? (
               <Text marginLeft={10} color="red.500">{errors.birthDate}</Text>
@@ -155,7 +154,7 @@ function Signup() {
             <Field
               as={TextField}
               name="password"
-              placeholder="Senha"
+              placeholder="Senha com 8 caracteres"
               type="password"
             />
             <FormErrorMessage name="password" />
@@ -168,7 +167,7 @@ function Signup() {
             <Field
               as={TextField}
               name="confirmPassword"
-              placeholder="Senha"
+              placeholder="Repita a senha com 8 caracteres"
               type="password"
             />
             <FormErrorMessage name="confirmPassword" />
@@ -189,7 +188,7 @@ function Signup() {
                   textAlign={"center"}
                   alignItems={"start"}
                 >
-                  <Checkbox padding={"5px"} size="lg" onChange={handleCheckBox}></Checkbox>
+                  <Checkbox paddingRight={"12px"} paddingTop={"2px"}  size="lg" marginBottom={"10px"} onChange={handleCheckBox}></Checkbox>
                   <Box className="font-text">
                     Declaro que, ao continuar, concordo com os{" "}
                     <Text
