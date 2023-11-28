@@ -61,11 +61,12 @@ function Login() {
             <ChakraLink href="/caminho/do/link">
               <Image src={IconeDeVoltar} marginTop="50px" boxSize="50px" />
             </ChakraLink>
-          </Box>
-        
-          <Box position="absolute" top="6" right="4">
+            <Box position="absolute" top="6" right="4">
             <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
           </Box>
+          </Box>
+          
+          
 
           <Box
             display={"flex"}
@@ -74,6 +75,7 @@ function Login() {
             marginTop="50px"
             marginRight={"90px"}
           >
+           
             <Text
               fontSize="40px"
               color={"#000"}

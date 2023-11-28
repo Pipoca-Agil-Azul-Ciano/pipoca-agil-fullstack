@@ -22,9 +22,12 @@ import * as Yup from "yup";
 
 const currentDate = new Date();
 const SignupSchema = Yup.object().shape({
-  fullName: Yup.string()
+  name: Yup.string()
   .required('Campo obrigatório')
-  .test('has-space', 'É necessário nome e sobrenome', (value) => /\s/.test(value)),
+  .matches(/^[a-zA-Z]+$/, 'O nome não pode conter números ou caracteres especiais'),
+  lastName:Yup.string()
+  .required('Campo obrigatório')
+  .matches(/^[a-zA-Z]+$/, 'O sobrenome não pode conter números ou caracteres especiais'),
   email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
   birthDate: Yup.date()
   .required('Campo obrigatório')
@@ -51,7 +54,8 @@ const SignupSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'As senhas não coincidem'),
 });
 const initialValues = {
-  fullName:"",
+  name:"",
+  lastName:"",
   email: "",
   birthDate:"",
   password: "",
@@ -125,15 +129,23 @@ function Signup() {
 
             <FormControl>
             <FormControl>
-            <Field as={TextField} name="fullName" placeholder="Nome e sobrenome" type="text"/>
-            <FormErrorMessage name="fullName" />
-            {errors.fullName && touched.fullName ? (
-              <Text marginLeft={10} color="red.500">{errors.fullName}</Text>
+            <Field as={TextField} name="name" placeholder="Nome" type="text"/>
+            <FormErrorMessage name="name" />
+            {errors.name && touched.name ? (
+              <Text marginLeft={10} color="red.500">{errors.name}</Text>
             ) : null}
           </FormControl>
               <br />
               <FormControl>
-            <Field as={TextField} name="email" placeholder="Email" type="email"/>
+            <Field as={TextField} name="lastName" placeholder="Sobrenome" type="text"/>
+            <FormErrorMessage name="lastName" />
+            {errors.lastName && touched.lastName ? (
+              <Text marginLeft={10} color="red.500">{errors.lastName}</Text>
+            ) : null}
+          </FormControl>
+              <br />
+              <FormControl>
+            <Field as={TextField} name="email" placeholder="E-mail" type="email"/>
             <FormErrorMessage name="email" />
             {errors.email && touched.email ? (
               <Text marginLeft={10} color="red.500">{errors.email}</Text>
@@ -189,7 +201,7 @@ function Signup() {
                   textAlign={"center"}
                   alignItems={"start"}
                 >
-                  <Checkbox paddingRight={"12px"} paddingTop={"2px"}  size="lg" marginBottom={"10px"} onChange={handleCheckBox}></Checkbox>
+                        <Checkbox paddingRight={"12px"} paddingTop={"23px"}  size="lg" marginBottom={"10px"} onChange={handleCheckBox}></Checkbox>
                   <Box className="font-text">
                     Declaro que, ao continuar, concordo com os{" "}
                     <Text
@@ -199,26 +211,29 @@ function Signup() {
                       as={LinkSignup}
                       to="/"
                     >
-
                       Termos de serviço
-                    </Link>
-                    {' '}e Políticas de privacidade
-                  </Checkbox>
-
-
-
-
+                    </Text>{" "}
+                    e <br />
+                    <Text
+                      fontSize="16px"
+                      color={theme.colors.pipocaColors.link}
+                      fontWeight={400}
+                      as={LinkSignup}
+                      to="/"
+                    >
+                      Políticas de privacidade
+                    </Text>
+                  </Box>
                 </Box>
               </Box>
               <Center marginTop={5} className="font-text">
                 <Botao text={"Cadastrar"} type={"submit"} isDisabled={isChecked}/>
               </Center>
             </FormControl>
-            <Box display={"flex"} marginTop={5} className="font-text">
+            <Box display={"flex"} marginTop={3} className="font-text">
               <Text fontSize="md" marginRight={"5px"} fontWeight={400}>
                 Já possui uma conta?
               </Text>
-
               <ChakraLink
                 fontSize="md"
                 color={theme.colors.pipocaColors.link}
