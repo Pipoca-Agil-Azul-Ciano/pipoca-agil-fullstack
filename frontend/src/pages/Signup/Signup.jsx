@@ -123,6 +123,15 @@ function Signup() {
               />
               <br />
               <TextField
+                id="nameField"
+                placeholder={"Sobrenome"}
+                type={"name"}
+                value={email}
+                onChange={handleEmailChange}
+                error={isEmailValido ? "" : "E-mail inválido."}
+              />
+              <br />
+              <TextField
                 id="emailField"
                 placeholder={"Email"}
                 type={"email"}
@@ -171,36 +180,19 @@ function Signup() {
                 justifyContent={"space-around"}
                 className="font-text"
               >
-                <Box
-                  display={"flex"}
-                  paddingBottom={5}
-                  marginTop={5}
-                  textAlign={"center"}
-                  alignItems={"start"}
-                >
-                  <Checkbox padding={"5px"} size="lg"></Checkbox>
-                  <Box className="font-text">
-                    Declaro que, ao continuar, concordo com os{" "}
-                    <Text
-                      fontSize="16px"
-                      color={theme.colors.pipocaColors.link}
-                      fontWeight={400}
-                      as={LinkSignup}
-                      to="/"
-                    >
+                <Box display={"flex"} paddingBottom={5} >
+
+                  <Checkbox >
+                    Declaro que, ao continuar, concordo com os{' '}
+                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
                       Termos de serviço
-                    </Text>{" "}
-                    e <br />
-                    <Text
-                      fontSize="16px"
-                      color={theme.colors.pipocaColors.link}
-                      fontWeight={400}
-                      as={LinkSignup}
-                      to="/"
-                    >
-                      Políticas de privacidade
-                    </Text>
-                  </Box>
+                    </Link>
+                    {' '}e Políticas de privacidade
+                  </Checkbox>
+
+
+
+
                 </Box>
               </Box>
               <Center marginTop={5} className="font-text">
@@ -209,7 +201,7 @@ function Signup() {
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
               <Text fontSize="md" marginRight={"5px"} fontWeight={400}>
-                Já é inscrito?
+                Já possui uma conta?
               </Text>
 
               <Link

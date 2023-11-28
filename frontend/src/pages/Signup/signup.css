@@ -1,21 +1,60 @@
 .font-title {
-	font-family: 'Comfortaa', sans-serif;
-   
-    }
-    .font-text {
-       font-family: 'Questrial', sans-serif;
-   
-   }
+  font-family: 'Comfortaa', sans-serif;
+}
 
-  
-   .chakra-checkbox__control {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 2px;
-    border: 2px solid #707070;
-    background: #FFF;
-  }
-  
-  
-   
+.font-text {
+  font-family: 'Questrial', sans-serif;
+}
+
+input[type="checkbox"]:not(:checked) {
+  opacity: 0.8;
+}
+
+.chakra-checkbox__control {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  border: 20px solid #707070;
+  background: #FFF;
+  margin-top: -20px;
+}
+
+.chakra-button.font-text-button.css-1iw56bl {
+  position: absolute;
+  top: calc(100% + 60px);
+  left: 2%;
+  width: 96%;
+}
+
+.font-text.css-1iw56bl + .font-text {
+  position: absolute;
+  top: calc(100% + 80px);
+  left: 2%;
+}
+
+.font-text.css-1vt08d7 {
+  position: relative;
+}
+
+.font-text.css-1vt08d7 .css-ndazc3 {
+  position: absolute;
+  top: 100%;
+  left: 2%;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.font-title > div:nth-child(2) {
+  position: relative;
+}
+
+.font-text.css-1k55a1q {
+  position: absolute;
+  top: calc(82% + 20px);
+}
+
+.form-control {
+  width: 50%;
+  margin: 0 auto;
+}
