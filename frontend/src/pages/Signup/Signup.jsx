@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import {
-  FormControl,
-  Text,
   Box,
-  Center,
   Image,
-  Link,
+  Link as ChakraLink,
+  Text,
+  FormErrorMessage,
+  Center,
+  FormControl,
   Checkbox,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
+import { Formik, Form, Field } from "formik";
 import { useNavigate, Link as LinkSignup } from "react-router-dom";
 import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
@@ -16,57 +18,68 @@ import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import "./signup.css";
 import Botao from "../../components/Botao";
+import * as Yup from "yup";
+
+const currentDate = new Date();
+const SignupSchema = Yup.object().shape({
+  fullName: Yup.string()
+  .required('Campo obrigatório')
+  .test('has-space', 'É necessário nome e sobrenome', (value) => /\s/.test(value)),
+  email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
+  birthDate: Yup.date()
+  .required('Campo obrigatório')
+    .max(currentDate, 'A data de nascimento não pode ser no futuro')
+    .min(currentDate.getFullYear() - 100, 'Você não pode ter mais de 100 anos')
+    .test('minimum-age', 'Você deve ter pelo menos 18 anos', function (value) {
+      const minAgeDate = new Date();
+      minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
+      return value <= minAgeDate;
+    })
+    .transform((originalValue, originalObject) => {
+      // Converte string para objeto Date
+      return new Date(originalValue);
+    }),
+  password: Yup.string()
+    .required('Campo obrigatório')
+    .min(8, 'A senha deve ter pelo menos 8 caracteres')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caracter especial'
+    ),
+    confirmPassword: Yup.string()
+    .required('Campo obrigatório')
+    .oneOf([Yup.ref('password'), null], 'As senhas não coincidem'),
+});
+const initialValues = {
+  fullName:"",
+  email: "",
+  birthDate:"",
+  password: "",
+ confirmPassword:""
+};
+const handleSubmit = (values) => {
+  // Simulação de autenticação
+  console.log('Cadastro bem-sucedido! Dados do usuário:', values);
+};
+
+
 
 function Signup() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmSenha, setConfirmSenha] = useState("");
-  const [isEmailValido, setIsEmailValido] = useState(true);
-  const [isSenhaValida, setIsSenhaValida] = useState(true);
+  const [isChecked,setIsChecked]=useState(true);
+
+  const handleCheckBox=()=>setIsChecked(!isChecked)
 
   const navigate = useNavigate();
 
-  const handleEmailChange = (event) => {
-    const novoEmail = event.target.value;
-    console.log("Novo Email:", novoEmail);
-    setEmail(novoEmail);
-    setIsEmailValido(validarEmail(novoEmail));
-  };
 
-  const validarEmail = (email) => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const valido = regexEmail.test(email);
-    console.log("Email Válido:", valido);
-    return valido;
-  };
-
-  const handleSenhaChange = (event) => {
-    const novaSenha = event.target.value;
-    console.log("Nova Senha:", novaSenha);
-    setSenha(novaSenha);
-    setIsSenhaValida(validarSenha(novaSenha));
-  };
-
-  const validarSenha = (senha) => {
-    const valido = senha.length >= 8 && /[A-Z]/.test(senha);
-    console.log("Senha Válida:", valido);
-    return valido;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Formulário enviado!");
-    console.log("Email Válido:", isEmailValido);
-    console.log("Senha Válida:", isSenhaValida);
-    if (isEmailValido && isSenhaValida) {
-      console.log("Login bem-sucedido!");
-    } else {
-      console.log("Por favor, corrija os campos inválidos.");
-    }
-  };
 
   return (
-    <form onSubmit={handleSubmit}>
+ <Formik
+    validationSchema={SignupSchema}
+    initialValues={initialValues}
+    onSubmit={handleSubmit}>
+      {({ errors, touched }) => (
+    <Form>
       <div className="font-title">
         <Box
           display={"flex"}
@@ -75,13 +88,11 @@ function Signup() {
           fontFamily={theme.fonts.pipocaFonts.heading}
           backgroundColor={"#E3E3E3"}
         >
-          <Box marginRight={"auto"}>
+        <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
             <Image src={Rectangle} height={"100vh"} />
-          </Box>
-          <Box marginRight="40px">
-            <Link href="/caminho/do/link">
-              <Image src={IconeDeVoltar} marginTop="50px" boxSize="30px" />
-            </Link>
+            <ChakraLink href="/caminho/do/link">
+              <Image src={IconeDeVoltar} marginTop="50px" marginLeft="30px" boxSize="50px" />
+            </ChakraLink>
           </Box>
           <Box position="absolute" top="6" right="4">
             <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
@@ -91,7 +102,7 @@ function Signup() {
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
-            marginRight={"auto"}
+            marginRight={"130px"}
             marginTop="50px"
           >
             <Text
@@ -113,78 +124,82 @@ function Signup() {
             </Text>
 
             <FormControl>
-              <TextField
-                id="nameField"
-                placeholder={"Nome"}
-                type={"name"}
-                value={email}
-                onChange={handleEmailChange}
-                error={isEmailValido ? "" : "E-mail inválido."}
-              />
+            <FormControl>
+            <Field as={TextField} name="fullName" placeholder="Nome e sobrenome" type="text"/>
+            <FormErrorMessage name="fullName" />
+            {errors.fullName && touched.fullName ? (
+              <Text marginLeft={10} color="red.500">{errors.fullName}</Text>
+            ) : null}
+          </FormControl>
               <br />
-              <TextField
-                id="nameField"
-                placeholder={"Sobrenome"}
-                type={"name"}
-                value={email}
-                onChange={handleEmailChange}
-                error={isEmailValido ? "" : "E-mail inválido."}
-              />
+              <FormControl>
+            <Field as={TextField} name="email" placeholder="Email" type="email"/>
+            <FormErrorMessage name="email" />
+            {errors.email && touched.email ? (
+              <Text marginLeft={10} color="red.500">{errors.email}</Text>
+            ) : null}
+          </FormControl>
               <br />
-              <TextField
-                id="emailField"
-                placeholder={"Email"}
-                type={"email"}
-                value={email}
-                onChange={handleEmailChange}
-                error={isEmailValido ? "" : "E-mail inválido."}
-              />
+               <FormControl>
+            <Field as={TextField} name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
+       />
+            <FormErrorMessage name="birthDate" />
+            {errors.birthDate && touched.birthDate ? (
+              <Text marginLeft={10} color="red.500">{errors.birthDate}</Text>
+            ) : null}
+          </FormControl>
+             
               <br />
-              <TextField
-                id="dataNascimentoField"
-                placeholder={"Data de Nascimento"}
-                type={"date"}
-                value={email}
-                onChange={handleEmailChange}
-                error={isEmailValido ? "" : "E-mail inválido."}
-              />
+              <FormControl>
+            <Field
+              as={TextField}
+              name="password"
+              placeholder="Senha com 8 caracteres"
+              type="password"
+            />
+            <FormErrorMessage name="password" />
+            {errors.password && touched.password ? (
+              <Text marginLeft={10} color="red.500">{errors.password}</Text>
+            ) : null}
+          </FormControl>
               <br />
-              <TextField
-                id="senhaField"
-                placeholder={"Senha com 8 caracteres"}
-                type={"password"}
-                value={senha}
-                onChange={handleSenhaChange}
-                error={
-                  isSenhaValida
-                    ? ""
-                    : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
-                }
-              />
-              <br />
-              <TextField
-                id="confirmSenhaField"
-                placeholder={"Repita senha com 8 caracteres"}
-                type={"password"}
-                value={confirmSenha}
-                onChange={handleSenhaChange}
-                error={
-                  isSenhaValida
-                    ? ""
-                    : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
-                }
-              />
+              <FormControl>
+            <Field
+              as={TextField}
+              name="confirmPassword"
+              placeholder="Repita a senha com 8 caracteres"
+              type="password"
+            />
+            <FormErrorMessage name="confirmPassword" />
+            {errors.confirmPassword && touched.confirmPassword ? (
+              <Text marginLeft={10} color="red.500">{errors.confirmPassword}</Text>
+            ) : null}
+          </FormControl>
               <Box
                 display={"flex"}
                 flexDirection={"row"}
                 justifyContent={"space-around"}
                 className="font-text"
               >
-                <Box display={"flex"} paddingBottom={5} >
 
-                  <Checkbox >
-                    Declaro que, ao continuar, concordo com os{' '}
-                    <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400} as={LinkSignup} to='/'>
+                <Box
+                  display={"flex"}
+                  paddingBottom={5}
+                  marginTop={5}
+                  textAlign={"center"}
+                  alignItems={"start"}
+                >
+                  <Checkbox paddingRight={"12px"} paddingTop={"2px"}  size="lg" marginBottom={"10px"} onChange={handleCheckBox}></Checkbox>
+                  <Box className="font-text">
+                    Declaro que, ao continuar, concordo com os{" "}
+                    <Text
+                      fontSize="16px"
+                      color={theme.colors.pipocaColors.link}
+                      fontWeight={400}
+                      as={LinkSignup}
+                      to="/"
+                    >
+
                       Termos de serviço
                     </Link>
                     {' '}e Políticas de privacidade
@@ -196,7 +211,7 @@ function Signup() {
                 </Box>
               </Box>
               <Center marginTop={5} className="font-text">
-                <Botao text={"Cadastrar"} type={"submit"} />
+                <Botao text={"Cadastrar"} type={"submit"} isDisabled={isChecked}/>
               </Center>
             </FormControl>
             <Box display={"flex"} marginTop={5} className="font-text">
@@ -204,7 +219,7 @@ function Signup() {
                 Já possui uma conta?
               </Text>
 
-              <Link
+              <ChakraLink
                 fontSize="md"
                 color={theme.colors.pipocaColors.link}
                 fontWeight={400}
@@ -212,12 +227,14 @@ function Signup() {
                 to="/"
               >
                 Faça login
-              </Link>
+              </ChakraLink>
             </Box>
           </Box>
         </Box>
       </div>
-    </form>
+      </Form>
+        )}
+    </Formik>
   );
 }
 

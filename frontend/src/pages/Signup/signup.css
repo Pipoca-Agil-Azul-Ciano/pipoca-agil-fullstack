@@ -1,4 +1,9 @@
 .font-title {
+
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
   font-family: 'Comfortaa', sans-serif;
 }
 
@@ -58,3 +63,4 @@ input[type="checkbox"]:not(:checked) {
   width: 50%;
   margin: 0 auto;
 }
+
