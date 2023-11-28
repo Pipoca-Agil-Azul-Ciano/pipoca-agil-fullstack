@@ -3,9 +3,10 @@ import "../pages/Login/login.css";
 import {
   Button
 } from "@chakra-ui/react";
-function Botao({text,type,isLoading}) {
+function Botao({text,type,isLoading,isDisabled}) {
   return (
     <Button
+    isDisabled={isDisabled}
     isLoading={isLoading}
                   bgGradient={
                     "linear-gradient(180deg, #998AC6 0%, #866FAD 100%)"
