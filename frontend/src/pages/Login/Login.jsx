@@ -1,92 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  FormControl,
-  Text,
   Box,
-  Center,
   Image,
-  Link, 
+  Link as ChakraLink,
+  Text,
+  FormControl,
+  FormErrorMessage,
+  Center
 } from "@chakra-ui/react";
-import theme from "../../themes/theme";
-import { useNavigate,Link as LinkSignup } from "react-router-dom"
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Link as LinkSignup, useNavigate } from "react-router-dom";
 import Rectangle from "../../assets/Login/asideImg.png";
-import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
-import "./login.css";
 import Botao from "../../components/Botao";
+import TextField from "../../components/TextField";
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
+  password: Yup.string()
+    .required('Campo obrigatório')
+    .min(8, 'A senha deve ter pelo menos 8 caracteres')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caracter especial'
+    ),
+});
+
+const initialValues = {
+  email: "",
+  password: "",
+};
+
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [isEmailValido, setIsEmailValido] = useState(true);
-  const [isSenhaValida, setIsSenhaValida] = useState(true);
-
-
-  const navigate = useNavigate()
-
-  const handleEmailChange = (event) => {
-    const novoEmail = event.target.value;
-    console.log("Novo Email:", novoEmail);
-    setEmail(novoEmail);
-    setIsEmailValido(validarEmail(novoEmail));
+  const navigate = useNavigate();
+  
+  const handleSubmit = (values) => {
+    // Simulação de autenticação
+    console.log('Login bem-sucedido! Dados do usuário:', values);
   };
-
-  const validarEmail = (email) => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const valido = regexEmail.test(email);
-    console.log("Email Válido:", valido);
-    return valido;
-  };
-
-  const handleSenhaChange = (event) => {
-    const novaSenha = event.target.value;
-    console.log("Nova Senha:", novaSenha);
-    setSenha(novaSenha);
-    setIsSenhaValida(validarSenha(novaSenha));
-  };
-
-  const validarSenha = (senha) => {
-    const valido = senha.length >= 8 && /[A-Z]/.test(senha);
-    console.log("Senha Válida:", valido);
-    return valido;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Formulário enviado!");
-    console.log("Email Válido:", isEmailValido);
-    console.log("Senha Válida:", isSenhaValida);
-    if (isEmailValido && isSenhaValida) {
-      console.log("Login bem-sucedido!");
-    } else {
-      console.log("Por favor, corrija os campos inválidos.");
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="font-title">
+    <Formik
+      validationSchema={LoginSchema}
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+    >
+         {({ errors, touched }) => (
+      <Form>
         <Box
+          className="font-title"
           display={"flex"}
           justifyContent={"space-evenly"}
-          theme={theme}
-          fontFamily={theme.fonts.pipocaFonts.heading}
           backgroundColor={"#E3E3E3"}
+         
         >
           <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
-            <Image src={Rectangle} height={"100vh"}  />
-            <Link href="/caminho/do/link">
-              <Image
-                src={IconeDeVoltar}
-                marginTop="50px"
-                boxSize="30px"
-              />
-            </Link>
+            <Image src={Rectangle} height={"100vh"} />
+            <ChakraLink href="/caminho/do/link">
+              <Image src={IconeDeVoltar} marginTop="50px" boxSize="50px" />
+            </ChakraLink>
           </Box>
-          <Box marginRight="40px">
-            
-          </Box>
+        
           <Box position="absolute" top="6" right="4">
             <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
           </Box>
@@ -95,13 +71,12 @@ function Login() {
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
-            marginRight={"auto"}
             marginTop="50px"
+            marginRight={"90px"}
           >
             <Text
               fontSize="40px"
-              theme={theme}
-              color={theme.colors.pipocaColors.font}
+              color={"#000"}
               paddingTop={"30px"}
               fontWeight={700}
             >
@@ -109,81 +84,70 @@ function Login() {
             </Text>
             <Text
               fontSize="20px"
-              color={theme.colors.pipocaColors.font}
+              color={"#000"}
               paddingBottom={10}
               fontWeight={400}
             >
-              Bem vindo de volta ao podcast mais animado do mundo ágil!
+              Bem-vindo de volta ao podcast mais animado do mundo ágil!
             </Text>
 
             <FormControl>
-              <TextField
-                id="emailField"
-                placeholder={"Email"}
-                type={"email"}
-                value={email}
-                onChange={handleEmailChange}
-                error={isEmailValido ? "" : "E-mail inválido."}
-              />
-              <br />
-              <TextField
-                id="senhaField"
-                placeholder={"Senha"}
-                type={"password"}
-                value={senha}
-                onChange={handleSenhaChange}
-                error={
-                  isSenhaValida
-                    ? ""
-                    : "A senha deve ter pelo menos 8 caracteres e uma letra maiúscula."
-                }
-              />
-              <Box
-                display={"flex"}
-                flexDirection={"row"}
-                justifyContent={"space-around"}
-                className="font-text"
-              >
-                <Box display={"flex"} paddingBottom={5} >
-                  <Text
-                    fontSize="16px"
-                    color={"pipocaColors.font"}
-                    marginRight={"10px"}
-                    
-                  >
-                    Ainda não tem uma conta?
-                  </Text>
-                  <Link
-                    fontSize="16px"
-                    color={theme.colors.pipocaColors.link}
-                    fontWeight={400}
-                    as={LinkSignup} to='/signup'
-                  >
-                    Cadastre-se
-                  </Link>
-                </Box>
-
-                <Link fontSize="16px" color={theme.colors.pipocaColors.link} fontWeight={400}>
-                  Esqueceu a Senha?
-                </Link>
-              </Box>
-              <Center marginTop={5} className="font-text">
-                <Botao text={"Entrar"}/>
-              </Center>
+              <Field as={TextField} name="email" placeholder="Email" type="email"/>
+              <FormErrorMessage name="email" />
+              {errors.email && touched.email ? (
+                <Text marginLeft={20} color="red.500">{errors.email}</Text>
+              ) : null}
             </FormControl>
-            <Box display={"flex"} marginTop={5} className="font-text">
-              <Text fontSize="md" marginRight={"5px"} fontWeight={400}>
-                Não consegue fazer login?
-              </Text>
+          <br/>
+            <FormControl>
+              <Field
+                as={TextField}
+                name="password"
+                placeholder="Senha"
+                type="password"
+              />
+              <FormErrorMessage name="password" />
+              {errors.password && touched.password ? (
+                <Text marginLeft={20} color="red.500">{errors.password}</Text>
+              ) : null}
+            </FormControl>
 
-              <Link fontSize="md" color={theme.colors.pipocaColors.link} fontWeight={400}>
-                Visite nossa Central de ajuda
-              </Link>
+        
+
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"space-around"}
+              className="font-text"
+            >
+              <Box display={"flex"} paddingBottom={5} marginRight={"50px"}>
+                <Text fontSize="16px" color={"#000"} marginRight={"10px"}>
+                  Ainda não tem uma conta?
+                </Text>
+                <ChakraLink
+                  fontSize="16px"
+                  color={"#3182CE"}
+                  fontWeight={400}
+                  as={LinkSignup}
+                  to="/signup"
+                >
+                  Cadastre-se
+                </ChakraLink>
+              </Box>
+
+              <ChakraLink fontSize="16px" color={"#3182CE"} fontWeight={400} >
+                Esqueceu a Senha?
+              </ChakraLink>
             </Box>
+
+            <Center marginTop={5} className="font-text">
+              <Botao text={"Entrar"} type={"submit"}   isLoading={false}/>
+            </Center>
           </Box>
         </Box>
-      </div>
-    </form>
+      </Form>
+         )}
+    </Formik>
   );
 }
 

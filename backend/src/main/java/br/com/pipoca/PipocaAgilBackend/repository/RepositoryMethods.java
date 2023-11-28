@@ -19,8 +19,6 @@ public class RepositoryMethods {
     public void updateUser(User updatedUser) {
 
         User existingUser = repository.findById(updatedUser.getId());
-
-
         existingUser.setFullName(updatedUser.getFullName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPassword(updatedUser.getPassword());
