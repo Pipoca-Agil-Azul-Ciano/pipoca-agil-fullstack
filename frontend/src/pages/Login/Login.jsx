@@ -16,7 +16,7 @@ import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import Botao from "../../components/Botao";
 import TextField from "../../components/TextField";
-
+import theme from "../../themes/theme";
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
   password: Yup.string()
@@ -78,7 +78,7 @@ function Login() {
            
             <Text
               fontSize="40px"
-              color={"#000"}
+              color={theme.colors.pipocaColors.font}
               paddingTop={"30px"}
               fontWeight={700}
             >
@@ -86,7 +86,7 @@ function Login() {
             </Text>
             <Text
               fontSize="20px"
-              color={"#000"}
+              color={theme.colors.pipocaColors.font}
               paddingBottom={10}
               fontWeight={400}
             >
