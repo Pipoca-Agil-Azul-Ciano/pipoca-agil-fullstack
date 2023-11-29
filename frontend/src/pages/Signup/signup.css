@@ -17,6 +17,7 @@ input[type="checkbox"]:not(:checked) {
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
 }
+
 .chakra-checkbox__control {
   display: inline-block;
   width: 30px;
