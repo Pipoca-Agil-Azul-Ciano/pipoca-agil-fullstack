@@ -94,7 +94,7 @@ public class EntityTest {
 // SUPPORT PRIVATE METHODS
     private static Stream<Object[]> validUserParameters() {
         return Stream.of(
-                new Object[]{"Nome completo", "email@email.com", "Password", LocalDate.of(1997, 11, 26), UserTypeEnum.REGISTERED},
+                new Object[]{"Nome completo", "email@email.com", "Password123", LocalDate.of(1997, 11, 26), UserTypeEnum.REGISTERED},
                 new Object[]{"Outro Nome", "outro@email.com", "outraSenha", LocalDate.of(1997, 11, 26), UserTypeEnum.SUBSCRIBE}
         );
     }

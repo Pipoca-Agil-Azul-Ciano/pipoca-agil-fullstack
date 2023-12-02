@@ -48,7 +48,6 @@ public class UserService {
         repository.save(user);
     }
 
-    // Refatorar
     public String authorizeUser(UserLoginDTO userLoginDTO) throws UnauthorizedException {
 
         Optional<User> optionalUser = Optional.ofNullable(repository.findByEmail(userLoginDTO.email));
