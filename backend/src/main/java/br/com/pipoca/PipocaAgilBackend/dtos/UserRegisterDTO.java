@@ -17,9 +17,7 @@ public class UserRegisterDTO {
 
     @Pattern(regexp = "^(?=.*[a-zA-Z]).{8,}$\n", message = "The password must contain at least 8 characters, including at least one uppercase letter and one lowercase letter.")
     public String password;
-    @Past(message = "Invalid date of birth. Enter a date prior to the current date.")
-    @Min(value = 18, message = "Age must be at least 18 years.")
-    @Max(value = 120, message = "Age must be less than 100 years.")
+
     public LocalDate dateBirth;
 
     public UserRegisterDTO() {}
