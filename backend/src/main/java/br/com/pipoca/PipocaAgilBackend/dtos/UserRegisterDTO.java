@@ -15,6 +15,7 @@ public class UserRegisterDTO {
     @NotBlank(message = "Email cannot be blank.")
     public String email;
 
+
     public String password;
 
     public LocalDate dateBirth;
