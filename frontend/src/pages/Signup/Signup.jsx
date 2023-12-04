@@ -9,17 +9,19 @@ import {
   FormControl,
   Checkbox,
 } from "@chakra-ui/react";
+import axios from "axios";
 import theme from "../../themes/theme";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, useFormik } from "formik";
 import { useNavigate, Link as LinkSignup } from "react-router-dom";
 import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import "./signup.css";
+import useForm from "../../hooks/useForm";
 import Botao from "../../components/Botao";
 import * as Yup from "yup";
-
+import { signup } from "../../services/subscriber";
 const currentDate = new Date();
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -61,16 +63,65 @@ const initialValues = {
   password: "",
  confirmPassword:""
 };
-const handleSubmit = (values) => {
-  // Simulação de autenticação
-  console.log('Cadastro bem-sucedido! Dados do usuário:', values);
-};
 
 
 
 function Signup() {
   const [isChecked,setIsChecked]=useState(true);
+  
+  const { form, onChangeForm, errors, setErrors, span, setSpan } = useForm({
+    fullName: initialValues.name,
+    email:initialValues.email,
+    birthDate: initialValues.birthDate,
+    password: initialValues.password,
+  });
 
+
+
+  const formik = useFormik({
+    initialValues,
+    SignupSchema,
+    onSubmit: async (values) => {
+      // Aqui você pode enviar os valores para a requisição
+      console.log("Valores do formulário:", values);
+
+      // Simulando uma requisição assíncrona
+      try {
+        // Aqui você pode fazer a chamada à API, por exemplo:
+        // const response = await api.post("/login", values);
+        // console.log("Resposta da API:", response);
+        alert("Login bem-sucedido!"); // Simulação de sucesso
+        navigate("/")
+      } catch (error) {
+        // Trate os erros da requisição aqui
+        console.error("Erro na requisição:", error);
+        alert("Falha no login. Verifique suas credenciais.");
+      }
+    },
+  });
+  const handleSubmit = async (values) => {
+    try {
+      // Enviar os dados para o endpoint de cadastro
+      const response = await axios.post("http://localhost:8080/user/create", {fullName:values.name+" "+values.lastName,
+    email:values.email,password:values.password,dateBirth:values.birthDate});
+
+      // Tratar a resposta conforme necessário
+      console.log("Resposta da API:", response.data);
+
+      // Redirecionar para a página desejada
+      navigate("/");
+    } catch (error) {
+      // Tratar os erros da requisição aqui
+      console.error("Erro na requisição:", error);
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+      alert("Falha no cadastro. Verifique suas informações.");
+    }
+  };
+  
   const handleCheckBox=()=>setIsChecked(!isChecked)
 
   const navigate = useNavigate();
@@ -129,7 +180,7 @@ function Signup() {
 
             <FormControl>
             <FormControl>
-            <Field as={TextField} name="name" placeholder="Nome" type="text"/>
+            <Field as={TextField}  name="name" placeholder="Nome" type="text"/>
             <FormErrorMessage name="name" />
             {errors.name && touched.name ? (
               <Text marginLeft={10} color="red.500">{errors.name}</Text>
@@ -137,7 +188,7 @@ function Signup() {
           </FormControl>
               <br />
               <FormControl>
-            <Field as={TextField} name="lastName" placeholder="Sobrenome" type="text"/>
+            <Field   as={TextField} name="lastName" placeholder="Sobrenome" type="text"/>
             <FormErrorMessage name="lastName" />
             {errors.lastName && touched.lastName ? (
               <Text marginLeft={10} color="red.500">{errors.lastName}</Text>
@@ -153,7 +204,8 @@ function Signup() {
           </FormControl>
               <br />
                <FormControl>
-            <Field as={TextField} name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
+            <Field as={TextField} 
+             name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
        />
             <FormErrorMessage name="birthDate" />
             {errors.birthDate && touched.birthDate ? (
@@ -168,6 +220,8 @@ function Signup() {
               name="password"
               placeholder="Senha com 8 caracteres"
               type="password"
+          
+           
             />
             <FormErrorMessage name="password" />
             {errors.password && touched.password ? (
