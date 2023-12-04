@@ -19,7 +19,7 @@ import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import "./signup.css";
 import Botao from "../../components/Botao";
 import * as Yup from "yup";
-
+import { signup } from "../../services/subscriber";
 const currentDate = new Date();
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -61,16 +61,24 @@ const initialValues = {
   password: "",
  confirmPassword:""
 };
-const handleSubmit = (values) => {
-  // Simulação de autenticação
-  console.log('Cadastro bem-sucedido! Dados do usuário:', values);
-};
 
 
 
 function Signup() {
   const [isChecked,setIsChecked]=useState(true);
+  
 
+
+  const handleSubmit = async (values) => {
+    try {
+      await signup({fullName:values.name+" "+values.lastName,
+      email:values.email,password:values.password,dateBirth:values.birthDate},navigate)
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Falha no cadastro. Verifique suas informações.");
+    }
+  };
+  
   const handleCheckBox=()=>setIsChecked(!isChecked)
 
   const navigate = useNavigate();
@@ -129,7 +137,7 @@ function Signup() {
 
             <FormControl>
             <FormControl>
-            <Field as={TextField} name="name" placeholder="Nome" type="text"/>
+            <Field as={TextField}  name="name" placeholder="Nome" type="text"/>
             <FormErrorMessage name="name" />
             {errors.name && touched.name ? (
               <Text marginLeft={10} color="red.500">{errors.name}</Text>
@@ -137,7 +145,7 @@ function Signup() {
           </FormControl>
               <br />
               <FormControl>
-            <Field as={TextField} name="lastName" placeholder="Sobrenome" type="text"/>
+            <Field   as={TextField} name="lastName" placeholder="Sobrenome" type="text"/>
             <FormErrorMessage name="lastName" />
             {errors.lastName && touched.lastName ? (
               <Text marginLeft={10} color="red.500">{errors.lastName}</Text>
@@ -153,7 +161,8 @@ function Signup() {
           </FormControl>
               <br />
                <FormControl>
-            <Field as={TextField} name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
+            <Field as={TextField} 
+             name="birthDate" placeholder="Data de Nascimento" type="text"  onFocus={(e) => (e.target.type = 'date')}
        />
             <FormErrorMessage name="birthDate" />
             {errors.birthDate && touched.birthDate ? (
@@ -168,6 +177,8 @@ function Signup() {
               name="password"
               placeholder="Senha com 8 caracteres"
               type="password"
+          
+           
             />
             <FormErrorMessage name="password" />
             {errors.password && touched.password ? (

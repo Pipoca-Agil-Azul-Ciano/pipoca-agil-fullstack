@@ -15,7 +15,7 @@ public class UserRegisterDTO {
     @NotBlank(message = "Email cannot be blank.")
     public String email;
 
-    //@Pattern(regexp = "^(?=.*[a-zA-Z]).{8,}$\n", message = "The password must contain at least 8 characters, including at least one uppercase letter and one lowercase letter.")
+
     public String password;
 
     public LocalDate dateBirth;
