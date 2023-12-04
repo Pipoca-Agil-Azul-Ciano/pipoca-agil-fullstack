@@ -9,16 +9,14 @@ import {
   FormControl,
   Checkbox,
 } from "@chakra-ui/react";
-import axios from "axios";
 import theme from "../../themes/theme";
-import { Formik, Form, Field, useFormik } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useNavigate, Link as LinkSignup } from "react-router-dom";
 import Rectangle from "../../assets/Signup/signup-img.png";
 import TextField from "../../components/TextField";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import "./signup.css";
-import useForm from "../../hooks/useForm";
 import Botao from "../../components/Botao";
 import * as Yup from "yup";
 import { signup } from "../../services/subscriber";
@@ -69,55 +67,14 @@ const initialValues = {
 function Signup() {
   const [isChecked,setIsChecked]=useState(true);
   
-  const { form, onChangeForm, errors, setErrors, span, setSpan } = useForm({
-    fullName: initialValues.name,
-    email:initialValues.email,
-    birthDate: initialValues.birthDate,
-    password: initialValues.password,
-  });
 
 
-
-  const formik = useFormik({
-    initialValues,
-    SignupSchema,
-    onSubmit: async (values) => {
-      // Aqui você pode enviar os valores para a requisição
-      console.log("Valores do formulário:", values);
-
-      // Simulando uma requisição assíncrona
-      try {
-        // Aqui você pode fazer a chamada à API, por exemplo:
-        // const response = await api.post("/login", values);
-        // console.log("Resposta da API:", response);
-        alert("Login bem-sucedido!"); // Simulação de sucesso
-        navigate("/")
-      } catch (error) {
-        // Trate os erros da requisição aqui
-        console.error("Erro na requisição:", error);
-        alert("Falha no login. Verifique suas credenciais.");
-      }
-    },
-  });
   const handleSubmit = async (values) => {
     try {
-      // Enviar os dados para o endpoint de cadastro
-      const response = await axios.post("http://localhost:8080/user/create", {fullName:values.name+" "+values.lastName,
-    email:values.email,password:values.password,dateBirth:values.birthDate});
-
-      // Tratar a resposta conforme necessário
-      console.log("Resposta da API:", response.data);
-
-      // Redirecionar para a página desejada
-      navigate("/");
+      await signup({fullName:values.name+" "+values.lastName,
+      email:values.email,password:values.password,dateBirth:values.birthDate},navigate)
     } catch (error) {
-      // Tratar os erros da requisição aqui
       console.error("Erro na requisição:", error);
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      }
       alert("Falha no cadastro. Verifique suas informações.");
     }
   };
