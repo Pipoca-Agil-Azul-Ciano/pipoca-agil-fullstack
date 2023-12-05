@@ -15,7 +15,7 @@ public class UserRegisterDTO {
     @NotBlank(message = "Email cannot be blank.")
     public String email;
 
-
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$", message = "Invalid Password. Enter a valid password.")
     public String password;
 
     public LocalDate dateBirth;

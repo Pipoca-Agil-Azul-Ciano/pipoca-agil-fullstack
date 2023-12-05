@@ -61,7 +61,7 @@ public class User implements Serializable {
         EntityValidationException.validation(email.trim().isBlank() ||
                 email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n"), "(Internal Validation) Invalid Email. Input a valid email format.");
 
-        EntityValidationException.validation(password.matches("^(?=.*[a-z])(?=.*[A-Z]).{8,}$\n"), "(Internal Validation) Invalid Password. The password must contain 8 or more characters, 1 uppercase character, 1 special character and a number ");
+        EntityValidationException.validation(password.trim().isBlank(), "(Internal Validation) Invalid Password. The password must contain 8 or more characters, 1 uppercase character, 1 special character and a number ");
 
         EntityValidationException.validation(dateBirth == null ||
                 dateBirth.isAfter(LocalDate.now()) ||
