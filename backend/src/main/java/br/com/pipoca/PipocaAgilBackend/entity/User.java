@@ -13,7 +13,7 @@ import java.time.Period;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "pipoca_user")
 public class User implements Serializable {
 
     @Serial
