@@ -10,7 +10,11 @@ import {
   Checkbox,
   InputGroup,
   InputRightElement,
+  Tooltip
 } from "@chakra-ui/react";
+import IconError from '../../assets/errorIcon.png'
+import Alert from '../../assets/alert.gif'
+import CheckGif from '../../assets/check.gif'
 import theme from "../../themes/theme";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Formik, Form, Field } from "formik";
@@ -23,7 +27,6 @@ import "./signup.css";
 import Botao from "../../components/Botao";
 import * as Yup from "yup";
 import { signup } from "../../services/subscriber";
-import PasswordField from "../../components/PasswordField";
 const currentDate = new Date();
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -54,10 +57,10 @@ const SignupSchema = Yup.object().shape({
     }),
   password: Yup.string()
     .required("Campo obrigatório")
-    .min(8, "A senha deve ter pelo menos 8 caracteres")
+    .min(8,"Senha deve ter no mínimo 8 caracteres")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caracter especial"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]/,"Senha fora do formato"
+   
     ),
   confirmPassword: Yup.string()
     .required("Campo obrigatório")
@@ -65,10 +68,10 @@ const SignupSchema = Yup.object().shape({
   check: Yup.bool()
     .oneOf(
       [true],
-      "É necessário concordar com os termos de políticas e privacidade"
+      `É necessário concordar com os termos de políticas e privacidade`
     )
     .required(
-      "É necessário concordar com os termos de políticas e privacidade"
+      `É necessário concordar com os termos de políticas e privacidade`
     ),
 });
 const initialValues = {
@@ -81,11 +84,41 @@ const initialValues = {
   check: false,
 };
 
+
 function Signup() {
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+
+  const getPasswordRules = (value) => {
+    const isLengthValid = value.length >= 8;
+    const isUpperCaseValid = /[A-Z]/.test(value);
+    const isLowerCaseValid = /[a-z]/.test(value);
+    const isNumberValid = /\d/.test(value);
+    const isSpecialCharValid = /[@$!%*?&#]/.test(value);
+
+    return {
+      isLengthValid,
+      isUpperCaseValid,
+      isLowerCaseValid,
+      isNumberValid,
+      isSpecialCharValid,
+    };
+  };
+
+
+    const handlePasswordChange = (e, values, setFieldValue) => {
+    const newPasswordValue = e.target.value;
+    const rules = getPasswordRules(newPasswordValue);
+    setFieldValue('password', newPasswordValue);
+    setFieldValue('isLengthValid', rules.isLengthValid);
+    setFieldValue('isUpperCaseValid', rules.isUpperCaseValid);
+    setFieldValue('isLowerCaseValid', rules.isLowerCaseValid);
+    setFieldValue('isNumberValid', rules.isNumberValid);
+    setFieldValue('isSpecialCharValid', rules.isSpecialCharValid);
+ 
+  };
   const handleSubmit = async (values) => {
     try {
       await signup(
@@ -113,10 +146,17 @@ function Signup() {
   return (
     <Formik
       validationSchema={SignupSchema}
-      initialValues={initialValues}
+      initialValues={{
+        ...initialValues,
+        isLengthValid: false,
+        isUpperCaseValid: false,
+        isLowerCaseValid: false,
+        isNumberValid: false,
+        isSpecialCharValid: false,
+      }}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, setFieldValue }) => (
+      {({ errors, touched, setFieldValue, values }) => (
         <Form>
           <div className="font-title">
             <Box
@@ -145,7 +185,7 @@ function Signup() {
                 display={"flex"}
                 flexDirection={"column"}
                 alignItems={"center"}
-                marginRight={"130px"}
+                marginRight={"150px"}
                 marginTop="50px"
               >
                 <Text
@@ -173,6 +213,7 @@ function Signup() {
                       name="name"
                       placeholder="Nome"
                       type="text"
+                      hasError={errors.name && touched.name}
                     />
                     <FormErrorMessage name="name" />
                     {errors.name && touched.name ? (
@@ -188,6 +229,7 @@ function Signup() {
                       name="lastName"
                       placeholder="Sobrenome"
                       type="text"
+                      hasError={errors.lastName && touched.lastName}
                     />
                     <FormErrorMessage name="lastName" />
                     {errors.lastName && touched.lastName ? (
@@ -203,6 +245,7 @@ function Signup() {
                       name="email"
                       placeholder="E-mail"
                       type="email"
+                      hasError={errors.email && touched.email}
                     />
                     <FormErrorMessage name="email" />
                     {errors.email && touched.email ? (
@@ -218,6 +261,7 @@ function Signup() {
                       name="birthDate"
                       placeholder="Data de Nascimento"
                       type="text"
+                      hasError={errors.birthDate && touched.birthDate}
                       onFocus={(e) => (e.target.type = "date")}
                     />
                     <FormErrorMessage name="birthDate" />
@@ -227,20 +271,85 @@ function Signup() {
                       </Text>
                     ) : null}
                   </FormControl>
-
-                  <FormControl marginBottom={"1em"}>
-                    <InputGroup>
+                    
+                  <FormControl marginBottom={"1em"}  id="password-tooltip">
+                  <Tooltip
+                  width={"130px"}
+                  borderRadius={10}
+                 hasArrow={true}
+                  placement='right-end'
+                      backgroundColor={'#E3E3E3'}
+                      label={
+                        <Box className="tooltip" fontFamily={'Comfortaa'}>
+                          <Text fontFamily="Comfortaa" fontSize="16px" color={'black'} fontWeight={700}>
+                            Senha deve conter
+                          </Text>
+                          <ul style={{ listStyleType: 'none',margin:'10px' }}>
+                            <li>
+                            <Box display={"flex"} >  {values.isLengthValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text  color={values.isLengthValid ? 'black' : 'red'}>
+                               8 caracteres
+                              </Text>
+                              </Box>
+                            </li>
+                            <li>
+                            <Box display={"flex"} >  {values.isUpperCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text color={values.isUpperCaseValid ? 'black' : 'red'}>
+                              Letra maiúscula
+                              </Text>
+                              </Box>
+                              
+                            </li>
+                            <li>
+                            <Box display={"flex"} >  {values.isLowerCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text color={values.isLowerCaseValid ? 'black' : 'red'}>
+                              Letra minúscula
+                              </Text>
+                              </Box>
+                             
+                            </li>
+                            <li>
+                            <Box display={"flex"} >  {values.isNumberValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text color={values.isNumberValid ? 'black' : 'red'}>
+                              Número
+                              </Text>
+                              </Box>
+                             
+                            </li>
+                            <li>
+                            <Box display={"flex"} >  {values.isSpecialCharValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text color={values.isSpecialCharValid ? 'black' : 'red'}>
+                             Caracter especial (!,@,#,%)
+                              </Text>
+                              </Box>
+                           
+                            </li>
+                          </ul>
+                        </Box>
+                      }
+                      isInvalid={!values.isPasswordValid}
+                    >
+                    <InputGroup >
                       <Box paddingLeft={"2.5em"}></Box>
+                    
+                  
                       <Field
                         as={TextField}
                         name="password"
+                        errorBorderColor='crimson'
+                        hasError={errors.password && touched.password}
                         placeholder="Senha com 8 caracteres"
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
+                        onChange={(e) => {
+                          handlePasswordChange(e, values, setFieldValue);
+                        }}
                       />
+               
+                        
                       <InputRightElement
                         width="4.5rem"
                         marginRight={"2rem"}
-                        marginTop={"0.6em"}
+                        marginTop={"0.8em"}
                       >
                         {showPassword ? (
                           <FaEyeSlash onClick={() => setShowPassword(false)} />
@@ -248,15 +357,18 @@ function Signup() {
                           <FaEye onClick={() => setShowPassword(true)} />
                         )}
                       </InputRightElement>
+                    
                     </InputGroup>
+                    </Tooltip>
                     <FormErrorMessage name="password" />
                     {errors.password && touched.password ? (
                       <Text fontSize={"12px"} marginLeft={10} color="red.500">
                         {errors.password}
                       </Text>
                     ) : null}
+           
                   </FormControl>
-
+               
                   <FormControl>
                     <InputGroup>
                       <Box paddingLeft={"2.5em"}></Box>
@@ -265,6 +377,7 @@ function Signup() {
                         name="confirmPassword"
                         placeholder="Repita a senha com 8 caracteres"
                         type={showConfirmPassword ? "text" : "password"}
+                        hasError={errors.confirmPassword && touched.confirmPassword}
                       />
                       <InputRightElement
                         width="4.5rem"
@@ -335,13 +448,17 @@ function Signup() {
                       </FormControl>
                     </Box>
                   </Box>
-                  <Center>
+                  <Box display={'flex'} justifyContent={'space-around'}>
+                
                     {errors.check && touched.check ? (
-                      <Text fontSize={"12px"} marginLeft={10} color="red.500">
+                      <>
+                     <Image marginLeft={10} src={IconError}/>
+                      <Text fontSize={"12px"} marginRight={20}  color="red.500">
                         {errors.check}
                       </Text>
+                      </>
                     ) : null}
-                  </Center>
+                    </Box>
                   <Center marginTop={5} className="font-text">
                     <Botao
                       text={"Cadastrar"}

@@ -1,14 +1,16 @@
 import React from "react";
 import { Center, Input } from "@chakra-ui/react";
 
-function TextField({ field, ...props } ) {
+      
+function TextField({ field, hasError, ...props } ) {
   return (
     <Center>
     
       <Input
      
       {...field} {...props}
-        focusBorderColor="#866FAD"
+
+        focusBorderColor={hasError ? "red.500" : "#866FAD"}
         width={"30.5em"}
         placeholdersize="md"
         borderColor={"#575450"}
