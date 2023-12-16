@@ -12,11 +12,13 @@ import {
   InputRightElement,
   Tooltip
 } from "@chakra-ui/react";
+import SuccessModal from "../Success/SucessModal";
 import IconError from '../../assets/errorIcon.png'
 import Alert from '../../assets/alert.gif'
 import CheckGif from '../../assets/check.gif'
 import theme from "../../themes/theme";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Eye from "../../assets/eye-open.svg"
+import EyeClosed from "../../assets/eye-closed.svg"
 import { Formik, Form, Field } from "formik";
 import { useNavigate, Link as LinkSignup } from "react-router-dom";
 import Rectangle from "../../assets/Signup/signup-img.png";
@@ -89,6 +91,7 @@ function Signup() {
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 
   const getPasswordRules = (value) => {
@@ -128,8 +131,7 @@ function Signup() {
           password: values.password,
           dateBirth: values.birthDate,
         },
-        navigate
-      );
+         () => setShowSuccessModal(true));
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert("Falha no cadastro. Verifique suas informações.");
@@ -255,7 +257,7 @@ function Signup() {
                     ) : null}
                   </FormControl>
 
-                  <FormControl marginBottom={"1em"}>
+                  <FormControl marginBottom={"16px"}>
                     <Field
                       as={TextField}
                       name="birthDate"
@@ -272,53 +274,59 @@ function Signup() {
                     ) : null}
                   </FormControl>
                     
-                  <FormControl marginBottom={"1em"}  id="password-tooltip">
+                  <FormControl marginBottom={"16px"}  id="password-tooltip">
                   <Tooltip
-                  width={"130px"}
+                  width={"170px"}
+                 offset={[-120,-30]}
+                  paddingBottom={"12px"}
+                  paddingTop={"12px"}
+                  paddingRight={"8px"}
+                      paddingLeft={"8px"}
                   borderRadius={10}
                  hasArrow={true}
-                  placement='right-end'
+                arrowSize={20}
+                placement="right-start"
                       backgroundColor={'#E3E3E3'}
                       label={
                         <Box className="tooltip" fontFamily={'Comfortaa'}>
-                          <Text fontFamily="Comfortaa" fontSize="16px" color={'black'} fontWeight={700}>
-                            Senha deve conter
+                          <Text  paddingLeft={"8px"} marginBottom={"12px"} fontFamily="Comfortaa" fontSize="16px" color={'black'} fontWeight={700}>
+                            Senha deve
                           </Text>
                           <ul style={{ listStyleType: 'none',margin:'10px' }}>
                             <li>
-                            <Box display={"flex"} >  {values.isLengthValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
-                              <Text  color={values.isLengthValid ? 'black' : 'red'}>
-                               8 caracteres
+                            <Box display={"flex"} marginBottom={"8px"}>  {values.isLengthValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text fontSize={'12px'} color={values.isLengthValid ? 'black' : 'red'}>
+                               Conter 8 caracteres
                               </Text>
                               </Box>
                             </li>
                             <li>
-                            <Box display={"flex"} >  {values.isUpperCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
-                              <Text color={values.isUpperCaseValid ? 'black' : 'red'}>
+                            <Box display={"flex"} marginBottom={"8px"}>  {values.isUpperCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text fontSize={'12px'} color={values.isUpperCaseValid ? 'black' : 'red'}>
                               Letra maiúscula
                               </Text>
                               </Box>
                               
                             </li>
                             <li>
-                            <Box display={"flex"} >  {values.isLowerCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
-                              <Text color={values.isLowerCaseValid ? 'black' : 'red'}>
+                            <Box display={"flex"} marginBottom={"8px"}>  {values.isLowerCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text fontSize={'12px'} color={values.isLowerCaseValid ? 'black' : 'red'}>
                               Letra minúscula
                               </Text>
                               </Box>
                              
                             </li>
                             <li>
-                            <Box display={"flex"} >  {values.isNumberValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
-                              <Text color={values.isNumberValid ? 'black' : 'red'}>
+                            <Box display={"flex"} marginBottom={"8px"}>  {values.isNumberValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text fontSize={'12px'} color={values.isNumberValid ? 'black' : 'red'}>
                               Número
                               </Text>
                               </Box>
                              
                             </li>
                             <li>
-                            <Box display={"flex"} >  {values.isSpecialCharValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
-                              <Text color={values.isSpecialCharValid ? 'black' : 'red'}>
+                            <Box display={"flex"}>  {values.isSpecialCharValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
+                              <Text fontSize={'12px'} color={values.isSpecialCharValid ? 'black' : 'red'}>
                              Caracter especial (!,@,#,%)
                               </Text>
                               </Box>
@@ -351,10 +359,12 @@ function Signup() {
                         marginRight={"2rem"}
                         marginTop={"0.8em"}
                       >
-                        {showPassword ? (
-                          <FaEyeSlash onClick={() => setShowPassword(false)} />
+                      {showPassword ? (
+                          <Image src={Eye}
+                            onClick={() => setShowPassword(false)}
+                          />
                         ) : (
-                          <FaEye onClick={() => setShowPassword(true)} />
+                          <Image src={EyeClosed} onClick={() => setShowPassword(true)} />
                         )}
                       </InputRightElement>
                     
@@ -385,11 +395,11 @@ function Signup() {
                         marginTop={"0.6em"}
                       >
                         {showConfirmPassword ? (
-                          <FaEyeSlash
+                          <Image src={Eye}
                             onClick={() => setShowConfirmPassword(false)}
                           />
                         ) : (
-                          <FaEye onClick={() => setShowConfirmPassword(true)} />
+                          <Image src={EyeClosed} onClick={() => setShowConfirmPassword(true)} />
                         )}
                       </InputRightElement>
                     </InputGroup>
@@ -481,6 +491,10 @@ function Signup() {
                     Faça login
                   </ChakraLink>
                 </Box>
+                {showSuccessModal ?  <SuccessModal isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} />
+              : null}
+             
+
               </Box>
             </Box>
           </div>
