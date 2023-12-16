@@ -137,7 +137,7 @@ function Login() {
                 </ChakraLink>
               </Box>
 
-              <ChakraLink fontSize="16px" color={"#3182CE"} fontWeight={400} >
+              <ChakraLink fontSize="16px" color={"#3182CE"} fontWeight={400} onClick={()=>navigate("/password-recovery")}>
                 Esqueceu a Senha?
               </ChakraLink>
             </Box>
