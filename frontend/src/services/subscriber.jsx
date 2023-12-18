@@ -10,3 +10,15 @@ export const signup=(form, navigate)=>{
 		alert(err.response.data);	
 	      });
 }
+
+export const login=(form)=>{
+	httpClient.post("/user/authorize",form)
+	.then(() =>{
+		console.log(form)
+		
+	})
+	.catch((err) => {
+		alert(err.response.data);	
+	      });
+}
+
