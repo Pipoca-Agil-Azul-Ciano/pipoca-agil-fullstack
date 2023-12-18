@@ -17,6 +17,7 @@ import LogoPipocaAgil from "../../assets/Login/LogoPipocaAgil.png";
 import Botao from "../../components/Botao";
 import TextField from "../../components/TextField";
 import theme from "../../themes/theme";
+import { login } from "../../services/subscriber";
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
   password: Yup.string()
@@ -35,12 +36,26 @@ const initialValues = {
 
 
 function Login() {
-  const navigate = useNavigate();
-  
-  const handleSubmit = (values) => {
-    // Simulação de autenticação
-    console.log('Login bem-sucedido! Dados do usuário:', values);
+
+  const handleSubmit = async (values) => {
+    try {
+      await login(
+        {
+          email: values.email,
+          password: values.password,
+         
+        })
+         
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Falha no cadastro. Verifique suas informações.");
+    }
   };
+
+
+  const navigate = useNavigate();
+
+  
   return (
     <Formik
       validationSchema={LoginSchema}
