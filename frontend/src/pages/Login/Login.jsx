@@ -138,7 +138,7 @@ function Login() {
               className="font-text"
             >
               <Box display={"flex"} paddingBottom={5} marginRight={"50px"}>
-                <Text fontSize="16px" color={"#000"} marginRight={"10px"}>
+                <Text fontSize="16px" color={"#000"} marginRight={"8px"}>
                   Ainda não tem uma conta?
                 </Text>
                 <ChakraLink
