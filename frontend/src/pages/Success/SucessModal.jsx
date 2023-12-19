@@ -15,18 +15,18 @@ import Logo from '../../assets/success-logo.webp'
 import { useNavigate } from "react-router-dom";
 import Background from '../../assets/success-background.webp'
 
-const SuccessModal = ({ isOpen, onClose }) => {
+const SuccessModal = ({ isOpen, onClose,message,pathNavigate }) => {
 
 
   const navigate = useNavigate();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onClose(); // Fechar o modal após 3 segundos
-      navigate("/"); // Navegar para a tela de login
+      navigate({pathNavigate}); // Navegar para a tela de login
     }, 3000);
 
     return () => clearTimeout(timeoutId); // Limpar o timeout se o componente for desmontado
-  }, [onClose, navigate]);
+  }, [onClose, navigate,pathNavigate]);
   
   return (
 
@@ -51,8 +51,8 @@ const SuccessModal = ({ isOpen, onClose }) => {
         <ModalBody>
 	<Text fontFamily={'Comfortaa'}  theme={theme}
                   color={theme.colors.pipocaColors.font} fontSize={'32px'} fontWeight={700}
-		  textShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}>
-	Cadastro realizado com sucesso!
+		  textShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}>{message}
+
 	</Text>	
         </ModalBody>
 	

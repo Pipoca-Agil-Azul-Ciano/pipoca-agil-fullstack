@@ -106,7 +106,7 @@ function NewPassword() {
                 />
               </ChakraLink>
             </Box>
-            <Center height="100%">
+            <Center>
               <Box
                 display={"flex"}
                 justifyContent={"space-around"}
@@ -116,7 +116,7 @@ function NewPassword() {
                 backgroundColor={"#E3E3E3"}
                 boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
                 padding={"20px"}
-                marginBottom={"150px"}
+            marginTop={"100px"}
                 height={"658px"}
                 width={"874px"}
                 flexDirection={"column"}
@@ -133,9 +133,13 @@ function NewPassword() {
               
                 <FormControl marginTop={"60px"} id="password-tooltip">
                   <Tooltip
-                    width={"190px"}
-                    gutter={-150}
+                    width={"240px"}
+                    offset={[40,-160]}
                     borderRadius={10}
+                    paddingBottom={"12px"}
+                    paddingTop={"12px"}
+                    paddingRight={"8px"}
+                        paddingLeft={"8px"}
                     arrowSize={20}
                     hasArrow={true}
                     placement="right-end"
@@ -147,6 +151,7 @@ function NewPassword() {
                           fontSize="16px"
                           color={"black"}
                           fontWeight={700}
+                          paddingLeft={"8px"} marginBottom={"12px"}
                         >
                           Senha deve conter
                         </Text>
@@ -172,6 +177,7 @@ function NewPassword() {
                               <Text
                                 fontSize={"12px"}
                                 color={values.isLengthValid ? "black" : "red"}
+                                marginBottom={"8px"} 
                               >
                                 8 caracteres
                               </Text>
