@@ -58,7 +58,7 @@ function PasswordRecovery() {
                 />
               </ChakraLink>
             </Box>
-            <Center height="100%">
+            <Center>
               <Box
                 display={"flex"}
                 justifyContent={"space-around"}
@@ -68,7 +68,7 @@ function PasswordRecovery() {
                 backgroundColor={"#E3E3E3"}
                 boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
                 padding={"20px"}
-                marginBottom={"150px"}
+                marginTop={"100px"}
                 height={"658px"}
                 width={"874px"}
                 flexDirection={"column"}

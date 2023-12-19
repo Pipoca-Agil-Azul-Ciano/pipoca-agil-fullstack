@@ -277,7 +277,8 @@ function Signup() {
                   <FormControl marginBottom={"16px"}  id="password-tooltip">
                   <Tooltip
                   width={"170px"}
-                 offset={[-120,-30]}
+                 offset={[-95,-30]}
+               
                   paddingBottom={"12px"}
                   paddingTop={"12px"}
                   paddingRight={"8px"}
@@ -289,7 +290,7 @@ function Signup() {
                       backgroundColor={'#E3E3E3'}
                       label={
                         <Box className="tooltip" fontFamily={'Comfortaa'}>
-                          <Text  paddingLeft={"8px"} marginBottom={"12px"} fontFamily="Comfortaa" fontSize="16px" color={'black'} fontWeight={700}>
+                          <Text  paddingLeft={"8px"} marginBottom={"12px"} fontFamily="Comfortaa" fontSize="14px" color={'black'} fontWeight={700}>
                             Senha deve
                           </Text>
                           <ul style={{ listStyleType: 'none',margin:'10px' }}>
@@ -491,7 +492,7 @@ function Signup() {
                     Faça login
                   </ChakraLink>
                 </Box>
-                {showSuccessModal ?  <SuccessModal isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} />
+                {showSuccessModal ?  <SuccessModal message={"Cadastro realizado com sucesso!"} pathNavigate={"/"} isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} />
               : null}
              
 
