@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import theme from "../../themes/theme";
+import IconError from '../../assets/errorIcon.png'
 import Background from "../../assets/background-password-recovery.svg";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import Padlock from "../../assets/padlock.png";
@@ -19,13 +20,15 @@ import TextField from "../../components/TextField";
 import { useNavigate } from "react-router-dom";
 function PasswordRecovery() {
   const EmailSchema = Yup.object().shape({
-    email: Yup.string().email("E-mail inválido").required("Campo obrigatório"),
+    email: Yup.string().required("Informe um e-mail."),
   });
   const initialValues = {
     email: "",
   };
   const navigate = useNavigate();
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (values) => {
+    navigate("/new-password")
+  };
   return (
     <Formik
       validationSchema={EmailSchema}
@@ -35,7 +38,9 @@ function PasswordRecovery() {
       onSubmit={handleSubmit}
     >
       {({ errors, touched, setFieldValue, values }) => (
+      
         <Form>
+      {console.log(errors.email,values.email )}    
           <Box
 	   theme={theme}
 	   color={theme.colors.pipocaColors.font}
@@ -86,22 +91,26 @@ function PasswordRecovery() {
                   senha.
                 </Text>
 		<FormControl marginBottom={"1em"}>
+    <FormErrorMessage name="lastName" />
+                    {errors.email && touched.email ? (
+                     <Box display={'flex'} marginLeft={170}>
+                      <Image src={IconError} marginRight={2}/>
+		     <Text fontSize={"12px"}  color="red.500">
+                        {errors.email}
+                      </Text>
+                      </Box>
+                    ) : null}
                     <Field
                       as={TextField}
                       name="email"
                       placeholder="Digite o e-mail para redefinição"
                       type="email"
-                      hasError={errors.email && touched.email}
+                      hasError={errors.email}
+                      isCheck={errors.email === undefined && values.email !==''}
                     />
-                    <FormErrorMessage name="lastName" />
-                    {errors.email && touched.email ? (
-                     
-		     <Text fontSize={"12px"} marginLeft={180} color="red.500">
-                        {errors.email}
-                      </Text>
-                    ) : null}
+                   
                   </FormControl>
-                <Botao text={"Recuperar"} type={"submit"} marginBottom={"70px"} onClick={()=>navigate('/new-password')}/>
+                <Botao text={"Recuperar"} type={"submit"} marginBottom={"70px"}/>
               </Box>
             </Center>
           </Box>

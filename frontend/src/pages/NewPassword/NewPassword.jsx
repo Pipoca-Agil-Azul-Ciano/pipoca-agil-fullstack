@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Eye from "../../assets/eye-open.svg";
+import IconError from '../../assets/errorIcon.png'
 import EyeClosed from "../../assets/eye-closed.svg";
 import Alert from "../../assets/alert.gif";
 import CheckGif from "../../assets/check.gif";
@@ -27,9 +28,9 @@ import { useNavigate } from "react-router-dom";
 function NewPassword() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const EmailSchema = Yup.object().shape({
+  const PasswordSchema = Yup.object().shape({
     password: Yup.string()
-      .required("Campo obrigatório")
+      .required("Informe a nova senha.")
       .min(8, "Senha deve ter no mínimo 8 caracteres")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]/,
@@ -37,10 +38,11 @@ function NewPassword() {
       ),
     confirmPassword: Yup.string()
       .required("Campo obrigatório")
-      .oneOf([Yup.ref("password"), null], "As senhas não coincidem"),
+      .oneOf([Yup.ref("password"), null], "As senhas não conferem"),
   });
   const initialValues = {
-    email: "",
+    password: "",
+    confirmPassword:""
   };
   const getPasswordRules = (value) => {
     const isLengthValid = value.length >= 8;
@@ -71,7 +73,7 @@ function NewPassword() {
   const handleSubmit = async (values) => {};
   return (
     <Formik
-      validationSchema={EmailSchema}
+      validationSchema={PasswordSchema}
       initialValues={{
         ...initialValues,
         isLengthValid: false,
@@ -130,8 +132,20 @@ function NewPassword() {
                 >
                   Criar uma nova senha
                 </Text>
-              
-                <FormControl marginTop={"60px"} id="password-tooltip">
+                <Text marginTop={"30px"} fontSize={"24px"} fontWeight={400} fontFamily={ theme.fonts.pipocaFonts.placeholder}
+		textAlign={'center'} >
+                 A nova senha deve conter pelo menos 8 caracteres.
+                </Text>
+                <FormControl marginTop={"10px"} id="password-tooltip">
+                {(errors.password && touched.password) || (errors.confirmPassword && touched.confirmPassword) ? (
+                  <Box display={'flex'} marginLeft={170}>
+                  <Image src={IconError} marginRight={1}/>
+     <Text fontSize={"12px"}  color="red.500">
+     {errors.password || errors.confirmPassword}
+                  </Text>
+                  </Box>
+                   
+                  ) : null}
                   <Tooltip
                     width={"240px"}
                     offset={[40,-160]}
@@ -298,7 +312,10 @@ function NewPassword() {
                     }
                     isInvalid={!values.isPasswordValid}
                   >
+                     
                     <InputGroup display={"flex"} justifyContent={"center"}>
+                    
+                   
                       <Field
                         as={TextField}
                         name="password"
@@ -306,6 +323,7 @@ function NewPassword() {
                         hasError={errors.password && touched.password}
                         placeholder="Digite a nova senha"
                         type={showPassword ? "text" : "password"}
+                        isCheck={errors.password === undefined && values.password !==''}
                         onChange={(e) => {
                           handlePasswordChange(e, values, setFieldValue);
                         }}
@@ -330,11 +348,7 @@ function NewPassword() {
                     </InputGroup>
                   </Tooltip>
                   <FormErrorMessage name="password" />
-                  {errors.password && touched.password ? (
-                    <Text fontSize={"12px"} marginLeft={170} color="red.500">
-                      {errors.password}
-                    </Text>
-                  ) : null}
+              
                 </FormControl>
 
                 <FormControl marginBottom={"30px"}>
@@ -348,6 +362,7 @@ function NewPassword() {
                       name="confirmPassword"
                       placeholder="Repitir senha"
                       type={showConfirmPassword ? "text" : "password"}
+                      isCheck={errors.confirmPassword === undefined && values.confirmPassword !==''}
                       hasError={
                         errors.confirmPassword && touched.confirmPassword
                       }
@@ -370,11 +385,7 @@ function NewPassword() {
                     </InputRightElement>
                   </InputGroup>
                   <FormErrorMessage name="confirmPassword" />
-                  {errors.confirmPassword && touched.confirmPassword ? (
-                    <Text fontSize={"12px"} marginLeft={170} color="red.500">
-                      {errors.confirmPassword}
-                    </Text>
-                  ) : null}
+               
                 </FormControl>
                 <Botao
                   text={"Recuperar"}
