@@ -2,9 +2,11 @@ package br.com.pipoca.PipocaAgilBackend.controller;
 
 import br.com.pipoca.PipocaAgilBackend.dtos.UserLoginDTO;
 import br.com.pipoca.PipocaAgilBackend.dtos.UserRegisterDTO;
+import br.com.pipoca.PipocaAgilBackend.entity.User;
 import br.com.pipoca.PipocaAgilBackend.entity.validation.EntityValidationException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.ConflictException;
 import br.com.pipoca.PipocaAgilBackend.exceptions.UnauthorizedException;
+import br.com.pipoca.PipocaAgilBackend.repository.UserRepository;
 import br.com.pipoca.PipocaAgilBackend.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,10 +17,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -113,4 +115,20 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno, tente novamente mais tarde.");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+
+        Optional<User> user = service.deleteUserById(id);
+
+        user.ifPresent(u -> service.deleteUserById(id));
+
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = service.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
 }
