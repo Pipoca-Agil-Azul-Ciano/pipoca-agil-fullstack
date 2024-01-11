@@ -94,7 +94,7 @@ function PasswordRecovery() {
     <FormErrorMessage name="lastName" />
                     {errors.email && touched.email ? (
                      <Box display={'flex'} marginLeft={170}>
-                      <Image src={IconError} marginRight={2}/>
+                      <Image src={IconError} marginRight={1}/>
 		     <Text fontSize={"12px"}  color="red.500">
                         {errors.email}
                       </Text>
