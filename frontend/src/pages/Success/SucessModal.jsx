@@ -22,7 +22,7 @@ const SuccessModal = ({ isOpen, onClose,message,pathNavigate }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onClose(); // Fechar o modal após 3 segundos
-      navigate({pathNavigate}); // Navegar para a tela de login
+      navigate(pathNavigate); // Navegar para a tela de login
     }, 3000);
 
     return () => clearTimeout(timeoutId); // Limpar o timeout se o componente for desmontado

@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import SuccessModal from "../Success/SucessModal";
 import Eye from "../../assets/eye-open.svg";
 import IconError from '../../assets/errorIcon.png'
 import EyeClosed from "../../assets/eye-closed.svg";
@@ -28,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 function NewPassword() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const PasswordSchema = Yup.object().shape({
     password: Yup.string()
       .required("Informe a nova senha.")
@@ -37,7 +39,7 @@ function NewPassword() {
         "Senha fora do formato"
       ),
     confirmPassword: Yup.string()
-      .required("Campo obrigatório")
+      .required("Informe a nova senha.")
       .oneOf([Yup.ref("password"), null], "As senhas não conferem"),
   });
   const initialValues = {
@@ -70,7 +72,9 @@ function NewPassword() {
     setFieldValue("isSpecialCharValid", rules.isSpecialCharValid);
   };
   const navigate = useNavigate();
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (values) => {
+setShowSuccessModal(true)
+  };
   return (
     <Formik
       validationSchema={PasswordSchema}
@@ -167,7 +171,7 @@ function NewPassword() {
                           fontWeight={700}
                           paddingLeft={"8px"} marginBottom={"12px"}
                         >
-                          Senha deve conter
+                          Senha deve
                         </Text>
                         <ul style={{ listStyleType: "none", margin: "10px" }}>
                           <li>
@@ -193,7 +197,7 @@ function NewPassword() {
                                 color={values.isLengthValid ? "black" : "red"}
                                 marginBottom={"8px"} 
                               >
-                                8 caracteres
+                                Conter 8 caracteres
                               </Text>
                             </Box>
                           </li>
@@ -221,7 +225,7 @@ function NewPassword() {
                                   values.isUpperCaseValid ? "black" : "red"
                                 }
                               >
-                                Letra maiúscula
+                               Pelo menos uma letra maiúscula
                               </Text>
                             </Box>
                           </li>
@@ -249,7 +253,7 @@ function NewPassword() {
                                   values.isLowerCaseValid ? "black" : "red"
                                 }
                               >
-                                Letra minúscula
+                                Uma letra minúscula
                               </Text>
                             </Box>
                           </li>
@@ -275,7 +279,7 @@ function NewPassword() {
                                 fontSize={"12px"}
                                 color={values.isNumberValid ? "black" : "red"}
                               >
-                                Número
+                                Um número
                               </Text>
                             </Box>
                           </li>
@@ -303,7 +307,7 @@ function NewPassword() {
                                   values.isSpecialCharValid ? "black" : "red"
                                 }
                               >
-                                Caracter especial (!,@,#,%)
+                               E um caractere especial (!,@,#,%)
                               </Text>
                             </Box>
                           </li>
@@ -360,7 +364,7 @@ function NewPassword() {
                     <Field
                       as={TextField}
                       name="confirmPassword"
-                      placeholder="Repitir senha"
+                      placeholder="Repetir senha"
                       type={showConfirmPassword ? "text" : "password"}
                       isCheck={errors.confirmPassword === undefined && values.confirmPassword !==''}
                       hasError={
@@ -395,6 +399,9 @@ function NewPassword() {
               </Box>
             </Center>
           </Box>
+          {showSuccessModal ?  <SuccessModal message={"Senha redefinida com sucesso!"} pathNavigate={"/"} 
+          isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} />
+              : null}
         </Form>
       )}
     </Formik>

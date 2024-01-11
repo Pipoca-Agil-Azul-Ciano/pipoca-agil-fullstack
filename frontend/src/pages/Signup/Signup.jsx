@@ -278,7 +278,6 @@ function Signup() {
                   <Tooltip
                   width={"170px"}
                  offset={[-95,-30]}
-               
                   paddingBottom={"12px"}
                   paddingTop={"12px"}
                   paddingRight={"8px"}
@@ -304,7 +303,7 @@ function Signup() {
                             <li>
                             <Box display={"flex"} marginBottom={"8px"}>  {values.isUpperCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
                               <Text fontSize={'12px'} color={values.isUpperCaseValid ? 'black' : 'red'}>
-                              Letra maiúscula
+                             Pelo menos uma letra maiúscula
                               </Text>
                               </Box>
                               
@@ -312,7 +311,7 @@ function Signup() {
                             <li>
                             <Box display={"flex"} marginBottom={"8px"}>  {values.isLowerCaseValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
                               <Text fontSize={'12px'} color={values.isLowerCaseValid ? 'black' : 'red'}>
-                              Letra minúscula
+                              Uma letra minúscula
                               </Text>
                               </Box>
                              
@@ -320,7 +319,7 @@ function Signup() {
                             <li>
                             <Box display={"flex"} marginBottom={"8px"}>  {values.isNumberValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
                               <Text fontSize={'12px'} color={values.isNumberValid ? 'black' : 'red'}>
-                              Número
+                            Um  número
                               </Text>
                               </Box>
                              
@@ -328,7 +327,7 @@ function Signup() {
                             <li>
                             <Box display={"flex"}>  {values.isSpecialCharValid? <Image src={CheckGif} w={'21px'} h={'20px'} marginRight={'10px'}/>:<Image w={'21px'} h={'20px'} marginRight={'10px'} src={Alert}/>}
                               <Text fontSize={'12px'} color={values.isSpecialCharValid ? 'black' : 'red'}>
-                             Caracter especial (!,@,#,%)
+                              E um caractere especial (!,@,#,%)
                               </Text>
                               </Box>
                            
