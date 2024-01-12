@@ -1,4 +1,4 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text, Link } from "@chakra-ui/react";
 import React from "react";
 import Logo from "../../assets/Dashboard/Footer/logo-footer.png";
 import Youtube from '../../assets/Dashboard/Footer/YouTube.png'
@@ -12,40 +12,63 @@ export default function Footer() {
     <Box
       display={"flex"}
       height={"216px"}
+      paddingLeft={"80px"}
+      paddingRight={"80px"}
+      paddingBottom={"50px"}
+      paddingTop={"50px"}
       width={"100%"}
       backgroundColor={"#585858"}
       justifyContent={'space-around'}
       alignItems={'center'}
+      fontFamily={'Inter'}
+      
     >
-      <Image src={Logo} height={"70px"} width={"90px"} />
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}>
-        <Text>Dashboard</Text>
-        <Text>Trilhas</Text>
-        <Text>Meus conteúdos</Text>
+	
+      <Image src={Logo} height={"70px"} width={"90px"} marginBottom={"10px"} marginRight={"90px"}/>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}  fontWeight={"400"}>
+        <Text paddingBottom={"5px"} >Dashboard</Text>
+        <Text paddingBottom={"5px"} >Trilhas</Text>
+        <Text paddingBottom={"5px"}>Meus conteúdos</Text>
       </Box>
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}>
-        <Text>Sobre o Pipoca Ágil</Text>
-        <Text>Comunidade</Text>
-        <Text>Políticas de privacidade</Text>
-        <Text>Contate-nos</Text>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} fontWeight={"400"} marginLeft={"80px"}>
+        <Text paddingBottom={"5px"}>Sobre o Pipoca Ágil</Text>
+        <Text paddingBottom={"5px"}>Comunidade</Text>
+        <Text paddingBottom={"5px"} >Políticas de privacidade</Text>
+        <Text paddingBottom={"5px"}>Contate-nos</Text>
 	
       </Box>
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}>
-        <Text marginBottom={'10px'} marginLeft={'7px'}>Siga-nos nas redes sociais</Text>
+     
+  
+     
+     
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginLeft={"200px"}  marginRight={"90px"}>
+        <Text marginBottom={'10px'} marginLeft={'7px'} fontWeight={"700"}>Siga-nos nas redes sociais</Text>
 	<Box display={"flex"} >
-	<Image src={Instagram} padding={'5px'} height={"61px"} width={"48px"} />
-	<Image src={Linkedin}  padding={'5px'}height={"61px"} width={"48px"} />
-	<Image src={Facebook}  padding={'5px'}height={"61px"} width={"48px"} />
-	<Image src={X} padding={'5px'} height={"61px"} width={"48px"} />
+		<Link href="https://www.instagram.com/pipocaagil/" isExternal>
+	<Image src={Instagram} padding={'5px'}  />
+	</Link>
+	<Link href="https://www.linkedin.com/company/pipoca-%C3%A1gil/mycompany/verification/" isExternal>
+	<Image src={Linkedin}  padding={'5px'} />
+	</Link>
+	<Link href="https://web.facebook.com/pipocaagil/?_rdc=1&_rdr" isExternal>
+	<Image src={Facebook}  padding={'5px'} />
+	</Link>
+	<Link href="https://twitter.com/pipoca_agil" isExternal>
+	<Image src={X} padding={'5px'} />
+	</Link>
 	</Box>
       </Box>
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}>
-        <Text>Ouça-nos também</Text>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginTop={"5px"}>
+        <Text fontWeight={"700"} marginLeft={'7px'}>Ouça-nos também</Text>
 	<Box display={"flex"}>
-	<Image src={Spotify} padding={'5px'} height={"61px"} width={"48px"} />
-	<Image src={Youtube} padding={'5px'} height={"61px"} width={"48px"} />
-
+		<Link href="https://open.spotify.com/show/5J1scP1l7m7kXK6v5RZS7J" isExternal>
+	<Image src={Spotify} padding={'5px'}/>
+	</Link>
+	<Link href="https://www.youtube.com/channel/UCb2_j0yVyHR-Djxn7gyycqw" isExternal>
+	<Image src={Youtube} padding={'5px'}/>
+	</Link>
 	</Box>
+	
       </Box>
     </Box>
   );
