@@ -15,11 +15,11 @@ export default function Footer() {
         <Text>Trilhas</Text>
         <Text>Meus conteúdos</Text>
       </Box>
-      <Box>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'}>
+        <Text>Sobre o Pipoca Ágil</Text>
+        <Text>Comunidade</Text>
+        <Text>Políticas de privacidade</Text>
+        <Text>Contate-nos</Text>
       </Box>
       <Box>
         <Text></Text>
