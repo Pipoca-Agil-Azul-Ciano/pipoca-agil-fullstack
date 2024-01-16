@@ -1,6 +1,6 @@
 import { Box, Image, Text, Link } from "@chakra-ui/react";
 import React from "react";
-import Logo from "../../assets/Dashboard/Footer/logo-footer.png";
+import Logo from "../../assets/Dashboard/Footer/logo.png";
 import Youtube from '../../assets/Dashboard/Footer/YouTube.png'
 import Facebook from '../../assets/Dashboard/Footer/Facebook.png'
 import Linkedin from "../../assets/Dashboard/Footer/LinkedIn.png"
@@ -21,7 +21,7 @@ export default function Footer() {
       justifyContent={'space-around'}
       alignItems={'center'}
       fontFamily={'Inter'}
-      
+      marginTop="auto"
     >
 	
       <Image src={Logo} height={"70px"} width={"90px"} marginBottom={"10px"} marginRight={"90px"}/>
