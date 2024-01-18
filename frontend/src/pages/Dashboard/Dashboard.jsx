@@ -17,12 +17,12 @@ export default function Dashboard() {
       <Box flex="1" padding={"85px 20px 0px 60px"}>
         <Box display={"flex"} >
           <Box display={"flex"} flexDirection={"column"} >
-            <Box>
-            <Text fontSize={"61px"} fontWeight={700} color={"#585858"}>
+            <Box >
+            <Text fontSize={"61px"} fontWeight={700} color={"#585858"} marginBottom={"64px"}>
               Acesso exclusivo aos quatro últimos vídeos
             </Text>
             </Box>
-            <Box display={"flex"} >
+            <Box width={"649px"}  borderRadius="10px" overflow={"hidden"}   marginBottom={"100px"}>
               <iframe
                 width="649"
                 height="360"
@@ -37,16 +37,17 @@ export default function Dashboard() {
 
           <Image
             src={ImgSign}
-            marginTop="130px"
+            marginTop="200px"
             w={"577px"}
             h={"432px"}
             zIndex={0}
+           
           />
 
-          <Center>
+<Center>
             <Box
               position="absolute"
-              top="52%"
+              top="54%"
               left="81%"
               transform="translate(-50%, -50%)"
               backgroundColor="#FFF"
@@ -59,6 +60,7 @@ export default function Dashboard() {
               alignContent={"center"}
               flexDirection={"column"}
               flexWrap={"wrap"}
+            
             >
               <Center>
                 <Text
@@ -66,6 +68,7 @@ export default function Dashboard() {
                   fontSize={"24px"}
                   fontWeight={700}
                   marginTop={"10px"}
+                
                 >
                   Assine o Pipoca Ágil
                 </Text>
