@@ -1,4 +1,4 @@
-import React from "react";
+import React,  { useState } from "react";
 import {
   Box,
   Image,
@@ -6,10 +6,14 @@ import {
   Text,
   FormControl,
   FormErrorMessage,
-  Center
+  Center,
+  InputGroup,
+  InputRightElement
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import Eye from "../../assets/eye-open.svg"
+import EyeClosed from "../../assets/eye-closed.svg"
 import { Link as LinkSignup, useNavigate } from "react-router-dom";
 import Rectangle from "../../assets/Login/asideImg.png";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
@@ -19,14 +23,10 @@ import TextField from "../../components/TextField";
 import theme from "../../themes/theme";
 import { login } from "../../services/subscriber";
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
+  email: Yup.string().required('Campo obrigatório'),
   password: Yup.string()
     .required('Campo obrigatório')
-    .min(8, 'A senha deve ter pelo menos 8 caracteres')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caracter especial'
-    ),
+    ,
 });
 
 const initialValues = {
@@ -36,7 +36,7 @@ const initialValues = {
 
 
 function Login() {
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
     try {
       await login(
@@ -62,7 +62,7 @@ function Login() {
       initialValues={initialValues}
       onSubmit={handleSubmit}
     >
-         {({ errors, touched }) => (
+         {({ errors, touched, values  }) => (
       <Form>
         <Box
           className="font-title"
@@ -117,12 +117,30 @@ function Login() {
             </FormControl>
           <br/>
             <FormControl>
+              <InputGroup display={"flex"} justifyContent={"center"}>
               <Field
                 as={TextField}
                 name="password"
                 placeholder="Senha"
-                type="password"
+                hasError={errors.password && touched.password}
+                isCheck={errors.password === undefined && values.password !==''}
+                type={showPassword ? 'text' : 'password'}
               />
+               <InputRightElement
+                        width="auto"
+                        marginRight={"6rem"}
+                        marginTop={"0.8em"}
+                      >
+                      {showPassword ? (
+                          <Image src={Eye}
+                            onClick={() => setShowPassword(false)}
+                          />
+                        ) : (
+                          <Image src={EyeClosed} onClick={() => setShowPassword(true)} />
+                        )}
+                      </InputRightElement>
+                    
+                    </InputGroup>
               <FormErrorMessage name="password" />
               {errors.password && touched.password ? (
                 <Text marginLeft={20} color="red.500">{errors.password}</Text>
