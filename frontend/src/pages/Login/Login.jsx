@@ -44,7 +44,7 @@ function Login() {
           email: values.email,
           password: values.password,
          
-        })
+        },navigate("/dashboard"))
          
     } catch (error) {
       console.error("Erro na requisição:", error);

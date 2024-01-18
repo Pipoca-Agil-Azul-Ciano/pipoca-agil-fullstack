@@ -1,4 +1,4 @@
 import axios from "axios";
-export const url='https://pipoca-backend.onrender.com'
+export const url='http://20.226.19.81:8080'
 
 export const httpClient = axios.create({ baseURL: url });
