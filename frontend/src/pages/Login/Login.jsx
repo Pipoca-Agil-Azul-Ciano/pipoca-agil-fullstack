@@ -82,10 +82,10 @@ function Login() {
             <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
               <Image src={Rectangle} height={"100vh"} />
               <ChakraLink href="/caminho/do/link">
-                <Image src={IconeDeVoltar} marginTop="50px" boxSize="50px" />
+                <Image src={IconeDeVoltar} marginLeft={"10px"} w={"54px"} h={"54px"} marginTop="50px" boxSize="50px" />
               </ChakraLink>
-              <Box position="absolute" top="6" right="4">
-                <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
+              <Box position="absolute" top="10" right="7">
+                <Image src={LogoPipocaAgil} w={"80px"} height={"62px"} alt="Logo Pipoca Ágil" />
               </Box>
             </Box>
 
@@ -94,12 +94,12 @@ function Login() {
               flexDirection={"column"}
               alignItems={"center"}
               marginTop="50px"
-              marginRight={"90px"}
+              marginRight={"140px"}
             >
               <Text
                 fontSize="40px"
                 color={theme.colors.pipocaColors.font}
-                paddingTop={"30px"}
+                paddingTop={"60px"}
                 fontWeight={700}
               >
                 Fazer login em sua conta
@@ -109,16 +109,20 @@ function Login() {
                 color={theme.colors.pipocaColors.font}
                 paddingBottom={10}
                 fontWeight={400}
+                fontFamily={"Questrial"}
+                alignSelf={"stretch"}
+                flexShrink={0}
+              
               >
-                Bem-vindo de volta ao podcast mais animado do mundo ágil!
+                Bem vindo de volta ao podcast mais animado do mundo ágil!
               </Text>
 
               <FormControl>
                 {errors.password ===
                 "Todos os campos precisam ser preenchidos" ? (
-                  <Box display={"flex"} marginLeft={75} marginBottom={2}>
+                  <Box display={"flex"} marginLeft={30} marginBottom={2}>
                     <Image src={IconError} marginRight={1} />
-                    <Text fontSize={"12px"} color="red.500" >
+                    <Text fontFamily={"Questrial"} fontSize={"12px"} color="red.500" >
                       {errors.password}
                     </Text>
                   </Box>
@@ -133,7 +137,7 @@ function Login() {
                 />
                 <FormErrorMessage name="email" />
                 {errors.email === "Campo obrigatório*" && touched.email ? (
-                  <Text marginLeft={20} color="red.500" >
+                  <Text  fontFamily={"Questrial"} marginLeft={10} color="red.500" >
                     {errors.email}
                   </Text>
                 ) : null}
@@ -153,7 +157,7 @@ function Login() {
                   />
                   <InputRightElement
                     width="auto"
-                    marginRight={"6rem"}
+                    marginRight={"3rem"}
                     marginTop={"0.8em"}
                   >
                     {showPassword ? (
@@ -168,7 +172,7 @@ function Login() {
                 </InputGroup>
                 <FormErrorMessage name="password" />
                 {errors.password === "Campo obrigatório*" && touched.password ? (
-                  <Text marginLeft={20} color="red.500">
+                  <Text fontFamily={"Questrial"} marginLeft={10} color="red.500">
                     {errors.password}
                   </Text>
                 ) : null}
@@ -208,6 +212,12 @@ function Login() {
               <Center marginTop={5} className="font-text">
                 <Botao text={"Entrar"} type={"submit"} isLoading={false} />
               </Center>
+              <Box display={"flex"} marginTop={"26px"}  fontSize={"16px"} fontFamily={"Questrial"}>
+                <Text marginRight={"8px"}>Não consegue fazer login? </Text>
+                <ChakraLink fontSize="16px"
+                  color={"#3182CE"}
+                  fontWeight={400}>Visite nossa central de ajuda</ChakraLink>
+              </Box>
             </Box>
           </Box>
         </Form>
