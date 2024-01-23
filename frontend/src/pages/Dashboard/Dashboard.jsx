@@ -5,6 +5,9 @@ import Header from "../../components/Header";
 import ImgSign from "../../assets/Dashboard/fundo_do_card_de_chamada_para_assinar.webp";
 import Check from "../../assets/Dashboard/Group 2810.png";
 import SignButton from "../../components/SignButton";
+import LogoChannel from "../../assets/Dashboard/image 1.png"
+import ThreePoints from "../../assets/Dashboard/Group.png"
+import CheckChannel from "../../assets/Dashboard/Frame.png"
 export default function Dashboard() {
   return (
     <Box
@@ -32,6 +35,18 @@ export default function Dashboard() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
               ></iframe>
+              <Box display={"flex"} fontFamily={"Questrial"} width={"649px"} justifyContent={"space-between"} paddingTop={"16px"}>
+                <Image src={LogoChannel} w={"36px"} h={"36px"} marginRight={"12px"} marginLeft={"16px"}/>
+                <Box display={"flex"} flexDirection={"column"} flex={1}>
+                <Text overflow={"hidden"} textOverflow={"ellipsis"} lineHeight={"20px"} color={"black"} fontSize={"16px"} fontWeight={400}>Na Daily - Episódio 3 -<br/>Trabalhar em Equipe</Text>
+              <Box display={"flex"}>
+                <Text fontSize={"12px"} fontWeight={400}>Pipoca Ágil </Text>< Image w={"15px"} marginLeft={"8px"} h={"15px"} src={CheckChannel}/>
+                </Box>
+                <Text fontSize={"12px"} fontWeight={400}>197 views · 2 meses atrás</Text>
+              
+                </Box>
+                <Image src={ThreePoints} w={"3px"} h={"15px"} marginTop={"12px"} marginRight={"16px"}/>
+              </Box>
             </Box>
           </Box>
 

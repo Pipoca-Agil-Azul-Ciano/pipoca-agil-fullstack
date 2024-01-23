@@ -23,6 +23,7 @@ import Botao from "../../components/Botao";
 import TextField from "../../components/TextField";
 import theme from "../../themes/theme";
 import { login } from "../../services/subscriber";
+
 const LoginSchema = Yup.object().shape(
   {
     email: Yup.string().when("password", {
@@ -47,23 +48,28 @@ const initialValues = {
 };
 
 function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
     try {
-      await login(
+     login(
         {
           email: values.email,
           password: values.password,
         },
-        navigate("/dashboard")
+        navigate
       );
+     
+			
+      
+      
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Falha no cadastro. Verifique suas informações.");
+      alert("Falha no login. Verifique suas informações.");
     }
   };
 
-  const navigate = useNavigate();
+ 
 
   return (
     <Formik
