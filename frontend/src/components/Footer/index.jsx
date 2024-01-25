@@ -24,24 +24,24 @@ export default function Footer() {
       marginTop="auto"
     >
 	
-      <Image src={Logo} height={"70px"} width={"90px"} marginBottom={"10px"} marginRight={"90px"}/>
+      <Image src={Logo} height={"70px"} width={"90px"} marginBottom={"10px"} marginRight={"18px"}/>
       <Box display={"flex"} color={'#FFF'} flexDirection={'column'}  fontWeight={"400"}>
-        <Text paddingBottom={"5px"} >Dashboard</Text>
-        <Text paddingBottom={"5px"} >Trilhas</Text>
-        <Text paddingBottom={"5px"}>Meus conteúdos</Text>
+        <Text paddingBottom={"8px"} >Dashboard</Text>
+        <Text paddingBottom={"8px"} >Trilhas</Text>
+        <Text paddingBottom={"8px"}>Meus conteúdos</Text>
       </Box>
       <Box display={"flex"} color={'#FFF'} flexDirection={'column'} fontWeight={"400"} marginLeft={"80px"}>
-        <Text paddingBottom={"5px"}>Sobre o Pipoca Ágil</Text>
-        <Text paddingBottom={"5px"}>Comunidade</Text>
-        <Text paddingBottom={"5px"} >Políticas de privacidade</Text>
-        <Text paddingBottom={"5px"}>Contate-nos</Text>
+        <Text paddingBottom={"8px"}>Sobre o Pipoca Ágil</Text>
+        <Text paddingBottom={"8px"}>Comunidade</Text>
+        <Text paddingBottom={"8px"} >Políticas de privacidade</Text>
+        <Text paddingBottom={"8px"}>Contate-nos</Text>
 	
       </Box>
      
   
      
      
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginLeft={"200px"}  marginRight={"90px"}>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginLeft={"200px"}  marginRight={"90px"}  marginBottom={"30px"}>
         <Text marginBottom={'10px'} marginLeft={'7px'} fontWeight={"700"}>Siga-nos nas redes sociais</Text>
 	<Box display={"flex"} >
 		<Link href="https://www.instagram.com/pipocaagil/" isExternal>
@@ -58,7 +58,7 @@ export default function Footer() {
 	</Link>
 	</Box>
       </Box>
-      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginTop={"5px"}>
+      <Box display={"flex"} color={'#FFF'} flexDirection={'column'} marginBottom={"40px"} >
         <Text fontWeight={"700"} marginLeft={'7px'}>Ouça-nos também</Text>
 	<Box display={"flex"}>
 		<Link href="https://open.spotify.com/show/5J1scP1l7m7kXK6v5RZS7J" isExternal>

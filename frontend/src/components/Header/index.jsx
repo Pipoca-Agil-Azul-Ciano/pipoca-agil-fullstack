@@ -50,7 +50,7 @@ export default function Header() {
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
           }}>
-          <Text>Meus conteúdos</Text>
+          <Text>Conteúdos</Text>
         </Link>
         <Link padding={"16px"} >
           <Image src={Profile} height={"56px"} width={"56px"} />
