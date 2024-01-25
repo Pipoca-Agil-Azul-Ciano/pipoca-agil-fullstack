@@ -51,25 +51,30 @@ function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
-    try {
-     login(
+   try {
+    const res= login(
         {
           email: values.email,
           password: values.password,
         },
         navigate
       );
-     
-			
       
-      
+      // res.then((data)=>{
+    
+
+
+      //  console.log(LoginSchema.fields.email);
+      //   console.log(data.response.data);}).catch((err)=>{
+      //     console.log(LoginSchema.fields.email);
+      //     console.log(err);});
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert("Falha no login. Verifique suas informações.");
+    
     }
+    
   };
-
- 
 
   return (
     <Formik
@@ -88,10 +93,22 @@ function Login() {
             <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
               <Image src={Rectangle} height={"100vh"} />
               <ChakraLink href="/caminho/do/link">
-                <Image src={IconeDeVoltar} marginLeft={"10px"} w={"54px"} h={"54px"} marginTop="50px" boxSize="50px" />
+                <Image
+                  src={IconeDeVoltar}
+                  marginLeft={"10px"}
+                  w={"54px"}
+                  h={"54px"}
+                  marginTop="50px"
+                  boxSize="50px"
+                />
               </ChakraLink>
               <Box position="absolute" top="10" right="7">
-                <Image src={LogoPipocaAgil} w={"80px"} height={"62px"} alt="Logo Pipoca Ágil" />
+                <Image
+                  src={LogoPipocaAgil}
+                  w={"80px"}
+                  height={"62px"}
+                  alt="Logo Pipoca Ágil"
+                />
               </Box>
             </Box>
 
@@ -118,7 +135,6 @@ function Login() {
                 fontFamily={"Questrial"}
                 alignSelf={"stretch"}
                 flexShrink={0}
-              
               >
                 Bem vindo de volta ao podcast mais animado do mundo ágil!
               </Text>
@@ -128,11 +144,15 @@ function Login() {
                 "Todos os campos precisam ser preenchidos" ? (
                   <Box display={"flex"} marginLeft={30} marginBottom={2}>
                     <Image src={IconError} marginRight={1} />
-                    <Text fontFamily={"Questrial"} fontSize={"12px"} color="red.500" >
+                    <Text
+                      fontFamily={"Questrial"}
+                      fontSize={"12px"}
+                      color="red.500"
+                    >
                       {errors.password}
                     </Text>
                   </Box>
-                ) : null}
+                ) :  null}
                 <Field
                   as={TextField}
                   name="email"
@@ -143,7 +163,11 @@ function Login() {
                 />
                 <FormErrorMessage name="email" />
                 {errors.email === "Campo obrigatório*" && touched.email ? (
-                  <Text  fontFamily={"Questrial"} marginLeft={10} color="red.500" >
+                  <Text
+                    fontFamily={"Questrial"}
+                    marginLeft={10}
+                    color="red.500"
+                  >
                     {errors.email}
                   </Text>
                 ) : null}
@@ -177,8 +201,13 @@ function Login() {
                   </InputRightElement>
                 </InputGroup>
                 <FormErrorMessage name="password" />
-                {errors.password === "Campo obrigatório*" && touched.password ? (
-                  <Text fontFamily={"Questrial"} marginLeft={10} color="red.500">
+                {errors.password === "Campo obrigatório*" &&
+                touched.password ? (
+                  <Text
+                    fontFamily={"Questrial"}
+                    marginLeft={10}
+                    color="red.500"
+                  >
                     {errors.password}
                   </Text>
                 ) : null}
@@ -218,11 +247,16 @@ function Login() {
               <Center marginTop={5} className="font-text">
                 <Botao text={"Entrar"} type={"submit"} isLoading={false} />
               </Center>
-              <Box display={"flex"} marginTop={"26px"}  fontSize={"16px"} fontFamily={"Questrial"}>
+              <Box
+                display={"flex"}
+                marginTop={"26px"}
+                fontSize={"16px"}
+                fontFamily={"Questrial"}
+              >
                 <Text marginRight={"8px"}>Não consegue fazer login? </Text>
-                <ChakraLink fontSize="16px"
-                  color={"#3182CE"}
-                  fontWeight={400}>Visite nossa central de ajuda</ChakraLink>
+                <ChakraLink fontSize="16px" color={"#3182CE"} fontWeight={400}>
+                  Visite nossa central de ajuda
+                </ChakraLink>
               </Box>
             </Box>
           </Box>

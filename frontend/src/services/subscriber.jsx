@@ -14,7 +14,7 @@ export const signup=(form, navigate)=>{
 
 export const login=(form,navigate)=>{
 
-	 httpClient.post("/user/authorize",form)
+	const res= httpClient.post("/user/authorize",form)
 	.then((data) =>{
 		
 		console.log(form)
@@ -25,7 +25,9 @@ export const login=(form,navigate)=>{
 	.catch((err) => {
 		console.log(err);
 		alert(err.response.data);	
+		return err;
 	      });
-	      
+	    
+	      return res
 }
 
