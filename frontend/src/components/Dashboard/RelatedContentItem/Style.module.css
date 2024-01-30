@@ -1,0 +1,43 @@
+:root {
+	--background: 20 14.3% 4.1%;
+	--primary: 346.8 77.2% 49.8%;
+	--ease-time: 500ms;
+	--ease-fn: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.related {
+  width: 677px;
+  position: relative; /** Important */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  height: 378px;
+  background-color: #e5e3e3;
+  border-radius: 36px;
+  overflow: hidden;
+}
+	/** Important */
+	.related::after {
+ 		z-index: 2;
+		content: '';
+		position: absolute;
+		inset: auto 0 0; /** top: auto, left and right: 0, bottom: 0 */
+		max-width: 0%;
+		height: 10px;
+		margin: 0 auto;
+		background-color: var(--card-bottom-color);
+		opacity: 0;
+		transition: max-width var(--ease-time) var(--ease-fn), opacity var(--ease-time) var(--ease-fn);
+	}
+	
+	
+	.related:hover {
+		cursor: pointer;
+		
+		/** Important */
+		&::after {
+			max-width: 677px;
+			opacity: 1;
+		}
+	}
