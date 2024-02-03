@@ -11,9 +11,11 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import SuccessModal from "../Success/SucessModal";
+import Icon from "../../assets/success-logo.webp";
+
+import SuccessModal from "../Modals/SuccessModal";
 import Eye from "../../assets/eye-open.svg";
-import IconError from '../../assets/errorIcon.png'
+import IconError from "../../assets/errorIcon.png";
 import EyeClosed from "../../assets/eye-closed.svg";
 import Alert from "../../assets/alert.gif";
 import CheckGif from "../../assets/check.gif";
@@ -44,7 +46,7 @@ function NewPassword() {
   });
   const initialValues = {
     password: "",
-    confirmPassword:""
+    confirmPassword: "",
   };
   const getPasswordRules = (value) => {
     const isLengthValid = value.length >= 8;
@@ -73,7 +75,7 @@ function NewPassword() {
   };
   const navigate = useNavigate();
   const handleSubmit = async (values) => {
-setShowSuccessModal(true)
+    setShowSuccessModal(true);
   };
   return (
     <Formik
@@ -122,7 +124,7 @@ setShowSuccessModal(true)
                 backgroundColor={"#E3E3E3"}
                 boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
                 padding={"20px"}
-            marginTop={"100px"}
+                marginTop={"100px"}
                 height={"658px"}
                 width={"874px"}
                 flexDirection={"column"}
@@ -136,28 +138,33 @@ setShowSuccessModal(true)
                 >
                   Criar uma nova senha
                 </Text>
-                <Text marginTop={"30px"} fontSize={"24px"} fontWeight={400} fontFamily={ theme.fonts.pipocaFonts.placeholder}
-		textAlign={'center'} >
-                 A nova senha deve conter pelo menos 8 caracteres.
+                <Text
+                  marginTop={"30px"}
+                  fontSize={"24px"}
+                  fontWeight={400}
+                  fontFamily={theme.fonts.pipocaFonts.placeholder}
+                  textAlign={"center"}
+                >
+                  A nova senha deve conter pelo menos 8 caracteres.
                 </Text>
                 <FormControl marginTop={"10px"} id="password-tooltip">
-                {(errors.password && touched.password) || (errors.confirmPassword && touched.confirmPassword) ? (
-                  <Box display={'flex'} marginLeft={170}>
-                  <Image src={IconError} marginRight={1}/>
-     <Text fontSize={"12px"}  color="red.500">
-     {errors.password || errors.confirmPassword}
-                  </Text>
-                  </Box>
-                   
+                  {(errors.password && touched.password) ||
+                  (errors.confirmPassword && touched.confirmPassword) ? (
+                    <Box display={"flex"} marginLeft={170}>
+                      <Image src={IconError} marginRight={1} />
+                      <Text fontSize={"12px"} color="red.500">
+                        {errors.password || errors.confirmPassword}
+                      </Text>
+                    </Box>
                   ) : null}
                   <Tooltip
                     width={"240px"}
-                    offset={[40,-160]}
+                    offset={[40, -160]}
                     borderRadius={10}
                     paddingBottom={"12px"}
                     paddingTop={"12px"}
                     paddingRight={"8px"}
-                        paddingLeft={"8px"}
+                    paddingLeft={"8px"}
                     arrowSize={20}
                     hasArrow={true}
                     placement="right-end"
@@ -169,7 +176,8 @@ setShowSuccessModal(true)
                           fontSize="16px"
                           color={"black"}
                           fontWeight={700}
-                          paddingLeft={"8px"} marginBottom={"12px"}
+                          paddingLeft={"8px"}
+                          marginBottom={"12px"}
                         >
                           Senha deve
                         </Text>
@@ -195,7 +203,7 @@ setShowSuccessModal(true)
                               <Text
                                 fontSize={"12px"}
                                 color={values.isLengthValid ? "black" : "red"}
-                                marginBottom={"8px"} 
+                                marginBottom={"8px"}
                               >
                                 Conter 8 caracteres
                               </Text>
@@ -225,7 +233,7 @@ setShowSuccessModal(true)
                                   values.isUpperCaseValid ? "black" : "red"
                                 }
                               >
-                               Pelo menos uma letra maiúscula
+                                Pelo menos uma letra maiúscula
                               </Text>
                             </Box>
                           </li>
@@ -307,7 +315,7 @@ setShowSuccessModal(true)
                                   values.isSpecialCharValid ? "black" : "red"
                                 }
                               >
-                               E um caractere especial (!,@,#,%)
+                                E um caractere especial (!,@,#,%)
                               </Text>
                             </Box>
                           </li>
@@ -316,10 +324,7 @@ setShowSuccessModal(true)
                     }
                     isInvalid={!values.isPasswordValid}
                   >
-                     
                     <InputGroup display={"flex"} justifyContent={"center"}>
-                    
-                   
                       <Field
                         as={TextField}
                         name="password"
@@ -327,7 +332,10 @@ setShowSuccessModal(true)
                         hasError={errors.password && touched.password}
                         placeholder="Digite a nova senha"
                         type={showPassword ? "text" : "password"}
-                        isCheck={errors.password === undefined && values.password !==''}
+                        isCheck={
+                          errors.password === undefined &&
+                          values.password !== ""
+                        }
                         onChange={(e) => {
                           handlePasswordChange(e, values, setFieldValue);
                         }}
@@ -352,21 +360,19 @@ setShowSuccessModal(true)
                     </InputGroup>
                   </Tooltip>
                   <FormErrorMessage name="password" />
-              
                 </FormControl>
 
                 <FormControl marginBottom={"30px"}>
-                  <InputGroup
-                    display={"flex"}
-                    justifyContent={"center"}
-                   
-                  >
+                  <InputGroup display={"flex"} justifyContent={"center"}>
                     <Field
                       as={TextField}
                       name="confirmPassword"
                       placeholder="Repetir senha"
                       type={showConfirmPassword ? "text" : "password"}
-                      isCheck={errors.confirmPassword === undefined && values.confirmPassword !==''}
+                      isCheck={
+                        errors.confirmPassword === undefined &&
+                        values.confirmPassword !== ""
+                      }
                       hasError={
                         errors.confirmPassword && touched.confirmPassword
                       }
@@ -389,7 +395,6 @@ setShowSuccessModal(true)
                     </InputRightElement>
                   </InputGroup>
                   <FormErrorMessage name="confirmPassword" />
-               
                 </FormControl>
                 <Botao
                   text={"Recuperar"}
@@ -399,9 +404,15 @@ setShowSuccessModal(true)
               </Box>
             </Center>
           </Box>
-          {showSuccessModal ?  <SuccessModal message={"Senha redefinida com sucesso!"} pathNavigate={"/"} 
-          isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} />
-              : null}
+          {showSuccessModal ? (
+            <SuccessModal
+              message={"Senha redefinida com sucesso!"}
+              icon={Icon}
+              pathNavigate={"/"}
+              isOpen={showSuccessModal}
+              onClose={() => setShowSuccessModal(false)}
+            />
+          ) : null}
         </Form>
       )}
     </Formik>
