@@ -8,7 +8,7 @@ export const signup=(form, navigate)=>{
 		goToLoginPage(navigate("/dashboard"));
 	})
 	.catch((err) => {
-		alert(err.response);	
+		console.log(err.response);	
 	      });
 }
 
@@ -24,7 +24,7 @@ export const login=(form,navigate)=>{
 	})
 	.catch((err) => {
 		console.log(err);
-		alert(err.response.data);	
+		alert(err.response);	
 		return err;
 	      });
 	    

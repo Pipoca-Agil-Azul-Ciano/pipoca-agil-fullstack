@@ -11,11 +11,10 @@ import {
   Text
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
-import Logo from '../../assets/success-logo.webp'
 import { useNavigate } from "react-router-dom";
 import Background from '../../assets/success-background.webp'
 
-const SuccessModal = ({ isOpen, onClose,message,pathNavigate }) => {
+const SuccessModal = ({ isOpen, onClose,message,pathNavigate,icon }) => {
 
 
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ const SuccessModal = ({ isOpen, onClose,message,pathNavigate }) => {
       }}>	
         <ModalHeader marginTop={'50px'} padding={0}>
 		<Center>
-		<Image src={Logo} w={'71px'} height={'63px'}/>
+		<Image src={icon} w={'71px'} height={'63px'}/>
 		</Center>
 		</ModalHeader>
         <ModalBody>

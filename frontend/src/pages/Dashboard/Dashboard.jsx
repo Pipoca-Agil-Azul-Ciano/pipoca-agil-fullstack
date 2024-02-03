@@ -1,10 +1,12 @@
 import React from "react";
 import Footer from "../../components/Footer";
+import Carousel from "react-elastic-carousel";
 import { Box, Image, Text, Center, Grid, GridItem } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import ImgSign from "../../assets/Dashboard/fundo_do_card_de_chamada_para_assinar.webp";
 import Check from "../../assets/Dashboard/Group 2810.png";
 import SignButton from "../../components/SignButton";
+import IconModal from "../../assets/ModalImportant.png";
 import LogoChannel from "../../assets/Dashboard/image 1.png";
 import ThreePoints from "../../assets/Dashboard/Group.png";
 import BgNewsletter from "../../assets/Dashboard/background-newsletter.webp";
@@ -16,7 +18,32 @@ import InfographicImage from "../../assets/Dashboard/infographic-image.png";
 import Books from "../../assets/Dashboard/books.png";
 import BlogArticles from "../../assets/Dashboard/blog-articles.png";
 import Mindmap from "../../assets/Dashboard/mindmap-dashboard.png";
+import { useState } from "react";
+import { videos } from "../../services/videos";
+import VideoComponent from "../../components/Dashboard/Video";
+import "./styleDash.css";
+import { motion } from "framer-motion";
+import PadlockVideo from "../../assets/Dashboard/PadlockVideo.png";
+import NotificationModal from "../Modals/NotificationModal";
 export default function Dashboard() {
+  const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+
+  const [video, setVideo] = useState({
+    iframe:
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/5JADwWwCe2g?si=Rh7b2q8LOeroGJ8v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
+    thumb:
+      "https://i.ytimg.com/vi/5JADwWwCe2g/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBlxz0f7F0mzx9EhjMzSdyenAmAAA",
+    title: "Na Daily - Episódio 3 - 'Trabalhar em Equipe'",
+    url: "https://www.youtube.com/embed/5JADwWwCe2g?si=Rh7b2q8LOeroGJ8v",
+    datePost: "há 1 ano",
+    views: "98",
+    blocked: false,
+  });
+  const breakPoints = [{ width: 1200, itemsToShow: 4 }];
+
+  const changeVideo = (video) => {
+    setVideo(video);
+  };
   return (
     <Box
       minHeight="100vh" // Garante que o conteúdo ocupa pelo menos a altura da viewport
@@ -42,17 +69,38 @@ export default function Dashboard() {
               width={"649px"}
               borderRadius="10px"
               overflow={"hidden"}
-              marginBottom={"100px"}
+              marginBottom={"50px"}
             >
-              <iframe
-                width="649"
-                height="360"
-                src="https://www.youtube.com/embed/5JADwWwCe2g?si=cDGxyoynvRY5zmX4"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
+              {!video.blocked ? (
+                <iframe
+                  width="649"
+                  height="360"
+                  src={video.url}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              ) : (
+                <div
+                  className=".videoDiv"
+                  onClick={() => setShowSuccessModal(true)}
+                >
+                  <Image
+                    src={video.thumb}
+                    w={"649px"}
+                    h={"360px"}
+                    borderRadius={"10px"}
+                  />
+                  <Center h={0}>
+                    <span className="spanImageBlockedDash">
+                      {" "}
+                      <Image src={PadlockVideo} w={"96.38px"} h={"116.53px"} />
+                    </span>
+                  </Center>
+                </div>
+              )}
+
               <Box
                 display={"flex"}
                 fontFamily={"Questrial"}
@@ -76,8 +124,7 @@ export default function Dashboard() {
                     fontSize={"16px"}
                     fontWeight={400}
                   >
-                    Na Daily - Episódio 3 -<br />
-                    Trabalhar em Equipe
+                    {video.title}
                   </Text>
                   <Box display={"flex"}>
                     <Text fontSize={"12px"} fontWeight={400}>
@@ -91,7 +138,7 @@ export default function Dashboard() {
                     />
                   </Box>
                   <Text fontSize={"12px"} fontWeight={400}>
-                    197 views · 2 meses atrás
+                    {video.views} views · {video.datePost}
                   </Text>
                 </Box>
                 <Image
@@ -107,12 +154,11 @@ export default function Dashboard() {
 
           <Image
             src={ImgSign}
-            marginTop="140px"
+            marginTop="150px"
             w={"577px"}
             h={"432px"}
             zIndex={0}
           />
-
           <Box
             backgroundImage={
               " linear-gradient(190deg,rgba(236,109,200,2) 30%,  rgba(124,123,225,1) 90%) "
@@ -126,14 +172,14 @@ export default function Dashboard() {
             borderRadius="20px"
             h={"277px"}
             position={"absolute"}
-            top="12.5%"
+            top="11.85%"
             zIndex={1}
             left="66%"
           ></Box>
 
           <Box
             position="absolute"
-            top="16.75%"
+            top="15.8%"
             left="81.7%"
             transform="translate(-50%, -50%)"
             backgroundColor="#FFF"
@@ -204,6 +250,26 @@ export default function Dashboard() {
         </Box>
       </Box>
 
+      <Box display={"flex"}>
+        <Carousel breakPoints={breakPoints} showArrows={false} >
+          {videos.map((video) => (
+            <motion.div
+              onClick={() => changeVideo(video)}
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <VideoComponent
+                thumb={video.thumb}
+                title={video.title}
+                views={video.views}
+                datePost={video.datePost}
+                blocked={video.blocked}
+              />
+            </motion.div>
+          ))}
+        </Carousel>
+      </Box>
+
       <Box
         bgImage={BgRelatedContent}
         backgroundSize="cover"
@@ -214,7 +280,6 @@ export default function Dashboard() {
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-  
       >
         <Text
           color={"#FFF"}
@@ -265,7 +330,7 @@ export default function Dashboard() {
           </GridItem>
         </Grid>
       </Box>
-      <Box display={"flex"} justifyContent={"center"} >
+      <Box display={"flex"} justifyContent={"center"}>
         <Box
           display={"flex"}
           flexDirection={"column"}
@@ -305,8 +370,19 @@ export default function Dashboard() {
           </Box>
         </Box>
       </Box>
-
+      
       <Footer />
+      {showSuccessModal ? (
+        <NotificationModal
+          message={
+            "Para desfrutar deste conteúdo, torne-se um assinante Pipoca Ágil."
+          }
+          pathNavigate={"/dashboard"}
+          icon={IconModal}
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+        />
+      ) : null}
     </Box>
   );
 }
