@@ -599,7 +599,7 @@ function Signup() {
                 {showSuccessModal ? (
                   <SuccessModal
                     message={"Cadastro realizado com sucesso!"}
-                    pathNavigate={"/"}
+                    pathNavigate={"/login"}
                     icon={Icon}
                     isOpen={showSuccessModal}
                     onClose={() => setShowSuccessModal(false)}
