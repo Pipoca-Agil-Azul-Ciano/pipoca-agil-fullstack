@@ -6,6 +6,7 @@ import PasswordRecovery from "../pages/PasswordRecovery/PasswordRecovery";
 import NewPassword from "../pages/NewPassword/NewPassword";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home";
+import DashboardSubscriber from "../pages/DashboardSubscriber";
 const ConfigRoutes = () => {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ const ConfigRoutes = () => {
         <Route path="/password-recovery" element={<PasswordRecovery />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboardsubscriber" element={<DashboardSubscriber />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
