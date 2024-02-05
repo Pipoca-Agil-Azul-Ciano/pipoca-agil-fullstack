@@ -4,7 +4,6 @@ import Secao2 from "../../assets/Home/Seção 2.png";
 import Carousel from "react-elastic-carousel";
 import Secao3e4 from "../../assets/Home/Seção 3 e 4.png";
 import Secao567 from "../../assets/Home/Seção 5 6 7.png";
-import { motion } from "framer-motion";
 import Secao8 from "../../assets/Home/Seção 8.png";
 import { Box, Center } from "@chakra-ui/react";
 import HeaderHome from "../../components/Home/Header";
@@ -61,12 +60,10 @@ export default function Home() {
         <Box marginTop={"1200px"}>
           <Carousel breakPoints={breakPoints} showArrows={false}>
             {subs.map((sub) => (
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              <div
               >
                 <SubsComments photo={sub.image} comment={sub.comment} />
-              </motion.div>
+              </div>
             ))}
           </Carousel>
         </Box>
