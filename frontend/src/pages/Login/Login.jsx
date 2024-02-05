@@ -23,7 +23,7 @@ import Botao from "../../components/Botao";
 import TextField from "../../components/TextField";
 import theme from "../../themes/theme";
 import { login } from "../../services/subscriber";
-
+import useProtectedPage from "../../hooks/useProtectedPage";
 const LoginSchema = Yup.object().shape(
   {
     email: Yup.string().when("password", {
@@ -45,9 +45,11 @@ const LoginSchema = Yup.object().shape(
 const initialValues = {
   email: "",
   password: "",
-};
+};  
+
 
 function Login() {
+  useProtectedPage()
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
