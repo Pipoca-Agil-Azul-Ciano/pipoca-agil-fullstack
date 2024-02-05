@@ -13,6 +13,7 @@ import { subs } from "../../services/subscomments";
 import SubsComments from "../../components/Home/SubsComments";
 import CustomButton from "../../components/Home/CustomButton";
 import FooterHome from "../../components/Home/Footer";
+import PhotoGallery from "../../components/Home/PhotoGallery";
 
 export default function Home() {
   const breakPoints = [{ width: 1200, itemsToShow: 4 }];
@@ -119,7 +120,10 @@ export default function Home() {
         bgImage={Secao8}
         h={"1429px"}
         w={"1440px"}
-      ></Box>
+        position={"relative"}
+      >
+        <PhotoGallery />
+      </Box>
       <FooterHome />
     </Box>
   );

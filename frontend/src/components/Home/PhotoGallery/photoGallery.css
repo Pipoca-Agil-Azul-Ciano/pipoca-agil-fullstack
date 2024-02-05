@@ -1,0 +1,46 @@
+.gallery-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1312px;
+  background: transparent;
+  position: absolute;
+  top: -800px;
+  left: 60px;
+}
+
+.gallery-tabs {
+  display: flex;
+  column-gap: 48px;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.tab {
+  padding-bottom: 4px;
+  cursor: pointer;
+  color: #fff;
+  opacity: 0.5;
+}
+
+.tab-active {
+  color: #d9d9d9;
+  font-weight: 600;
+  opacity: 1;
+  border-bottom: 2px solid #d9d9d9;
+  padding-bottom: 8px;
+}
+
+.gallery-wrapper1 {
+  display: grid;
+  grid-template-areas:
+    "photo1 photo3 photo4 photo6"
+    "photo2 . photo5 photo7";
+  background: transparent;
+  margin-top: 48px;
+  justify-items: center;
+  align-items: stretch;
+  row-gap: 16px;
+  column-gap: 16px;
+}
