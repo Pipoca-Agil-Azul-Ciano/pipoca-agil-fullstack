@@ -25,16 +25,25 @@ import VideoComponent from "../../components/Dashboard/Video";
 import "./styleDash.css";
 import { motion } from "framer-motion";
 import PadlockVideo from "../../assets/Dashboard/PadlockVideo.png";
+import IconSign from "../../assets/success-logo.webp";
 import BackgroundTrails from "../../assets/Dashboard/Intersect.png";
 import NotificationModal from "../Modals/NotificationModal";
 import { trails } from "../../services/trails";
+import { activatePlan } from "../../services/subscriber";
+import useProtectedPage from "../../hooks/useProtectedPage";
+
 export default function Dashboard() {
-  const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+  const [showAlertModal, setShowAlertModal] = React.useState(false);
+  const [signModal,setShowSignModal]=React.useState(false);
   const [trail, setTrail] = useState(trails[0]);
   const [bgColorButton, setBgColorButton] = useState("linear-gradient(181deg, #FFF 1.27%, #979797 177.59%)");
+  const [bgColorButtonSign, setBgColorButtonSign] = useState("linear-gradient(180deg, #8D73CC 0%, #835AE2 100%)");
   const [colorTextButton,setColorTextButton]=useState(" linear-gradient(267deg, #7F00FF -14.87%, #E100FF 105.66%)")
   const [textButton,setTextButton]=useState("Assinar")
+  const [textButtonSign,setTextButtonSign]=useState("Assinar")
   const [hoverBgColor,setHoverBgColor]=useState("linear-gradient(189deg, rgba(127,0,255,1) 35%, rgba(225,0,255,1) 100%)")
+  const [hoverBgColorSign,setHoverBgColorSign]=useState("linear-gradient(180deg, #C472D1 -36.46%, #C199E3 33.8%, #936AE2 80.44%, #835AE2 108.57%)")
+
   const [videoTrail, setVideoTrail] = useState(trail.videos[0]);
   const [video, setVideo] = useState({
     iframe:
@@ -47,12 +56,18 @@ export default function Dashboard() {
     views: "98",
     blocked: false,
   });
+  useProtectedPage()
   const breakPoints = [{ width: 1200, itemsToShow: 4 }];
   const changeButton=()=>{
     setBgColorButton("linear-gradient(270deg, rgba(123,97,197,1) 25%, rgba(151,191,203,1) 66%)")
     setColorTextButton("linear-gradient(to right, white, transparent)")
     setHoverBgColor("linear-gradient(270deg, rgba(123,97,197,1) 25%, rgba(151,191,203,1) 66%)")
     setTextButton("Assinado ✔")
+  }
+  const changeButtonSign=()=>{
+    setBgColorButtonSign("linear-gradient(270deg, rgba(123,97,197,1) 25%, rgba(151,191,203,1) 66%)")
+    setHoverBgColorSign("linear-gradient(270deg, rgba(123,97,197,1) 25%, rgba(151,191,203,1) 66%)")
+    setTextButtonSign("Assinado ✔")
   }
   const changeVideo = (video) => {
     setVideo(video);
@@ -64,6 +79,20 @@ export default function Dashboard() {
   const changeVideoTrail = (video) => {
     setVideoTrail(video);
   };
+  const signPlan= async()=>{
+    
+    changeButtonSign()
+    const token=sessionStorage.getItem("token")
+    try {
+      setShowSignModal(true)
+      activatePlan(
+        token
+      ) 
+      sessionStorage.setItem("user", "SUBSCRIBER");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Box
       minHeight="100vh" // Garante que o conteúdo ocupa pelo menos a altura da viewport
@@ -104,7 +133,7 @@ export default function Dashboard() {
               ) : (
                 <div
                   className=".videoDiv"
-                  onClick={() => setShowSuccessModal(true)}
+                  onClick={() => setShowAlertModal(true)}
                 >
                   <Image
                     src={video.thumb}
@@ -262,8 +291,9 @@ export default function Dashboard() {
                   <Text>Totalmente gratuito.</Text>
                 </Center>
               </Box>
-              <Center marginTop={"30px"}>
-                <SignButton text={"Assinar"} />
+              <Center marginTop={"30px"} >
+                <SignButton onClick={()=>{signPlan()}} text={textButtonSign} bgColor={bgColorButtonSign} colorTextButton={colorTextButton}
+            setHoverBgColorSignBgColor={hoverBgColorSign}/>
               </Center>
             </Box>
           </Box>
@@ -533,15 +563,26 @@ export default function Dashboard() {
         </Box>
       </Box>
       <Footer />
-      {showSuccessModal ? (
+      {showAlertModal ? (
         <NotificationModal
           message={
             "Para desfrutar deste conteúdo, torne-se um assinante Pipoca Ágil."
           }
           pathNavigate={"/dashboard"}
           icon={IconModal}
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
+          isOpen={showAlertModal}
+          onClose={() => setShowAlertModal(false)}
+        />
+      ) : null}
+       {signModal ? (
+        <NotificationModal
+          message={
+            "Parabéns! Você agora é um assinante pipoca ágil!"
+          }
+          pathNavigate={"/dashboardsubscriber"}
+          icon={IconSign}
+          isOpen={signModal}
+          onClose={() => setShowSignModal(false)}
         />
       ) : null}
     </Box>

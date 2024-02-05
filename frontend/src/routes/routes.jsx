@@ -11,13 +11,13 @@ const ConfigRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/password-recovery" element={<PasswordRecovery />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboardsubscriber" element={<DashboardSubscriber />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

@@ -25,6 +25,7 @@ import NotificationModal from "../Modals/NotificationModal";
 import CardTrail from "../../components/CardTrails";
 import { trails } from "../../services/trails";
 import BackgroundTrails from "../../assets/Dashboard/Intersect.png";
+import useProtectedPage from "../../hooks/useProtectedPage";
 export default function DashboardSubscriber() {
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
   const [trail, setTrail] = useState(trails[0]);
@@ -45,6 +46,7 @@ export default function DashboardSubscriber() {
     blocked: false,
   });
   const breakPoints = [{ width: 1200, itemsToShow: 4 }];
+  useProtectedPage()
   const changeButton=()=>{
     setBgColorButton("linear-gradient(270deg, rgba(123,97,197,1) 25%, rgba(151,191,203,1) 66%)")
     setColorTextButton("linear-gradient(to right, white, transparent)")
