@@ -2,6 +2,7 @@ import React from "react";
 import "../pages/Login/login.css";
 import { Button } from "@chakra-ui/react";
 function SignButton({ text, type, isLoading, isDisabled, ...props }) {
+
   return (
     <Button
       isDisabled={isDisabled}
