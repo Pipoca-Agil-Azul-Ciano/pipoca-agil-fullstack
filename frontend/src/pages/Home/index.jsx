@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactTyped } from "react-typed";
 import Secao1 from "../../assets/Home/Seção 1.png";
 import Secao2 from "../../assets/Home/Seção 2.png";
 import Carousel from "react-elastic-carousel";
@@ -32,10 +33,33 @@ export default function Home() {
           display={"flex"}
           justifyContent={"center"}
           alignContent={"center"}
-          marginTop={"320px"}
+          marginTop={"176px"}
+          marginLeft={"332px"}
+          fontFamily={"Comfortaa"}
+          fontSize={40}
+          fontWeight={600}
+        >
+          <ReactTyped
+            strings={[
+              "<span style='color: #F1F1F1;'>Podcast de </span><strong style='color: #FFC52F;'>Agilidade</strong>",
+              "<span style='color: #F1F1F1;'>Mais </span><strong style='color: #FFC52F;'>animado</strong>",
+              "<span style='color: #F1F1F1;'>Do mundo </span><strong style='color: #FFC52F;'>Ágil</strong>",
+            ]}
+            typeSpeed={20}
+            backSpeed={30}
+            loop
+            style={{ width: "500px" }}
+          />
+        </Center>
+
+        <Center
+          display={"flex"}
+          justifyContent={"center"}
+          alignContent={"center"}
+          marginTop={"120px"}
           marginLeft={"120px"}
         >
-          <CustomButton text={"Saiba Mais"} linkTo={"#section3"}/>
+          <CustomButton text={"Saiba Mais"} linkTo={"#section3"} />
         </Center>
       </Box>
       <Box
@@ -49,7 +73,7 @@ export default function Home() {
       <Box
         backgroundSize="cover"
         backgroundPosition="center"
-	id="section3"
+        id="section3"
         backgroundRepeat="no-repeat"
         bgImage={Secao3e4}
         h={"2882px"}
@@ -79,8 +103,7 @@ export default function Home() {
         h={"3882px"}
         w={"1440px"}
       >
-
-<Center
+        <Center
           display={"flex"}
           justifyContent={"center"}
           alignContent={"center"}
