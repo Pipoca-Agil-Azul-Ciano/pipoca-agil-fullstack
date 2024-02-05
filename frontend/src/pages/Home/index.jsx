@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactTyped } from "react-typed";
 import Secao1 from "../../assets/Home/Seção 1.png";
 import Secao2 from "../../assets/Home/Seção 2.png";
 import Carousel from "react-elastic-carousel";
@@ -12,7 +11,6 @@ import { subs } from "../../services/subscomments";
 import SubsComments from "../../components/Home/SubsComments";
 import CustomButton from "../../components/Home/CustomButton";
 import FooterHome from "../../components/Home/Footer";
-import PhotoGallery from "../../components/Home/PhotoGallery";
 
 export default function Home() {
   const breakPoints = [{ width: 1200, itemsToShow: 4 }];
@@ -33,33 +31,10 @@ export default function Home() {
           display={"flex"}
           justifyContent={"center"}
           alignContent={"center"}
-          marginTop={"176px"}
-          marginLeft={"332px"}
-          fontFamily={"Comfortaa"}
-          fontSize={40}
-          fontWeight={600}
-        >
-          <ReactTyped
-            strings={[
-              "<span style='color: #F1F1F1;'>Podcast de </span><strong style='color: #FFC52F;'>Agilidade</strong>",
-              "<span style='color: #F1F1F1;'>Mais </span><strong style='color: #FFC52F;'>animado</strong>",
-              "<span style='color: #F1F1F1;'>Do mundo </span><strong style='color: #FFC52F;'>Ágil</strong>",
-            ]}
-            typeSpeed={20}
-            backSpeed={30}
-            loop
-            style={{ width: "500px" }}
-          />
-        </Center>
-
-        <Center
-          display={"flex"}
-          justifyContent={"center"}
-          alignContent={"center"}
-          marginTop={"120px"}
+          marginTop={"320px"}
           marginLeft={"120px"}
         >
-          <CustomButton text={"Saiba Mais"} linkTo={"#section3"} />
+          <CustomButton text={"Saiba Mais"} linkTo={"#section3"}/>
         </Center>
       </Box>
       <Box
@@ -73,7 +48,7 @@ export default function Home() {
       <Box
         backgroundSize="cover"
         backgroundPosition="center"
-        id="section3"
+	id="section3"
         backgroundRepeat="no-repeat"
         bgImage={Secao3e4}
         h={"2882px"}
@@ -101,7 +76,8 @@ export default function Home() {
         h={"3882px"}
         w={"1440px"}
       >
-        <Center
+
+<Center
           display={"flex"}
           justifyContent={"center"}
           alignContent={"center"}
@@ -117,10 +93,7 @@ export default function Home() {
         bgImage={Secao8}
         h={"1429px"}
         w={"1440px"}
-        position={"relative"}
-      >
-        <PhotoGallery />
-      </Box>
+      ></Box>
       <FooterHome />
     </Box>
   );
