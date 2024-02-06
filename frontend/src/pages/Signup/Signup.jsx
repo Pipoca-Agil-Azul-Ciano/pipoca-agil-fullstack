@@ -166,7 +166,7 @@ function Signup() {
             >
               <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
                 <Image src={Rectangle} height={"100vh"} />
-                <ChakraLink href="/caminho/do/link">
+                <ChakraLink href="/login">
                   <Image
                     src={IconeDeVoltar}
                     marginTop="50px"

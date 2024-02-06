@@ -36,20 +36,20 @@ export default function Header() {
         <Link padding={"16px"} marginRight={"40px"} _hover={{
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
-          }}>
+          }} href="#dashboard">
           <Text >Dashboard</Text>
         </Link>
 
         <Link padding={"16px" } marginRight={"40px"} _hover={{
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
-          }}>
+          }} href="#trails">
           <Text>Trilhas</Text>
         </Link>
         <Link padding={"16px"} marginRight={"30px"} _hover={{
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
-          }}>
+          }}  href="#dashboard">
           <Text>Conteúdos</Text>
         </Link>
         <Link padding={"16px"} >

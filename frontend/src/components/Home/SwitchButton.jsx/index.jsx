@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 
 import "./stylesSwitchButton.css";
+import { goToLoginPage, goToSignup } from "../../../routes/coordinator";
+import { useNavigate } from "react-router-dom";
 
 function SwitchButton() {
   const [isChecked, setIsChecked] = useState(false);
-
+  const navigate=useNavigate()
   const toggleSwitch = () => {
+  
     setIsChecked(!isChecked);
+    setTimeout(() => {
+      if (isChecked) {
+        goToSignup(navigate)
+      }else{
+        goToLoginPage(navigate)
+      
+      }
+    }, "2000");
   };
   return (
     <div

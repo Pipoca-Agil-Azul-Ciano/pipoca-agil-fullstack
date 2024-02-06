@@ -49,12 +49,12 @@ const initialValues = {
 
 
 function Login() {
-  useProtectedPage()
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
    try {
-    const res= login(
+     const res=login(
         {
           email: values.email,
           password: values.password,
@@ -62,14 +62,14 @@ function Login() {
         navigate
       );
       
-      // res.then((data)=>{
+      res.then((data)=>{
     
 
 
-      //  console.log(LoginSchema.fields.email);
-      //   console.log(data.response.data);}).catch((err)=>{
-      //     console.log(LoginSchema.fields.email);
-      //     console.log(err);});
+       console.log(LoginSchema.fields.email);
+        console.log(data.response.data);}).catch((err)=>{
+          
+          console.log(err);});
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert("Falha no login. Verifique suas informações.");
@@ -77,7 +77,7 @@ function Login() {
     }
     
   };
-
+useProtectedPage()
   return (
     <Formik
       validationSchema={LoginSchema}
@@ -94,7 +94,7 @@ function Login() {
           >
             <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
               <Image src={Rectangle} height={"100vh"} />
-              <ChakraLink href="/caminho/do/link">
+              <ChakraLink href="/">
                 <Image
                   src={IconeDeVoltar}
                   marginLeft={"10px"}

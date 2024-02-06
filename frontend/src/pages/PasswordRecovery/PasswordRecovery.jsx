@@ -15,10 +15,17 @@ import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import Padlock from "../../assets/padlock.png";
 import Botao from "../../components/Botao";
 import { Formik, Form, Field } from "formik";
+import IconSign from "../../assets/success-logo.webp";
 import * as Yup from "yup";
 import TextField from "../../components/TextField";
 import { useNavigate } from "react-router-dom";
+import NotificationModal from "../Modals/NotificationModal";
+import IconModal from "../../assets/ModalImportant.png";
+import { changePassword } from "../../services/subscriber";
 function PasswordRecovery() {
+  const [showSuccsessModal, setShowSuccsessModal] = React.useState(false);
+  const [showNotificationModal, setShowNotificationModal] = React.useState(false);
+
   const EmailSchema = Yup.object().shape({
     email: Yup.string().required("Informe um e-mail."),
   });
@@ -27,8 +34,29 @@ function PasswordRecovery() {
   };
   const navigate = useNavigate();
   const handleSubmit = async (values) => {
-    navigate("/new-password")
+    try {
+await changePassword(values.email)
+    .then((data)=>{
+console.log(data.data);
+   if (data.data!=="Nova senha enviada por email.") {
+   
+    setShowNotificationModal(true)
+   }else{
+    setShowSuccsessModal(true)
+   }
+     
+    }).catch((err)=>{
+      console.log(err);
+    
+    })
+  } catch (error) {
+      console.log(error);
+     
+
+    }
+  
   };
+
   return (
     <Formik
       validationSchema={EmailSchema}
@@ -39,8 +67,7 @@ function PasswordRecovery() {
     >
       {({ errors, touched, setFieldValue, values }) => (
       
-        <Form>
-      {console.log(errors.email,values.email )}    
+        <Form>    
           <Box
 	   theme={theme}
 	   color={theme.colors.pipocaColors.font}
@@ -54,7 +81,7 @@ function PasswordRecovery() {
             }}
           >
             <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
-              <ChakraLink onClick={()=>navigate("/")}>
+              <ChakraLink onClick={()=>navigate("/login")}>
                 <Image
                   src={IconeDeVoltar}
                   marginTop="50px"
@@ -114,8 +141,33 @@ function PasswordRecovery() {
               </Box>
             </Center>
           </Box>
+          {showSuccsessModal ? (
+         <NotificationModal
+         message={
+           "Sua senha foi redefinida com sucesso! Verifique sua nova senha em seu email."
+         }
+         pathNavigate={"/login"}
+         icon={IconSign}
+         isOpen={showSuccsessModal}
+         onClose={() => setShowSuccsessModal(false)}
+       />
+      ) : null}
+       {showNotificationModal ? (
+         <NotificationModal
+         message={
+           "Email não cadastrado"
+         }
+         pathNavigate={"/password-recovery"}
+         icon={IconModal}
+         isOpen={showNotificationModal}
+         onClose={() =>setShowNotificationModal(false) }
+       />
+      
+      ) : null}
         </Form>
+        
       )}
+      
     </Formik>
   );
 }

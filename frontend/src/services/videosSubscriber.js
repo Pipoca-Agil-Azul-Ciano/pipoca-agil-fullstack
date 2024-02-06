@@ -1,5 +1,5 @@
 
-export const videos=[
+export const videosSubscriber=[
 	{
 		iframe:'<iframe width="560" height="315" src="https://www.youtube.com/embed/5JADwWwCe2g?si=Rh7b2q8LOeroGJ8v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
 		thumb:"https://i.ytimg.com/vi/5JADwWwCe2g/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBlxz0f7F0mzx9EhjMzSdyenAmAAA",
@@ -43,7 +43,6 @@ export const videos=[
 		url:"https://www.youtube.com/embed/Gc24uiAeyq4?si=GbNPnDECk-SdhpyK",
 		datePost:"há 1 ano",
 		views:"127",
-		blocked:true
+		blocked:false
 	},
 ]
-
