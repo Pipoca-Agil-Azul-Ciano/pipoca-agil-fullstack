@@ -20,15 +20,17 @@ export const login=(form,navigate)=>{
 		
 		console.log(form)
 		console.log(data);
-		verifyUserType(data.data.hash,navigate)
+		if(data.status===200){
+		const token=data.data.hash;
+		verifyUserType(token,navigate)
 		sessionStorage.setItem("user",data.data.userType);
-		sessionStorage.setItem("token",data.data.hash);
-		
+		sessionStorage.setItem("token",token);
+	}
 		
 	})
 	.catch((err) => {
 		console.log(err);
-		alert(err.response);	
+		alert(err.response.data);	
 		return err;
 	      });
 	    
@@ -36,7 +38,7 @@ export const login=(form,navigate)=>{
 }
 export const activatePlan=(token)=>{
 
-	const res= httpClient.post("/user/activatePlan",{"userHash":token})
+	const res= httpClient.post("/user/subscription/activatePlan",{"userHash":token})
 	.then((data) =>{
 		
 		console.log(token)
@@ -73,3 +75,22 @@ export const verifyUserType=(token,navigate)=>{
 	    
 	      return res
 }
+export const changePassword=(email)=>{
+
+	const res= httpClient.post("/user/password-recovery",{"email":email})
+	.then((data) =>{
+	
+		return data
+		
+		
+		
+	})
+	.catch((err) => {
+		console.log(err);
+		alert(err.response.data);	
+		return err.response.data
+	      });
+	   
+	      return res
+}
+

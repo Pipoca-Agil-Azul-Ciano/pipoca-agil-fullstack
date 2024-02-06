@@ -101,7 +101,7 @@ export default function Dashboard() {
       fontFamily={"Comfortaa"}
     >
       <Header />
-      <Box flex="1" padding={"85px 20px 0px 60px"}>
+      <Box flex="1" padding={"85px 20px 0px 60px"}  id="dashboard">
         <Box display={"flex"}>
           <Box display={"flex"} flexDirection={"column"}>
             <Box>
@@ -421,7 +421,7 @@ export default function Dashboard() {
           </Box>
         </Box>
       </Box>
-      <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+      <Box display={"flex"} flexDirection={"column"} alignItems={"center"} id="trails">
         <Text fontFamily={"Comfortaa"} fontSize={"40px"} marginBottom={"50px"}>
           Navegue por Trilhas
         </Text>
