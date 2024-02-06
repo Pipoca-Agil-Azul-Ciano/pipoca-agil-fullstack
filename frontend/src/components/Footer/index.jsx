@@ -38,9 +38,18 @@ export default function Footer() {
         flexDirection={"column"}
         fontWeight={"400"}
       >
-        <Text paddingBottom={"8px"}>Dashboard</Text>
-        <Text paddingBottom={"8px"}>Trilhas</Text>
-        <Text paddingBottom={"8px"}>Meus conteúdos</Text>
+        <Link href="#dashboard">
+          {" "}
+          <Text paddingBottom={"8px"}>Dashboard</Text>
+        </Link>
+        <Link href="#trails">
+          {" "}
+          <Text paddingBottom={"8px"}>Trilhas</Text>
+        </Link>
+        <Link href="#dashboard">
+          {" "}
+          <Text paddingBottom={"8px"}>Meus conteúdos</Text>
+        </Link>
       </Box>
       <Box
         display={"flex"}

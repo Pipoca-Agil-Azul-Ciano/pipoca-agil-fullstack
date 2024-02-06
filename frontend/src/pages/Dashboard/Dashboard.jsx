@@ -84,11 +84,15 @@ export default function Dashboard() {
     changeButtonSign()
     const token=sessionStorage.getItem("token")
     try {
-      setShowSignModal(true)
-      activatePlan(
+      await activatePlan(
         token
-      ) 
-      sessionStorage.setItem("user", "SUBSCRIBER");
+      ).then(()=>{
+        setShowSignModal(true)
+        sessionStorage.setItem("user", "SUBSCRIBER");
+      })
+     
+     
+     
     } catch (error) {
       console.log(error);
     }
