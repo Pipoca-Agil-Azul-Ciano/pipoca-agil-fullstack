@@ -38,7 +38,7 @@ export const login=(form,navigate)=>{
 }
 export const activatePlan=(token)=>{
 
-	const res= httpClient.post("/user/subscription/activatePlan",{"userHash":token})
+	const res= httpClient.post("/user/subscription/activate",{"userHash":token})
 	.then((data) =>{
 		
 		console.log(token)
@@ -55,11 +55,11 @@ export const activatePlan=(token)=>{
 }
 export const verifyUserType=(token,navigate)=>{
 
-	const res= httpClient.post("/user/verify",{"userHash":token})
+	const res= httpClient.get(`user/${token}`)
 	.then((data) =>{
 	
 		console.log("RESPOSTA DO VERIFY:",data);
-		if (data.data==="SUBSCRIBE") {
+		if (data.data.userType==="SUBSCRIBER") {
 			goToDashboardSubscriber(navigate)
 		}else{
 			goToDashboard(navigate)
@@ -72,8 +72,8 @@ export const verifyUserType=(token,navigate)=>{
 		alert(err.response);	
 		return err;
 	      });
-	    
-	      return res
+	    return res
+	     
 }
 export const changePassword=(email)=>{
 

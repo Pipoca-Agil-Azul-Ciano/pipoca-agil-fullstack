@@ -6,7 +6,7 @@ const useProtectedPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (sessionStorage.getItem("user")==="SUBSCRIBE") {
+    if (sessionStorage.getItem("user")==="SUBSCRIBER") {
       goToDashboardSubscriber(navigate)
     } else if(sessionStorage.getItem("user")==="REGISTERED"){
 	goToDashboard(navigate)

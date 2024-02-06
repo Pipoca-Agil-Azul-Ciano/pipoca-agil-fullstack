@@ -2,8 +2,16 @@ import { Box, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import Logo from "../../assets/Dashboard/Footer/logo.png";
 import Profile from "../../assets/Dashboard/profile.png";
-
+import { useNavigate } from "react-router-dom";
+import Logout from "../../assets/Dashboard/logout.png"
 export default function Header() {
+  const navigate = useNavigate()
+  const logout=()=>{
+    sessionStorage.clear()
+    setTimeout(() => {
+    navigate("/")
+  }, "2000");
+  }
   return (
     <Box
       display={"flex"}
@@ -55,6 +63,10 @@ export default function Header() {
         <Link padding={"16px"} >
           <Image src={Profile} height={"56px"} width={"56px"} />
         </Link>
+        <Link padding={"16px"} onClick={() =>logout()}>
+          <Image src={Logout} height={"30px"} width={"30px"} />
+        </Link>
+
       </Box>
     </Box>
   );
