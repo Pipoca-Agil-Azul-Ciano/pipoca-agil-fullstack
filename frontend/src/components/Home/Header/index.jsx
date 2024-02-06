@@ -39,6 +39,7 @@ export default function HeaderHome() {
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
           }}
+          href="#section2"
         >
           <Text>Sobre</Text>
         </Link>
@@ -49,6 +50,7 @@ export default function HeaderHome() {
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
           }}
+          href="#section3"
         >
           <Text>Recomendação de Trilhas</Text>
         </Link>
@@ -59,6 +61,8 @@ export default function HeaderHome() {
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
           }}
+
+          href="#section4"
         >
           <Text>Clube de assinantes</Text>
         </Link>
@@ -69,6 +73,7 @@ export default function HeaderHome() {
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
           }}
+          href="#section8"
         >
           <Text>Comunidade</Text>
         </Link>

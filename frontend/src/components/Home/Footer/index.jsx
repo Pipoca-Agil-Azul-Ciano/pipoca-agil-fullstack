@@ -32,26 +32,32 @@ export default function FooterHome() {
           marginRight={"18px"}
         />
       </Link>
-      <Box
-        display={"flex"}
-        color={"#FFF"}
-        flexDirection={"column"}
-       
-      >
-        <Text paddingBottom={"8px"}>FAQ</Text>
-        <Text paddingBottom={"8px"}>Clube de Assinantes</Text>
-        <Text paddingBottom={"8px"}>Galeria de Fotos</Text>
-	<Text paddingBottom={"8px"}>Comunidade</Text>
+      <Box display={"flex"} color={"#FFF"} flexDirection={"column"}>
+        <Link href="#section5">
+          <Text paddingBottom={"8px"}>FAQ</Text>
+        </Link>
+        <Link href="#section4">
+          <Text paddingBottom={"8px"}>Clube de Assinantes</Text>
+        </Link>
+        <Link href="#section7">
+          <Text paddingBottom={"8px"}>Galeria de Fotos</Text>
+        </Link>
+        <Link href="#section8">
+          <Text paddingBottom={"8px"}>Comunidade</Text>
+        </Link>
       </Box>
       <Box
         display={"flex"}
         color={"#FFF"}
         flexDirection={"column"}
-  
         marginLeft={"80px"}
       >
-        <Text paddingBottom={"8px"}>Sobre o Pipoca Ágil</Text>
+        <Link href="#section2">
+          <Text paddingBottom={"8px"}>Sobre o Pipoca Ágil</Text>
+        </Link>
+        <Link href="#section8">
         <Text paddingBottom={"8px"}>Comunidade</Text>
+        </Link>
         <Text paddingBottom={"8px"}>Políticas de privacidade</Text>
         <Text paddingBottom={"8px"}>Contate-nos</Text>
       </Box>

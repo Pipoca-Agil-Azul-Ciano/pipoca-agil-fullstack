@@ -62,14 +62,13 @@ function Login() {
         navigate
       );
       
-      res.then((data)=>{
+      // res.then((data)=>{
     
 
 
-       console.log(LoginSchema.fields.email);
-        console.log(data.response.data);}).catch((err)=>{
+      //   console.log(data.response.data);}).catch((err)=>{
           
-          console.log(err);});
+      //     console.log(err);});
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert("Falha no login. Verifique suas informações.");

@@ -25,10 +25,10 @@ import Gallery3Photo5 from "../../../assets/Home/photo_gallery/3/photo5.png";
 import Gallery3Photo6 from "../../../assets/Home/photo_gallery/3/photo6.png";
 import Gallery3Photo7 from "../../../assets/Home/photo_gallery/3/photo7.png";
 
-function PhotoGallery() {
+function PhotoGallery({...props}) {
   const [openTab, setOpenTab] = useState(1);
   return (
-    <div className="gallery-container">
+    <div className="gallery-container" id={props.id}>
       <div className="gallery-tabs">
         <span
           onClick={(e) => {

@@ -68,6 +68,7 @@ export default function Home() {
         backgroundRepeat="no-repeat"
         bgImage={Secao2}
         h={"1429px"}
+      id="section2"
         w={"1440px"}
       ></Box>
       <Box
@@ -82,7 +83,7 @@ export default function Home() {
         flexDirection={"column"}
         justifyContent={"center"}
       >
-        <Box marginTop={"1200px"}>
+        <Box marginTop={"1200px"} id="section4">
           <Carousel breakPoints={breakPoints} showArrows={false}>
             {subs.map((sub) => (
               <div
@@ -98,6 +99,7 @@ export default function Home() {
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         bgImage={Secao567}
+        id="section5"
         h={"3882px"}
         w={"1440px"}
       >
@@ -115,11 +117,12 @@ export default function Home() {
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         bgImage={Secao8}
+        id="section8"
         h={"1429px"}
         w={"1440px"}
         position={"relative"}
       >
-        <PhotoGallery />
+        <PhotoGallery id="section7"/>
       </Box>
       <FooterHome />
     </Box>
