@@ -12,6 +12,7 @@ export default function CardTrail({ title, logo, description, ilustration }) {
       fontFamily={"Questrial"}
       borderRadius={8}
       padding={"15px"}
+      _hover={{"cursor":"pointer"}}
       justifyContent={"space-between"}
     >
       <Image src={logo} w={50} h={50}/>

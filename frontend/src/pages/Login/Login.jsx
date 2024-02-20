@@ -54,24 +54,17 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
    try {
-     const res=login(
+login(
         {
           email: values.email,
           password: values.password,
         },
         navigate
       );
-      
-      // res.then((data)=>{
-    
-
-
-      //   console.log(data.response.data);}).catch((err)=>{
-          
-      //     console.log(err);});
+     
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Falha no login. Verifique suas informações.");
+     
     
     }
     
@@ -103,6 +96,7 @@ useProtectedPage()
                   boxSize="50px"
                 />
               </ChakraLink>
+              <ChakraLink href="/">
               <Box position="absolute" top="10" right="7">
                 <Image
                   src={LogoPipocaAgil}
@@ -111,6 +105,7 @@ useProtectedPage()
                   alt="Logo Pipoca Ágil"
                 />
               </Box>
+              </ChakraLink>
             </Box>
 
             <Box

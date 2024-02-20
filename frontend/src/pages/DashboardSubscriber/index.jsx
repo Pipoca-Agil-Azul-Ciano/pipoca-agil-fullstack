@@ -94,7 +94,7 @@ export default function DashboardSubscriber() {
                 marginBottom={"64px"}
                 marginRight={"600px"}
               >
-                Acesso exclusivo aos quatro últimos vídeos
+                Acesso exclusivo a todos os vídeos do canal
               </Text>
             </Box>
             <Center>

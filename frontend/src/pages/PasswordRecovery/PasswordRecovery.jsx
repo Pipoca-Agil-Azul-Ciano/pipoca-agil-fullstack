@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import theme from "../../themes/theme";
-import IconError from '../../assets/errorIcon.png'
+import IconError from "../../assets/errorIcon.png";
 import Background from "../../assets/background-password-recovery.svg";
 import IconeDeVoltar from "../../assets/Login/IconeDeVoltar.png";
 import Padlock from "../../assets/padlock.png";
@@ -24,7 +24,9 @@ import IconModal from "../../assets/ModalImportant.png";
 import { changePassword } from "../../services/subscriber";
 function PasswordRecovery() {
   const [showSuccsessModal, setShowSuccsessModal] = React.useState(false);
-  const [showNotificationModal, setShowNotificationModal] = React.useState(false);
+  const [showNotificationModal, setShowNotificationModal] =
+    React.useState(false);
+  const [message, setMessage] = React.useState("");
 
   const EmailSchema = Yup.object().shape({
     email: Yup.string().required("Informe um e-mail."),
@@ -35,26 +37,18 @@ function PasswordRecovery() {
   const navigate = useNavigate();
   const handleSubmit = async (values) => {
     try {
-await changePassword(values.email)
-    .then((data)=>{
-console.log(data.data);
-   if (data.data!=="Nova senha enviada por email.") {
-   
-    setShowNotificationModal(true)
-   }else{
-    setShowSuccsessModal(true)
-   }
-     
-    }).catch((err)=>{
-      console.log(err);
-    
-    })
-  } catch (error) {
-      console.log(error);
-     
+      const result = await changePassword(values.email);
+      if (result.status === 200) {
+        setMessage(result.data);
+        setShowSuccsessModal(true);
+      } else {
+        setMessage(result.response.data);
 
+        setShowNotificationModal(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  
   };
 
   return (
@@ -66,11 +60,10 @@ console.log(data.data);
       onSubmit={handleSubmit}
     >
       {({ errors, touched, setFieldValue, values }) => (
-      
-        <Form>    
+        <Form>
           <Box
-	   theme={theme}
-	   color={theme.colors.pipocaColors.font}
+            theme={theme}
+            color={theme.colors.pipocaColors.font}
             backgroundImage={Background}
             backgroundColor={"#E3E3E3"}
             style={{
@@ -81,7 +74,7 @@ console.log(data.data);
             }}
           >
             <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
-              <ChakraLink onClick={()=>navigate("/login")}>
+              <ChakraLink onClick={() => navigate("/login")}>
                 <Image
                   src={IconeDeVoltar}
                   marginTop="50px"
@@ -104,70 +97,72 @@ console.log(data.data);
                 height={"658px"}
                 width={"874px"}
                 flexDirection={"column"}
-		
               >
-                <Image src={Padlock} marginTop={"20px"}/>
-                <Text fontFamily={'Comfortaa'}
-		fontSize={'40px'}
-		fontWeight={700}
-		marginBottom={"-40px"}
-		>Esqueceu sua senha?</Text>
-                <Text fontSize={"24px"} fontWeight={400} fontFamily={ theme.fonts.pipocaFonts.placeholder}
-		textAlign={'center'} >
-                  Digite seu e-mail que enviaremos um link{<br></br>} para a redefinição de
-                  senha.
+                <Image src={Padlock} marginTop={"20px"} />
+                <Text
+                  fontFamily={"Comfortaa"}
+                  fontSize={"40px"}
+                  fontWeight={700}
+                  marginBottom={"-40px"}
+                >
+                  Esqueceu sua senha?
                 </Text>
-		<FormControl marginBottom={"1em"}>
-    <FormErrorMessage name="lastName" />
-                    {errors.email && touched.email ? (
-                     <Box display={'flex'} marginLeft={170}>
-                      <Image src={IconError} marginRight={1}/>
-		     <Text fontSize={"12px"}  color="red.500">
+                <Text
+                  fontSize={"24px"}
+                  fontWeight={400}
+                  fontFamily={theme.fonts.pipocaFonts.placeholder}
+                  textAlign={"center"}
+                >
+                  Digite seu e-mail que enviaremos um link{<br></br>} para a
+                  redefinição de senha.
+                </Text>
+                <FormControl marginBottom={"1em"}>
+                  <FormErrorMessage name="lastName" />
+                  {errors.email && touched.email ? (
+                    <Box display={"flex"} marginLeft={170}>
+                      <Image src={IconError} marginRight={1} />
+                      <Text fontSize={"12px"} color="red.500">
                         {errors.email}
                       </Text>
-                      </Box>
-                    ) : null}
-                    <Field
-                      as={TextField}
-                      name="email"
-                      placeholder="Digite o e-mail para redefinição"
-                      type="email"
-                      hasError={errors.email}
-                      isCheck={errors.email === undefined && values.email !==''}
-                    />
-                   
-                  </FormControl>
-                <Botao text={"Recuperar"} type={"submit"} marginBottom={"70px"}/>
+                    </Box>
+                  ) : null}
+                  <Field
+                    as={TextField}
+                    name="email"
+                    placeholder="Digite o e-mail para redefinição"
+                    type="email"
+                    hasError={errors.email}
+                    isCheck={errors.email === undefined && values.email !== ""}
+                  />
+                </FormControl>
+                <Botao
+                  text={"Recuperar"}
+                  type={"submit"}
+                  marginBottom={"70px"}
+                />
               </Box>
             </Center>
           </Box>
           {showSuccsessModal ? (
-         <NotificationModal
-         message={
-           "Sua senha foi redefinida com sucesso! Verifique sua nova senha em seu email."
-         }
-         pathNavigate={"/login"}
-         icon={IconSign}
-         isOpen={showSuccsessModal}
-         onClose={() => setShowSuccsessModal(false)}
-       />
-      ) : null}
-       {showNotificationModal ? (
-         <NotificationModal
-         message={
-           "Email não cadastrado"
-         }
-         pathNavigate={"/password-recovery"}
-         icon={IconModal}
-         isOpen={showNotificationModal}
-         onClose={() =>setShowNotificationModal(false) }
-       />
-      
-      ) : null}
+            <NotificationModal
+              message={message}
+              pathNavigate={"/login"}
+              icon={IconSign}
+              isOpen={showSuccsessModal}
+              onClose={() => setShowSuccsessModal(false)}
+            />
+          ) : null}
+          {showNotificationModal ? (
+            <NotificationModal
+              message={message}
+              pathNavigate={"/password-recovery"}
+              icon={IconModal}
+              isOpen={showNotificationModal}
+              onClose={() => setShowNotificationModal(false)}
+            />
+          ) : null}
         </Form>
-        
       )}
-      
     </Formik>
   );
 }

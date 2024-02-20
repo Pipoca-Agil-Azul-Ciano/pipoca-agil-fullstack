@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Logout from "../../assets/Dashboard/logout.png"
 export default function Header() {
   const navigate = useNavigate()
+  const user=sessionStorage.getItem("user")
   const logout=()=>{
     sessionStorage.clear()
     setTimeout(() => {
@@ -24,7 +25,7 @@ export default function Header() {
       fontFamily={"Inter"}
       marginTop="auto"
     >
-      <Box display={"flex"} alignItems={"center"}>
+      <Box display={"flex"} alignItems={"center"} _hover={{"cursor":"pointer"}} onClick={()=>{user==="SUBSCRIBER"?navigate("/dashboardsubscriber"):navigate("/dashboard")}}>
         <Image
           src={Logo}
           height={"70px"}
@@ -44,7 +45,7 @@ export default function Header() {
         <Link padding={"16px"} marginRight={"40px"} _hover={{
             textDecoration: "none", // Remover sublinhado no hover
             color: "#FFF", // Cor que você deseja no hover
-          }} href="#dashboard">
+          }}onClick={()=>{user==="SUBSCRIBER"?navigate("/dashboardsubscriber"):navigate("/dashboard")}}>
           <Text >Dashboard</Text>
         </Link>
 
@@ -60,7 +61,7 @@ export default function Header() {
           }}  href="#dashboard">
           <Text>Conteúdos</Text>
         </Link>
-        <Link padding={"16px"} >
+        <Link padding={"16px"} onClick={()=>navigate("/profile")}>
           <Image src={Profile} height={"56px"} width={"56px"} />
         </Link>
         <Link padding={"16px"} onClick={() =>logout()}>

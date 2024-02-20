@@ -1,5 +1,5 @@
 // SuccessModal.js
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -8,15 +8,13 @@ import {
   ModalBody,
   Image,
   Center,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import theme from "../../themes/theme";
 import { useNavigate } from "react-router-dom";
-import Background from '../../assets/success-background.webp'
+import Background from "../../assets/success-background.webp";
 
-const SuccessModal = ({ isOpen, onClose,message,pathNavigate,icon }) => {
-
-
+const SuccessModal = ({ isOpen, onClose, message, pathNavigate, icon }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -25,42 +23,44 @@ const SuccessModal = ({ isOpen, onClose,message,pathNavigate,icon }) => {
     }, 3000);
 
     return () => clearTimeout(timeoutId); // Limpar o timeout se o componente for desmontado
-  }, [onClose, navigate,pathNavigate]);
-  
+  }, [onClose, navigate, pathNavigate]);
+
   return (
-
-	<Center>
-    <Modal isOpen={isOpen} isCentered >
-      <ModalOverlay />
-      <Center>
-      <ModalContent
-	borderRadius={"32px"}
-      textAlign={"center"}
-	style={{
-	backgroundImage: `url(${Background})`,
-	backgroundSize: "cover",
-	width:"425px",
-	height:"270px",
-      }}>	
-        <ModalHeader marginTop={'50px'} padding={0}>
-		<Center>
-		<Image src={icon} w={'71px'} height={'63px'}/>
-		</Center>
-		</ModalHeader>
-        <ModalBody>
-	<Text fontFamily={'Comfortaa'}  theme={theme}
-                  color={theme.colors.pipocaColors.font} fontSize={'32px'} fontWeight={700}
-		  textShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}>{message}
-
-	</Text>	
-        </ModalBody>
-	
-      </ModalContent>
-      </Center>
-     
-    </Modal>
+    <Center>
+      <Modal isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <Center>
+          <ModalContent
+            borderRadius={"32px"}
+            textAlign={"center"}
+            style={{
+              backgroundImage: `url(${Background})`,
+              backgroundSize: "cover",
+              width: "425px",
+              height: "270px",
+            }}
+          >
+            <ModalHeader marginTop={"50px"} padding={0}>
+              <Center>
+                <Image src={icon} w={"71px"} height={"63px"} />
+              </Center>
+            </ModalHeader>
+            <ModalBody>
+              <Text
+                fontFamily={"Comfortaa"}
+                theme={theme}
+                color={theme.colors.pipocaColors.font}
+                fontSize={"32px"}
+                fontWeight={700}
+                textShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+              >
+                {message}
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Center>
+      </Modal>
     </Center>
-  
   );
 };
 
