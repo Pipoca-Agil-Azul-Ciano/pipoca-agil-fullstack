@@ -10,7 +10,7 @@ export const signup = async (form, navigate) => {
     .post("/user/create", form)
     .then(() => {
       console.log(form);
-      goToLoginPage(navigate("/dashboard"));
+      goToLoginPage(navigate(navigate));
     })
     .catch((err) => {
       console.log(err.response);
@@ -55,28 +55,7 @@ export const activatePlan = async (token) => {
 
   return res;
 };
-// export const  verifyUserType= async (token,navigate)=>{
-
-// 	const res= await httpClient.get(`user/${token}`)
-// 	.then((data) =>{
-
-// 		console.log("RESPOSTA DO VERIFY:",data);
-// 		if (data.data.userType==="SUBSCRIBER") {
-// 			goToDashboardSubscriber(navigate)
-// 		}else{
-// 			goToDashboard(navigate)
-// 		}
-
-// 	})
-// 	.catch((err) => {
-// 		console.log(err);
-// 		alert(err.response);
-// 		return err;
-// 	      });
-// 	    return res
-
-// }
-export const changePassword = async (email) => {
+export const changePassword = async (email, navigate) => {
   const res = await httpClient
     .post("/user/password-recovery", { email: email })
     .then((data) => {
@@ -84,8 +63,49 @@ export const changePassword = async (email) => {
     })
     .catch((err) => {
       console.log(err);
-      alert(err.response.data);
-      return err.response.data;
+
+      return err;
+    });
+
+  return res;
+};
+export const getUserProfile = async (token) => {
+  const res = await httpClient
+    .get(`user/${token}`)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+
+  return res;
+};
+export const editUserProfile = async (form, token) => {
+  const res = await httpClient
+    .put(`user/update/${token}`, form)
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+
+  return res;
+};
+export const cancelSubscribe = async (token) => {
+  const res = await httpClient
+    .put(`user/subscription/disable`, { userHash: token })
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
     });
 
   return res;

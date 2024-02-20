@@ -7,6 +7,7 @@ import NewPassword from "../pages/NewPassword/NewPassword";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home";
 import DashboardSubscriber from "../pages/DashboardSubscriber";
+import Profile from "../pages/Profile";
 const ConfigRoutes = () => {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ const ConfigRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboardsubscriber" element={<DashboardSubscriber />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

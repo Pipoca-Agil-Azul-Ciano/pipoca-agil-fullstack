@@ -47,13 +47,17 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email("E-mail inválido").required("Campo obrigatório"),
   birthDate: Yup.date()
     .required("Campo obrigatório")
-    .max(currentDate, "A data de nascimento não pode ser no futuro")
-    .min(currentDate.getFullYear() - 100, "Você não pode ter mais de 100 anos")
-    .test("minimum-age", "Você deve ter pelo menos 18 anos", function (value) {
-      const minAgeDate = new Date();
-      minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
-      return value <= minAgeDate;
-    })
+    .max(currentDate, "Data de Nascimento inválida")
+    .min(currentDate.getFullYear() - 100, "Data de Nascimento inválida")
+    .test(
+      "minimum-age",
+      "Cadastro permitido apenas para maiores de 18 anos",
+      function (value) {
+        const minAgeDate = new Date();
+        minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
+        return value <= minAgeDate;
+      }
+    )
     .transform((originalValue, originalObject) => {
       // Converte string para objeto Date
       return new Date(originalValue);
@@ -132,7 +136,6 @@ function Signup() {
       );
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Falha no cadastro. Verifique suas informações.");
     }
   };
 
@@ -140,7 +143,6 @@ function Signup() {
     setFieldValue("check", !isChecked);
     setIsChecked(!isChecked);
   };
-
   return (
     <Formik
       validationSchema={SignupSchema}
@@ -166,7 +168,7 @@ function Signup() {
             >
               <Box marginRight={"auto"} display={"flex"} flexDirection={"row"}>
                 <Image src={Rectangle} height={"100vh"} />
-                <ChakraLink href="/login">
+                <ChakraLink href="/">
                   <Image
                     src={IconeDeVoltar}
                     marginTop="50px"
@@ -175,10 +177,11 @@ function Signup() {
                   />
                 </ChakraLink>
               </Box>
-              <Box position="absolute" top="6" right="4">
-                <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
-              </Box>
-
+              <ChakraLink href="/">
+                <Box position="absolute" top="6" right="4">
+                  <Image src={LogoPipocaAgil} alt="Logo Pipoca Ágil" />
+                </Box>
+              </ChakraLink>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
@@ -591,7 +594,7 @@ function Signup() {
                     color={theme.colors.pipocaColors.link}
                     fontWeight={400}
                     as={LinkSignup}
-                    to="/"
+                    to="/login"
                   >
                     Faça login
                   </ChakraLink>
